@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="logo.png">
+  <link rel="manifest" href="site.webmanifest">
+  <meta name="theme-color" content="#00549d">  <meta name="description" content="Access practical guides for digital orthotic scanning, program workflows, and VA-focused support resources.">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .guide-card--va {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 2.5rem;
+      padding: 2rem 2.5rem;
+      background: linear-gradient(135deg, var(--surface) 0%, var(--white) 60%);
+      border-color: rgba(0,174,199,.35);
+      border-left: 3px solid var(--cyan);
+    }
+    .guide-card--va__left {
+      display: flex; align-items: center; gap: 1.25rem;
+    }
+    .guide-card--va__right {
+      display: flex; flex-direction: column; align-items: flex-end; gap: 1rem; flex-shrink: 0;
+    }
+    .guide-card--va__topics {
+      display: flex; flex-wrap: wrap; gap: .45rem; justify-content: flex-end;
+    }
+    .guide-card--va__topics span {
+      font-size: .67rem; letter-spacing: .1em; text-transform: uppercase;
+      border: 1px solid rgba(0,174,199,.3); color: var(--accent);
+      padding: .25rem .65rem; border-radius: 2px;
+    }
+    @media (max-width: 768px) {
+      .guide-card--va {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 1.75rem;
+      }
+      .guide-card--va__right { align-items: flex-start; }
+      .guide-card--va__topics { justify-content: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="loader"><img class="loader__logo" src="logo.png" alt="3D Orthotics"></div>
+<div class="cursor"><div class="cursor__ring"></div><div class="cursor__dot"></div></div>
+
+<nav class="nav">
+  <a class="nav__logo" href="index.html"><img src="logo.png" alt="3D Orthotics"></a>
+  <div class="nav__links">
+    <span class="nav__phone">844-FOOT-911</span>
+    <a class="nav__link" href="index.html">Home</a>
+    <a class="nav__link" href="accuscan-dp.html">AccuScan DP</a>
+    <a class="nav__link" href="orthotics.html">Orthotics</a>
+    <a class="nav__link" href="va-resource-guide.html">VA Resources</a>
+    <div class="nav__dropdown">
+      <a class="nav__link" href="about.html">About Us ▾</a>
+      <div class="nav__dropdown-menu">
+        <a href="about.html">About Us</a>
+        <a href="faq.html">FAQ</a>
+        <a href="guides.html">Guides</a>
+        <a href="awards.html">Awards</a>
+      </div>
+    </div>
+    <a class="nav__link nav__cta" href="contact.html">Contact Us</a>
+  </div>
+  <button class="nav__burger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+<div class="nav__mobile">
+  <a href="index.html">Home</a><a href="accuscan-dp.html">AccuScan DP</a><a href="orthotics.html">Orthotics</a><a href="va-resource-guide.html">VA Resources</a>
+  <a href="about.html">About Us</a><a href="faq.html">FAQ</a><a href="guides.html">Guides</a>
+  <a href="awards.html">Awards</a><a href="contact.html">Contact Us</a>
+</div>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="page-hero__bg"></div>
+  <div class="container">
+    <span class="t-label page-hero__eyebrow reveal">Resources</span>
+    <h1 class="t-h1 reveal" style="transition-delay:.1s">Guides &<br><span class="accent">Resources</span></h1>
+    <p class="t-body reveal" style="max-width:520px;margin-top:1.25rem;transition-delay:.2s">
+      Step-by-step guides for podiatrists, clinical staff, and facility administrators working with AccuScan DP and our orthotic programs.
+    </p>
+  </div>
+</section>
+
+<!-- GUIDES GRID -->
+<section class="section section--flush-top" style="padding-top:2rem">
+  <div class="container">
+    <div style="margin-bottom:2rem">
+      <span class="t-label reveal">Getting Started</span>
+    </div>
+    <div class="guides-grid stagger">
+
+      <div class="guide-card">
+        <div class="guide-card__header">
+          <div class="guide-card__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8" fill="currentColor" stroke="none"/></svg>
+          </div>
+          <div class="guide-card__title">AccuScan DP Quick Start</div>
+        </div>
+        <div class="guide-card__body">
+          A step-by-step walkthrough for first-time users. Covers iPad setup, scanner pairing, patient positioning, scan capture, and order submission from start to finish. Ideal for onboarding new clinical staff.
+        </div>
+        <div class="guide-card__footer">
+          <a class="btn btn--outline" href="https://youtu.be/_NBr2amn6cQ" target="_blank" rel="noopener" style="font-size:.78rem;padding:.55rem 1.2rem">Watch Video</a>
+        </div>
+      </div>
+
+      <div class="guide-card">
+        <div class="guide-card__header">
+          <div class="guide-card__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M12 18v-6M9 15l3 3 3-3"/></svg>
+          </div>
+          <div class="guide-card__title">Break-In Guide</div>
+        </div>
+        <div class="guide-card__body">
+          Instructions for properly breaking in new custom orthotics. Covers recommended wear schedules, what to expect during the adjustment period, and tips to ensure patient comfort from day one.
+        </div>
+        <div class="guide-card__footer">
+          <a class="btn btn--outline" href="Break-In-Guide.pdf" target="_blank" rel="noopener" style="font-size:.78rem;padding:.55rem 1.2rem">Open PDF</a>
+        </div>
+      </div>
+
+      <div class="guide-card">
+        <div class="guide-card__header">
+          <div class="guide-card__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><path d="M3 6l1 12a2 2 0 002 2h12a2 2 0 002-2L21 6"/><path d="M3 6h18"/><path d="M8 6V4a1 1 0 011-1h6a1 1 0 011 1v2"/></svg>
+          </div>
+          <div class="guide-card__title">Disinfecting Procedure</div>
+        </div>
+        <div class="guide-card__body">
+          Step-by-step cleaning and disinfecting instructions for the AccuScan DP scanner. Covers approved disinfectants, contact times, frequency requirements, and best practices to maintain device hygiene between patients.
+        </div>
+        <div class="guide-card__footer">
+          <a class="btn btn--outline" href="Disinfecting-Procedure-for-Accuscan-DP.pdf" target="_blank" rel="noopener" style="font-size:.78rem;padding:.55rem 1.2rem">Open PDF</a>
+        </div>
+      </div>
+
+      <!-- Full-width VA card -->
+      <div class="guide-card guide-card--va">
+        <div class="guide-card--va__left">
+          <div class="guide-card__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          </div>
+          <div>
+            <span class="t-label" style="font-size:.6rem;letter-spacing:.16em">VA Facilities</span>
+            <div class="guide-card__title" style="margin-top:.35rem">Podiatrist, Purchaser<br>&amp; Admin Resources</div>
+          </div>
+        </div>
+        <div class="guide-card--va__right">
+          <div class="guide-card--va__topics">
+            <span>Veteran De-Identification</span>
+            <span>Consult Process</span>
+            <span>Purchase Orders</span>
+            <span>L-Codes &amp; Admin</span>
+          </div>
+          <a class="btn btn--primary" href="va-resource-guide.html">
+            VA Resources
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Need a custom guide -->
+    <div class="split reveal" style="margin-top:5rem;align-items:center;padding:clamp(2rem,4vw,3rem);border:1px solid var(--text-faint);border-radius:4px;background:var(--surface)">
+      <div>
+        <span class="t-label">Need Something Specific?</span>
+        <h2 class="t-h2" style="margin-top:1rem">Custom Training Available</h2>
+        <p class="t-body" style="margin-top:1rem">Our team provides on-site training tailored to your facility's workflow, staff, and patient population. Contact us to schedule.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:1rem;align-items:flex-start">
+        <a class="btn btn--primary" href="contact.html">
+          Schedule Training
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+        </a>
+        <a class="btn btn--ghost" href="tel:8443668911">Call 844-FOOT-911</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div><img class="footer__logo" src="logo.png" alt="3D Orthotics"><p class="footer__tagline">Precision digital orthotics for VA and DOD hospitals.</p></div>
+      <div><p class="footer__heading">Navigate</p><div class="footer__links"><a class="footer__link" href="index.html">Home</a><a class="footer__link" href="accuscan-dp.html">AccuScan DP</a><a class="footer__link" href="orthotics.html">Orthotics</a><a class="footer__link" href="va-resource-guide.html">VA Resources</a></div></div><div><p class="footer__heading">About</p><div class="footer__links"><a class="footer__link" href="about.html">About Us</a><a class="footer__link" href="faq.html">FAQ</a><a class="footer__link" href="guides.html">Guides</a><a class="footer__link" href="awards.html">Awards</a></div></div>
+      <div><p class="footer__heading">Contact</p><div class="footer__links"><a class="footer__link" href="tel:8443668911">844-FOOT-911</a><a class="footer__link" href="mailto:PatientCare@3DOrthotics.com">PatientCare@3DOrthotics.com</a></div></div>
+    </div>
+    <div class="footer__bottom"><span>© 2024 3D Orthotics. All rights reserved.</span><div class="footer__badges"><span class="footer__badge">SDVOSB</span><span class="footer__badge">WOSB</span><span class="footer__badge">FDA Registered</span></div></div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="logo.png">
+  <link rel="manifest" href="site.webmanifest">
+  <meta name="theme-color" content="#00549d">  <meta name="description" content="3D Orthotics delivers HIPAA-compliant digital orthotic scanning for VA and DOD hospitals. AccuScan DP: scan in minutes, protect patient privacy.">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* ── Homepage Orthotic Modal ─────────────────────────── */
+    .ortho-modal-backdrop {
+      position: fixed; inset: 0; z-index: 1000;
+      background: rgba(0,51,102,.65);
+      backdrop-filter: blur(6px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 1.5rem;
+      opacity: 0; pointer-events: none;
+      transition: opacity .25s ease;
+    }
+    .ortho-modal-backdrop.is-open { opacity: 1; pointer-events: all; }
+    .ortho-modal {
+      background: var(--white, #fff);
+      border: 1px solid var(--text-faint, #b8d8f0);
+      border-radius: 6px;
+      width: 100%; max-width: 780px;
+      max-height: 90vh; overflow-y: auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      transform: translateY(18px);
+      transition: transform .28s ease;
+    }
+    .ortho-modal-backdrop.is-open .ortho-modal { transform: translateY(0); }
+    .ortho-modal__img {
+      position: relative; min-height: 280px;
+      background: var(--surface, #f0f6fd);
+      border-radius: 6px 0 0 6px; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      padding: 1.5rem;
+    }
+    .ortho-modal__img img { width: 100%; height: 100%; object-fit: contain; object-position: center; display: block; max-height: 360px; }
+    .ortho-modal__body { padding: 2rem 2rem 2rem 1.75rem; display: flex; flex-direction: column; gap: 1.5rem; }
+    .ortho-modal__close {
+      position: absolute; top: .75rem; right: .75rem; z-index: 10;
+      background: var(--white, #fff); border: 1px solid var(--text-faint, #b8d8f0);
+      color: var(--accent, #00aec7); border-radius: 50%;
+      width: 2rem; height: 2rem;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; font-size: 1.1rem; line-height: 1;
+      transition: background .15s;
+    }
+    .ortho-modal__close:hover { background: var(--surface, #f0f6fd); }
+    .ortho-modal__name { font-size: 1.35rem; font-weight: 700; letter-spacing: -.01em; color: var(--text, #003366); border-bottom: 1px solid var(--text-faint, #b8d8f0); padding-bottom: .75rem; }
+    .ortho-modal__section-label { font-size: .65rem; letter-spacing: .14em; text-transform: uppercase; color: var(--accent, #00aec7); margin-bottom: .4rem; }
+    .ortho-modal__section-body { font-size: .88rem; color: var(--text-dim, #5a8fc0); line-height: 1.6; }
+    .ortho-modal__mat-item { display: flex; align-items: center; gap: .55rem; padding: .25rem 0; }
+    .ortho-modal__mat-item::before { content: ''; flex-shrink: 0; width: 5px; height: 5px; border-radius: 50%; background: var(--accent, #00aec7); }
+    .ortho-modal__tags { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .5rem; }
+    .ortho-modal__tag { font-size: .68rem; letter-spacing: .1em; text-transform: uppercase; border: 1px solid rgba(0,174,199,.3); color: var(--accent, #00aec7); padding: .25rem .6rem; border-radius: 2px; }
+    .ortho-modal__feature { background: rgba(0,174,199,.06); border-left: 2px solid var(--accent, #00aec7); padding: .75rem 1rem; font-size: .85rem; color: var(--text-dim, #5a8fc0); line-height: 1.6; border-radius: 0 3px 3px 0; }
+    .ortho-modal__arrow { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,.9); border: 1px solid var(--text-faint, #b8d8f0); color: var(--navy, #00549d); font-size: 1.8rem; line-height: 1; width: 2.2rem; height: 2.2rem; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background .15s, opacity .15s; opacity: 0.85; }
+    .ortho-modal__arrow:hover { background: #fff; opacity: 1; }
+    .ortho-modal__arrow--prev { left: .6rem; }
+    .ortho-modal__arrow--next { right: .6rem; }
+    .ortho-modal__arrow.is-hidden { display: none; }
+    .ortho-modal__dots { position: absolute; bottom: .6rem; left: 50%; transform: translateX(-50%); display: flex; gap: .4rem; }
+    .ortho-modal__dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(0,84,157,.2); transition: background .2s; }
+    .ortho-modal__dot.is-active { background: var(--navy, #00549d); }
+    .ortho-modal__cta { margin-top: auto; padding-top: .5rem; }
+    @media (max-width: 580px) {
+      .ortho-modal { grid-template-columns: 1fr; }
+      .ortho-modal__img { min-height: 200px; border-radius: 6px 6px 0 0; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Loader -->
+<div id="loader">
+  <img class="loader__logo" src="logo.png" alt="3D Orthotics">
+</div>
+
+<!-- Custom cursor -->
+<div class="cursor">
+  <div class="cursor__ring"></div>
+  <div class="cursor__dot"></div>
+</div>
+
+<!-- Navigation -->
+<nav class="nav">
+  <a class="nav__logo" href="index.html">
+    <img src="logo.png" alt="3D Orthotics">
+  </a>
+  <div class="nav__links">
+    <span class="nav__phone">844-FOOT-911</span>
+    <a class="nav__link" href="index.html">Home</a>
+    <a class="nav__link" href="accuscan-dp.html">AccuScan DP</a>
+    <a class="nav__link" href="orthotics.html">Orthotics</a>
+    <a class="nav__link" href="va-resource-guide.html">VA Resources</a>
+    <div class="nav__dropdown">
+      <a class="nav__link" href="about.html">About Us ▾</a>
+      <div class="nav__dropdown-menu">
+        <a href="about.html">About Us</a>
+        <a href="faq.html">FAQ</a>
+        <a href="guides.html">Guides</a>
+        <a href="awards.html">Awards</a>
+      </div>
+    </div>
+    <a class="nav__link nav__cta" href="contact.html">Contact Us</a>
+  </div>
+  <button class="nav__burger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Mobile menu -->
+<div class="nav__mobile">
+  <a href="index.html">Home</a>
+  <a href="accuscan-dp.html">AccuScan DP</a>
+  <a href="orthotics.html">Orthotics</a>
+  <a href="va-resource-guide.html">VA Resources</a>
+  <a href="about.html">About Us</a>
+  <a href="faq.html">FAQ</a>
+  <a href="guides.html">Guides</a>
+  <a href="awards.html">Awards</a>
+  <a href="contact.html">Contact Us</a>
+</div>
+
+<!-- ══════════════════════════════════════════════ HERO -->
+<section class="hero">
+  <div class="hero__content">
+    <span class="t-label reveal">The Future of Orthotic Care</span>
+    <h1 class="t-display" style="margin-top:1rem">
+      <span class="reveal" style="display:block">Precision</span>
+      <span class="reveal accent" style="display:block;transition-delay:.1s">Scanning.</span>
+      <span class="reveal" style="display:block;transition-delay:.2s">Perfect Fit.</span>
+    </h1>
+    <p class="t-body reveal" style="max-width:460px;margin-top:1.75rem;transition-delay:.3s">
+      HIPAA-compliant digital orthotics for VA and DOD: sub-five-minute scans, PHI stripped before data leaves your facility, and veteran-focused support from program design through delivery.
+    </p>
+    <div class="reveal" style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:2.5rem;transition-delay:.4s">
+      <a class="btn btn--primary" href="accuscan-dp.html">
+        Explore AccuScan DP
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </a>
+      <a class="btn btn--outline" href="contact.html?demo=1">Request a Demo</a>
+    </div>
+
+    <!-- Certifications strip -->
+    <div class="reveal" style="display:flex;gap:.75rem;flex-wrap:wrap;margin-top:3rem;transition-delay:.5s">
+      <span style="font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text-dim);border:1px solid var(--text-faint);padding:.3rem .7rem;border-radius:2px">SDVOSB</span>
+      <span style="font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text-dim);border:1px solid var(--text-faint);padding:.3rem .7rem;border-radius:2px">WOSB</span>
+      <span style="font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text-dim);border:1px solid var(--text-faint);padding:.3rem .7rem;border-radius:2px">FDA Registered</span>
+      <span style="font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text-dim);border:1px solid var(--text-faint);padding:.3rem .7rem;border-radius:2px">HIPAA Compliant</span>
+    </div>
+
+    <!-- VA Award badge -->
+    <div class="reveal" style="display:flex;align-items:center;gap:.85rem;margin-top:2rem;transition-delay:.6s;padding:1rem 1.25rem;border:1px solid rgba(0,174,199,.3);border-left:3px solid var(--cyan);border-radius:2px;background:rgba(0,174,199,.04);max-width:420px">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+      <div>
+        <div style="font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)">VA Podiatry Nationally</div>
+        <div style="font-size:.85rem;color:var(--text);font-weight:500;margin-top:.15rem">Most Improved Product Award</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3D Foot Scan -->
+  <div class="hero__canvas-wrap">
+    <canvas id="foot-canvas" class="foot-canvas"></canvas>
+  </div>
+
+  <!-- Scroll hint -->
+  <div class="hero__scroll-hint">
+    <div class="hero__scroll-line"></div>
+    Scroll to explore
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════ STATS -->
+<div class="stats">
+  <div class="stat">
+    <div class="stat__num" data-count="50" data-suffix="+">50+</div>
+    <div class="stat__label">Years Combined Experience</div>
+  </div>
+  <div class="stat">
+    <div class="stat__num" data-count="5" data-suffix=" min">5 min</div>
+    <div class="stat__label">Scan Time or Less</div>
+  </div>
+  <div class="stat">
+    <div class="stat__num" data-count="100" data-suffix="%">100%</div>
+    <div class="stat__label">HIPAA Compliant</div>
+  </div>
+  <div class="stat">
+    <div class="stat__num">844</div>
+    <div class="stat__label">FOOT-911 Dedicated Line</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════ ACCUSCAN INTRO -->
+<section class="section">
+  <div class="container">
+    <div class="split">
+      <div>
+        <div class="section__label">
+          <span class="t-label reveal--left">AccuScan DP</span>
+        </div>
+        <h2 class="t-h2 reveal--left" style="transition-delay:.1s">
+          No More Mess.<br>No More Wait.
+        </h2>
+        <p class="t-body reveal--left" style="margin-top:1.5rem;transition-delay:.2s">
+          Traditional cast molding is time-consuming and messy. Digital scanning was faster, but federal healthcare systems couldn't transmit Protected Health Information (PHI) without violating HIPAA. AccuScan DP solves both problems.
+        </p>
+        <p class="t-body reveal--left" style="margin-top:1rem;transition-delay:.3s">
+          Our system fully de-identifies patient data before any digital transmission, making it the <strong style="color:var(--text)">world's first truly HIPAA-compliant digitally scanned orthotic program</strong>, designed specifically for VA and DOD hospitals.
+        </p>
+        <a class="btn btn--outline reveal--left" href="accuscan-dp.html" style="margin-top:2rem;transition-delay:.4s">
+          Learn More
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+        </a>
+      </div>
+
+      <!-- Included items visual -->
+      <div class="reveal--right">
+        <div style="background:var(--surface);border:1px solid var(--text-faint);border-radius:4px;padding:clamp(2rem,4vw,3rem)">
+          <p class="t-label" style="margin-bottom:1.5rem">What's Included</p>
+          <div style="display:flex;flex-direction:column;gap:1.25rem">
+            <!-- iPad: landscape tablet silhouette -->
+            <div style="display:flex;align-items:center;gap:1rem">
+              <div style="width:40px;height:36px;border:1px solid var(--accent-dim);border-radius:2px;display:grid;place-items:center;flex-shrink:0;color:var(--accent);padding:2px 0">
+                <svg width="32" height="22" viewBox="0 0 32 22" fill="none" aria-hidden="true"><rect x="1.5" y="3" width="29" height="16" rx="2.2" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="5.5" width="24" height="11" rx="0.8" stroke="currentColor" stroke-width="1.2" opacity="0.35"/><circle cx="16" cy="18.5" r="0.9" fill="currentColor"/></svg>
+              </div>
+              <div>
+                <div style="font-weight:600;font-size:.95rem">iPad</div>
+                <div style="font-size:.8rem;color:var(--text-dim);line-height:1.5">Apple iPad with AccuScan DP already installed—power on and scan. No additional software installs or facility IT prep required.</div>
+              </div>
+            </div>
+            <!-- 3D scanner: viewfinder / scan frame -->
+            <div style="display:flex;align-items:center;gap:1rem">
+              <div style="width:36px;height:36px;border:1px solid var(--accent-dim);border-radius:2px;display:grid;place-items:center;flex-shrink:0;color:var(--accent)">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7V5a2 2 0 012-2h2m10 0h2a2 2 0 012 2v2m0 6v2a2 2 0 01-2 2h-2m-10 0H5a2 2 0 01-2-2v-2"/><ellipse cx="12" cy="12" rx="3.8" ry="2.6" opacity="0.9"/></svg>
+              </div>
+              <div>
+                <div style="font-weight:600;font-size:.95rem">3D Scanner</div>
+                <div style="font-size:.8rem;color:var(--text-dim);line-height:1.5">Dedicated structured-light foot scanner—capture full plantar geometry in seconds for lab-accurate orthotics.</div>
+              </div>
+            </div>
+            <!-- Internet: Wi‑Fi -->
+            <div style="display:flex;align-items:center;gap:1rem">
+              <div style="width:36px;height:36px;border:1px solid var(--accent-dim);border-radius:2px;display:grid;place-items:center;flex-shrink:0;color:var(--accent)">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.55a11 11 0 0114.08 0"/><path d="M1.42 9a16 16 0 0121.16 0"/><path d="M8.53 16.11a6 6 0 016.95 0"/><circle cx="12" cy="20" r="1" fill="currentColor" stroke="none"/></svg>
+              </div>
+              <div>
+                <div style="font-weight:600;font-size:.95rem">Internet Services</div>
+                <div style="font-size:.8rem;color:var(--text-dim);line-height:1.5">HIPAA-aligned cloud workflow—de-identified scan payloads only; your network policy stays in control.</div>
+              </div>
+            </div>
+            <!-- Delivery & support: truck -->
+            <div style="display:flex;align-items:flex-start;gap:1rem">
+              <div style="width:36px;height:36px;border:1px solid var(--accent-dim);border-radius:2px;display:grid;place-items:center;flex-shrink:0;color:var(--accent);margin-top:.1rem">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 18V6a2 2 0 00-2-2H4a2 2 0 00-2 2v11a1 1 0 001 1h2"/><path d="M15 18h2"/><path d="M19 18h1a1 1 0 001-1v-3.65a1 1 0 00-.22-.624l-2.596-3.244a1 1 0 00-.788-.382H15"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg>
+              </div>
+              <div>
+                <div style="font-weight:600;font-size:.95rem">Customer Service</div>
+                <div style="font-size:.8rem;color:var(--text-dim);line-height:1.5">Complimentary shipping on every completed orthotic order—plus delivery confirmations, fitting checks, and hands-on support from our team.</div>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--text-faint)">
+            <div style="font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:.5rem">Scan Time</div>
+            <div style="font-family:var(--font-display);font-size:2.5rem;font-weight:400;line-height:1">5 <span style="font-size:1.2rem;color:var(--text-dim)">minutes or less</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════ HOW IT WORKS -->
+<section class="section section--dark">
+  <div class="container">
+    <div style="text-align:center;max-width:600px;margin:0 auto clamp(3rem,6vw,5rem)">
+      <span class="t-label reveal">Process</span>
+      <h2 class="t-h2 reveal" style="margin-top:1rem;transition-delay:.1s">From Scan to<br><span class="accent">Perfect Orthotic</span></h2>
+      <p class="t-body reveal" style="margin-top:1rem;transition-delay:.2s">Three steps. Five minutes. Complete compliance.</p>
+    </div>
+
+    <div class="process-steps stagger">
+      <div class="process-step">
+        <div class="process-step__num">01</div>
+        <div>
+          <h3 class="t-h3">Scan the Patient's Foot</h3>
+          <p class="t-body" style="margin-top:.75rem">Using our iPad and precision 3D scanner, a complete digital scan of the patient's foot is captured in under five minutes. No plaster, no foam boxes, no mess.</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="process-step__num">02</div>
+        <div>
+          <h3 class="t-h3">Automatic De-Identification</h3>
+          <p class="t-body" style="margin-top:.75rem">Patient data is automatically stripped of all PHI (names, SSNs, addresses) before any digital transmission. Full HIPAA compliance, zero liability.</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="process-step__num">03</div>
+        <div>
+          <h3 class="t-h3">Precision Orthotic Fabrication</h3>
+          <p class="t-body" style="margin-top:.75rem">Scan data is transmitted to our lab where custom orthotics are fabricated to exact patient specifications. Delivered with free shipping directly to the facility.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════ VIDEO -->
+<section class="section">
+  <div class="container">
+    <div style="text-align:center;max-width:600px;margin:0 auto clamp(2rem,4vw,3rem)">
+      <span class="t-label reveal">See It In Action</span>
+      <h2 class="t-h2 reveal" style="margin-top:1rem;transition-delay:.1s">How to Scan with<br><span class="accent">AccuScan DP</span></h2>
+      <p class="t-body reveal" style="margin-top:1rem;transition-delay:.2s">From patient positioning to completed scan order.<br>See exactly how AccuScan DP fits into your clinical workflow.</p>
+    </div>
+    <div class="reveal" style="transition-delay:.2s;position:relative;width:100%;max-width:860px;margin:0 auto;border-radius:4px;overflow:hidden;border:1px solid var(--text-faint);box-shadow:0 8px 40px rgba(0,51,102,.12)">
+      <div style="position:relative;padding-bottom:56.25%;height:0">
+        <iframe src="https://www.youtube.com/embed/_NBr2amn6cQ" title="AccuScan DP Quick Start" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════ ORTHOTICS PREVIEW -->
+<section class="section">
+  <div class="container">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:2rem;flex-wrap:wrap;margin-bottom:clamp(2rem,4vw,3.5rem)">
+      <div>
+        <span class="t-label reveal">Orthotic Solutions</span>
+        <h2 class="t-h2 reveal" style="margin-top:1rem;transition-delay:.1s">Built for Every<br>Patient's Need</h2>
+      </div>
+      <a class="btn btn--ghost reveal" href="orthotics.html" style="transition-delay:.2s">View All Orthotics</a>
+    </div>
+
+    <div class="portfolio-grid stagger">
+      <div class="portfolio-card" data-key="comfort-soft" style="cursor:pointer">
+        <div class="portfolio-item" data-category="comfort">
+          <div class="carousel">
+            <div class="carousel__track">
+              <div class="carousel__slide"><img src="Orthotics Pics/Comfort Soft 1.jpg" alt="Comfort Soft Orthotic" loading="lazy"></div>
+              <div class="carousel__slide"><img src="Orthotics Pics/Comfort Soft 2.jpg" alt="Comfort Soft Orthotic" loading="lazy"></div>
+              <div class="carousel__slide"><img src="Orthotics Pics/Comfort Soft 3.jpg" alt="Comfort Soft Orthotic" loading="lazy"></div>
+            </div>
+            <div class="carousel__dots">
+              <div class="carousel__dot active"></div>
+              <div class="carousel__dot"></div>
+              <div class="carousel__dot"></div>
+            </div>
+          </div>
+          <div class="portfolio-item__overlay">
+            <div class="portfolio-item__desc">All-day cushioning and mild biomechanical support</div>
+          </div>
+        </div>
+        <div class="portfolio-card__name">Comfort Soft</div>
+      </div>
+
+      <div class="portfolio-card" data-key="diabetic-soft" style="cursor:pointer">
+        <div class="portfolio-item" data-category="diabetic">
+          <div class="carousel">
+            <div class="carousel__track">
+              <div class="carousel__slide"><img src="Orthotics Pics/Diabetic Soft 1.jpg" alt="Diabetic Soft Orthotic" loading="lazy"></div>
+              <div class="carousel__slide"><img src="Orthotics Pics/Diabetic Soft 2.jpg" alt="Diabetic Soft Orthotic" loading="lazy"></div>
+              <div class="carousel__slide"><img src="Orthotics Pics/Diabetic Soft 3.jpg" alt="Diabetic Soft Orthotic" loading="lazy"></div>
+            </div>
+            <div class="carousel__dots">
+              <div class="carousel__dot active"></div>
+              <div class="carousel__dot"></div>
+              <div class="carousel__dot"></div>
+            </div>
+          </div>
+          <div class="portfolio-item__overlay">
+            <div class="portfolio-item__desc">Extra-soft pressure relief for diabetic patients</div>
+          </div>
+        </div>
+        <div class="portfolio-card__name">Diabetic Soft</div>
+      </div>
+
+      <div class="portfolio-card" data-key="fm-sport" style="cursor:pointer">
+        <div class="portfolio-item" data-category="sport">
+          <div class="carousel">
+            <div class="carousel__track">
+              <div class="carousel__slide"><img src="Orthotics Pics/FM Sport 1.jpg" alt="FM Sport Orthotic" loading="lazy"></div>
+              <div class="carousel__slide"><img src="Orthotics Pics/FM Sport 2.jpg" alt="FM Sport Orthotic" loading="lazy"></div>
+              <div class="carousel__slide"><img src="Orthotics Pics/FM Sport 3.jpg" alt="FM Sport Orthotic" loading="lazy"></div>
+            </div>
+            <div class="carousel__dots">
+              <div class="carousel__dot active"></div>
+              <div class="carousel__dot"></div>
+              <div class="carousel__dot"></div>
+            </div>
+          </div>
+          <div class="portfolio-item__overlay">
+            <div class="portfolio-item__desc">High-performance support for athletic activity</div>
+          </div>
+        </div>
+        <div class="portfolio-card__name">FM Sport</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════ VETERAN MISSION -->
+<section class="section section--dark" style="position:relative">
+  <div style="position:absolute;top:0;right:0;bottom:0;width:45%;background:radial-gradient(ellipse at right,rgba(26,79,158,.25) 0%,transparent 70%);pointer-events:none;overflow:hidden"></div>
+  <div class="container">
+    <div class="split">
+      <div>
+        <span class="t-label reveal">Our Mission</span>
+        <h2 class="t-h2 reveal" style="margin-top:1rem;transition-delay:.1s">
+          Veteran-Owned.<br><span class="accent">Veteran-Focused.</span>
+        </h2>
+        <p class="t-body reveal" style="margin-top:1.5rem;transition-delay:.2s">
+          Founded as a Service-Disabled Veteran-Owned Small Business, 3D Orthotics was built by people who understand the unique needs of those who served. Our AccuScan DP program was developed specifically to overcome the barriers federal healthcare systems faced with digital orthotic scanning.
+        </p>
+        <p class="t-body reveal" style="margin-top:1rem;transition-delay:.3s">
+          With over 50 years of combined experience in durable medical equipment, surgical implants, and medical device distribution, our team brings the expertise and the dedication veterans deserve.
+        </p>
+        <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:2.5rem" class="reveal" style="transition-delay:.4s">
+          <a class="btn btn--primary" href="about.html">Our Story</a>
+          <a class="btn btn--ghost" href="contact.html">Get in Touch</a>
+        </div>
+      </div>
+      <div class="reveal--right">
+        <div class="cert-table">
+          <div class="cert-table__cell">
+            <div style="font-family:var(--font-display);font-size:2rem;font-weight:400;color:var(--accent)">SDVOSB</div>
+            <div style="font-size:.78rem;color:var(--text-dim);margin-top:.4rem">Service-Disabled Veteran-Owned Small Business</div>
+          </div>
+          <div class="cert-table__cell">
+            <div style="font-family:var(--font-display);font-size:2rem;font-weight:400;color:var(--accent)">WOSB</div>
+            <div style="font-size:.78rem;color:var(--text-dim);margin-top:.4rem">Woman-Owned Small Business</div>
+          </div>
+          <div class="cert-table__cell">
+            <div style="font-family:var(--font-display);font-size:1.1rem;font-weight:400;color:var(--accent)">FDA Registered</div>
+            <div style="font-size:.78rem;color:var(--text-dim);margin-top:.4rem">RN#3015146490</div>
+          </div>
+          <div class="cert-table__cell">
+            <div style="font-family:var(--font-display);font-size:1.1rem;font-weight:400;color:var(--accent)">SAM Registered</div>
+            <div style="font-size:.78rem;color:var(--text-dim);margin-top:.4rem">CAGE: 9PXW1</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════ AWARD CALLOUT -->
+<section class="section">
+  <div class="container">
+    <div style="text-align:center;max-width:700px;margin:0 auto">
+      <span class="t-label reveal">Recognition</span>
+      <h2 class="t-h2 reveal" style="margin-top:1rem;transition-delay:.1s">Recognized Nationally<br>by VA Podiatry</h2>
+      <p class="t-body reveal" style="margin-top:1.25rem;transition-delay:.2s">AccuScan DP was named <strong style="color:var(--text)">Most Improved Product by the VA Podiatry Nationally</strong>, validating our commitment to advancing orthotic care for veterans across the country.</p>
+      <div class="reveal" style="transition-delay:.3s;margin-top:2.5rem;display:flex;justify-content:center;gap:1rem;flex-wrap:wrap">
+        <a class="btn btn--primary" href="awards.html">View Awards</a>
+        <a class="btn btn--outline" href="contact.html">Contact Sales</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════ FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div>
+        <img class="footer__logo" src="logo.png" alt="3D Orthotics">
+        <p class="footer__tagline">Precision digital orthotics for VA and DOD hospitals. HIPAA-compliant. Veteran-owned.</p>
+      </div>
+      <div>
+        <p class="footer__heading">Navigate</p>
+        <div class="footer__links">
+          <a class="footer__link" href="index.html">Home</a>
+          <a class="footer__link" href="accuscan-dp.html">AccuScan DP</a>
+          <a class="footer__link" href="orthotics.html">Orthotics</a>
+          <a class="footer__link" href="va-resource-guide.html">VA Resources</a>
+        </div>
+      </div>
+      <div>
+        <p class="footer__heading">About</p>
+        <div class="footer__links">
+          <a class="footer__link" href="about.html">About Us</a>
+          <a class="footer__link" href="faq.html">FAQ</a>
+          <a class="footer__link" href="guides.html">Guides</a>
+          <a class="footer__link" href="awards.html">Awards</a>
+        </div>
+      </div>
+      <div>
+        <p class="footer__heading">Contact</p>
+        <div class="footer__links">
+          <a class="footer__link" href="tel:8443668911">844-FOOT-911</a>
+          <a class="footer__link" href="mailto:PatientCare@3DOrthotics.com">PatientCare@3DOrthotics.com</a>
+          <a class="footer__link" href="mailto:Orders@3DOrthotics.com">Orders@3DOrthotics.com</a>
+          <a class="footer__link" href="contact.html">Contact Form</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2024 3D Orthotics. All rights reserved.</span>
+      <div class="footer__badges">
+        <span class="footer__badge">SDVOSB</span>
+        <span class="footer__badge">WOSB</span>
+        <span class="footer__badge">FDA Registered</span>
+        <span class="footer__badge">HIPAA Compliant</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ── Orthotic Detail Modal ─────────────────────────────── -->
+<div class="ortho-modal-backdrop" id="orthoModal" role="dialog" aria-modal="true">
+  <div class="ortho-modal" style="position:relative">
+    <button class="ortho-modal__close" id="orthoModalClose" aria-label="Close">&#x2715;</button>
+    <div class="ortho-modal__img" id="orthoModalImg">
+      <img id="orthoModalPhoto" src="" alt="Orthotic product preview">
+      <button class="ortho-modal__arrow ortho-modal__arrow--prev" id="orthoModalPrev" aria-label="Previous photo">&#8249;</button>
+      <button class="ortho-modal__arrow ortho-modal__arrow--next" id="orthoModalNext" aria-label="Next photo">&#8250;</button>
+      <div class="ortho-modal__dots" id="orthoModalDots"></div>
+    </div>
+    <div class="ortho-modal__body">
+      <div class="ortho-modal__name" id="orthoModalName"></div>
+      <div>
+        <div class="ortho-modal__section-label">Materials</div>
+        <div class="ortho-modal__section-body" id="orthoModalMaterials"></div>
+      </div>
+      <div>
+        <div class="ortho-modal__section-label">Best For</div>
+        <div class="ortho-modal__tags" id="orthoModalTags"></div>
+      </div>
+      <div>
+        <div class="ortho-modal__section-label">Key Feature</div>
+        <div class="ortho-modal__feature" id="orthoModalFeature"></div>
+      </div>
+      <div class="ortho-modal__cta">
+        <a class="btn btn--ghost" href="orthotics.html" style="font-size:.82rem">View All Orthotics &rarr;</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const HOME_ORTHO_DATA = {
+  'comfort-soft': {
+    name: 'Comfort Soft',
+    imgs: ['Orthotics Pics/Comfort Soft 1.jpg','Orthotics Pics/Comfort Soft 2.jpg','Orthotics Pics/Comfort Soft 3.jpg'],
+    materials: 'Cushioned fabric top cover · Flexible EVA foam base · Polyurethane heel cup',
+    tags: ['Everyday wear', 'Foot fatigue', 'Mild overpronation', 'Plantar fasciitis'],
+    feature: 'Dual-density construction provides all-day cushioning while maintaining just enough biomechanical support to reduce fatigue on long shifts or active days.'
+  },
+  'diabetic-soft': {
+    name: 'Diabetic Soft',
+    imgs: ['Orthotics Pics/Diabetic Soft 1.jpg','Orthotics Pics/Diabetic Soft 2.jpg','Orthotics Pics/Diabetic Soft 3.jpg'],
+    materials: 'Soft Plastazote® top cover · Extra-soft PPT® base · Total contact construction',
+    tags: ['High ulcer risk', 'Severe neuropathy', 'Charcot foot', 'Post-wound care'],
+    feature: 'Extra-soft total contact fit minimizes shear and friction at every contact point. The highest level of pressure protection in our diabetic line.'
+  },
+  'fm-sport': {
+    name: 'FM Sport',
+    imgs: ['Orthotics Pics/FM Sport 1.jpg','Orthotics Pics/FM Sport 2.jpg','Orthotics Pics/FM Sport 3.jpg'],
+    materials: 'Moisture-wicking top cover · Rigid carbon fiber shell · Deep heel cup',
+    tags: ['Running', 'High-impact sport', 'IT band syndrome', 'Overpronation'],
+    feature: 'Carbon fiber shell returns energy with each stride while the deep heel cup locks the rearfoot. Built for repetitive high-impact loading without fatigue or breakdown.'
+  }
+};
+
+(function () {
+  const backdrop = document.getElementById('orthoModal');
+  const closeBtn = document.getElementById('orthoModalClose');
+  const photo    = document.getElementById('orthoModalPhoto');
+  const nameEl   = document.getElementById('orthoModalName');
+  const matsEl   = document.getElementById('orthoModalMaterials');
+  const tagsEl   = document.getElementById('orthoModalTags');
+  const featEl   = document.getElementById('orthoModalFeature');
+  const prevBtn  = document.getElementById('orthoModalPrev');
+  const nextBtn  = document.getElementById('orthoModalNext');
+  const dotsEl   = document.getElementById('orthoModalDots');
+
+  let currentImgs = [];
+  let currentIdx  = 0;
+
+  function setImage(idx) {
+    currentIdx = idx;
+    photo.src  = currentImgs[idx];
+    photo.alt  = nameEl.textContent;
+    dotsEl.querySelectorAll('.ortho-modal__dot').forEach((d, i) => d.classList.toggle('is-active', i === idx));
+    prevBtn.classList.toggle('is-hidden', idx === 0);
+    nextBtn.classList.toggle('is-hidden', idx === currentImgs.length - 1);
+  }
+
+  function openModal(key) {
+    const d = HOME_ORTHO_DATA[key];
+    if (!d) return;
+    nameEl.textContent   = d.name;
+    matsEl.innerHTML     = d.materials.split(' · ').map(m => `<div class="ortho-modal__mat-item">${m}</div>`).join('');
+    featEl.textContent   = d.feature;
+    tagsEl.innerHTML     = d.tags.map(t => `<span class="ortho-modal__tag">${t}</span>`).join('');
+    dotsEl.innerHTML     = d.imgs.map(() => `<div class="ortho-modal__dot"></div>`).join('');
+    currentImgs = d.imgs;
+    setImage(0);
+    backdrop.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    backdrop.classList.remove('is-open');
+    document.body.style.overflow = '';
+  }
+
+  document.querySelectorAll('.portfolio-grid .portfolio-card[data-key]').forEach(card => {
+    card.addEventListener('click', e => {
+      if (e.target.closest('.carousel__dots')) return;
+      openModal(card.dataset.key);
+    });
+  });
+
+  prevBtn.addEventListener('click', e => { e.stopPropagation(); setImage(currentIdx - 1); });
+  nextBtn.addEventListener('click', e => { e.stopPropagation(); setImage(currentIdx + 1); });
+  closeBtn.addEventListener('click', closeModal);
+  backdrop.addEventListener('click', e => { if (e.target === backdrop) closeModal(); });
+  document.addEventListener('keydown', e => {
+    if (!backdrop.classList.contains('is-open')) return;
+    if (e.key === 'Escape') closeModal();
+    if (e.key === 'ArrowLeft')  setImage(Math.max(0, currentIdx - 1));
+    if (e.key === 'ArrowRight') setImage(Math.min(currentImgs.length - 1, currentIdx + 1));
+  });
+})();
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/OBJLoader.js"></script>
+<script src="js/foot-3d.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

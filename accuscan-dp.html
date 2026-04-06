@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="logo.png">
+  <link rel="manifest" href="site.webmanifest">
+  <meta name="theme-color" content="#00549d">  <meta name="description" content="AccuScan DP: The world's first truly HIPAA-compliant digital orthotic scanning program. Scan in 5 minutes or less with complete patient de-identification.">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .spec-table { width: 100%; border-collapse: collapse; }
+    .spec-table tr { border-bottom: 1px solid var(--text-faint); }
+    .spec-table tr:last-child { border-bottom: none; }
+    .spec-table td { padding: 1rem 0; font-size: .9rem; }
+    .spec-table td:first-child { color: var(--text-dim); width: 45%; }
+    .spec-table td:last-child { font-weight: 500; color: var(--text); }
+    .hipaa-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .6rem;
+      background: rgba(0,212,200,.08);
+      border: 1px solid rgba(0,212,200,.3);
+      border-radius: 2px;
+      padding: .6rem 1.2rem;
+      font-size: .8rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 600;
+    }
+    .hipaa-badge svg { width: 16px; height: 16px; }
+    .scan-visual {
+      position: relative;
+      aspect-ratio: 1;
+      background: var(--surface);
+      border: 1px solid var(--text-faint);
+      border-radius: 4px;
+      overflow: hidden;
+      display: grid;
+      place-items: center;
+    }
+    .scan-visual canvas { width: 100% !important; height: 100% !important; }
+    .scan-visual__label {
+      position: absolute;
+      bottom: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: .72rem;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      white-space: nowrap;
+    }
+  </style>
+</head>
+<body>
+
+<div id="loader">
+  <img class="loader__logo" src="logo.png" alt="3D Orthotics">
+</div>
+
+<div class="cursor">
+  <div class="cursor__ring"></div>
+  <div class="cursor__dot"></div>
+</div>
+
+<nav class="nav">
+  <a class="nav__logo" href="index.html"><img src="logo.png" alt="3D Orthotics"></a>
+  <div class="nav__links">
+    <span class="nav__phone">844-FOOT-911</span>
+    <a class="nav__link" href="index.html">Home</a>
+    <a class="nav__link" href="accuscan-dp.html">AccuScan DP</a>
+    <a class="nav__link" href="orthotics.html">Orthotics</a>
+    <a class="nav__link" href="va-resource-guide.html">VA Resources</a>
+    <div class="nav__dropdown">
+      <a class="nav__link" href="about.html">About Us ▾</a>
+      <div class="nav__dropdown-menu">
+        <a href="about.html">About Us</a>
+        <a href="faq.html">FAQ</a>
+        <a href="guides.html">Guides</a>
+        <a href="awards.html">Awards</a>
+      </div>
+    </div>
+    <a class="nav__link nav__cta" href="contact.html">Contact Us</a>
+  </div>
+  <button class="nav__burger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="nav__mobile">
+  <a href="index.html">Home</a>
+  <a href="accuscan-dp.html">AccuScan DP</a>
+  <a href="orthotics.html">Orthotics</a>
+  <a href="va-resource-guide.html">VA Resources</a>
+  <a href="about.html">About Us</a>
+  <a href="faq.html">FAQ</a>
+  <a href="guides.html">Guides</a>
+  <a href="awards.html">Awards</a>
+  <a href="contact.html">Contact Us</a>
+</div>
+
+<!-- ══════════════════════════════════ PAGE HERO -->
+<section class="page-hero">
+  <div class="page-hero__bg"></div>
+  <div class="container">
+    <span class="t-label page-hero__eyebrow reveal">Product</span>
+    <h1 class="t-h1 reveal" style="transition-delay:.1s">AccuScan <span class="accent">DP</span></h1>
+    <p class="t-body reveal" style="max-width:580px;margin-top:1.25rem;transition-delay:.2s">
+      The world's first truly HIPAA-compliant digitally scanned orthotic program. Complete patient de-identification. Five minutes. No mess.
+    </p>
+    <div class="reveal" style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:2rem;transition-delay:.3s">
+      <span class="hipaa-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        100% HIPAA Compliant
+      </span>
+      <span class="hipaa-badge" style="border-color:var(--cyan);color:var(--accent);background:rgba(0,174,199,.08);font-weight:600">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        5 Minutes or Less
+      </span>
+      <span class="hipaa-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+        PHI-Free Transmission
+      </span>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════ MAIN FEATURE SPLIT -->
+<section class="section">
+  <div class="container">
+    <div class="split" style="gap:clamp(3rem,8vw,10rem)">
+      <!-- 3D Scan visual -->
+      <div class="reveal--left">
+        <div class="scan-visual">
+          <canvas class="foot-canvas"></canvas>
+          <span class="scan-visual__label">Live 3D Scan Simulation</span>
+        </div>
+      </div>
+
+      <div>
+        <span class="t-label reveal">The Problem We Solved</span>
+        <h2 class="t-h2 reveal" style="margin-top:1rem;transition-delay:.1s">
+          Digital Scanning.<br><span class="accent">Federal Compliance.</span>
+        </h2>
+        <p class="t-body reveal" style="margin-top:1.5rem;transition-delay:.2s">
+          VA and DOD hospitals knew digital scanning was superior to cast molding: faster, cleaner, more accurate. But transmitting 3D scan data meant transmitting Protected Health Information (PHI), and that conflicted directly with HIPAA regulations.
+        </p>
+        <p class="t-body reveal" style="margin-top:1rem;transition-delay:.3s">
+          AccuScan DP is our answer: a complete workflow that strips all identifying patient data before any file leaves the facility. The result is a 100% digital process with zero PHI exposure. The only system of its kind approved for federal healthcare environments.
+        </p>
+
+        <div style="margin-top:2rem" class="reveal" style="transition-delay:.4s">
+          <table class="spec-table">
+            <tr><td>Product Code</td><td>DP-001</td></tr>
+            <tr><td>Compliance</td><td>100% HIPAA / PHI-Free</td></tr>
+            <tr><td>Scan Time</td><td>5 Minutes or Less</td></tr>
+            <tr><td>Category</td><td>Digital Orthotic Program</td></tr>
+            <tr><td>FDA Registration</td><td>RN #3015146490</td></tr>
+            <tr><td>Environments</td><td>VA Hospitals, DOD Facilities</td></tr>
+          </table>
+        </div>
+        <div class="reveal" style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:2rem;transition-delay:.5s">
+          <a class="btn btn--primary" href="contact.html?demo=1">
+            Request a Demo
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </a>
+          <a class="btn btn--ghost" href="guides.html">View Guides</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════ WHAT'S INCLUDED -->
+<section class="section section--dark">
+  <div class="container">
+    <div style="text-align:center;margin:0 auto clamp(3rem,6vw,5rem)">
+      <span class="t-label reveal">Package</span>
+      <h2 class="t-h2 reveal included-heading" style="margin-top:1rem;transition-delay:.1s">One Complete, Turn-Key System</h2>
+    </div>
+    <div class="feature-grid stagger">
+      <div class="feature-item">
+        <div class="feature-item__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="6" width="20" height="12" rx="1.8"/><rect x="4.5" y="8" width="15" height="8" rx="0.5" opacity="0.35"/><circle cx="12" cy="17.4" r="0.75" fill="currentColor" stroke="none"/></svg>
+        </div>
+        <h3 class="t-h3">iPad</h3>
+        <p class="t-body" style="margin-top:.75rem">Apple iPad with AccuScan DP already installed—power on and scan. No additional software installs or facility IT prep required.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-item__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.2 20.2c-1.7 0-3-1.3-3-3 0-1.9 1-3.4 2.1-4.8 1-1.4 2-2.8 2-4.8 0-1.5 1.2-2.6 2.7-2.6 1.5 0 2.7 1.1 2.7 2.6 0 1.8.7 3.4 1.6 4.9.8 1.3 1.5 2.7 1.5 4.1 0 2-1.6 3.6-3.6 3.6H9.2Z"/><path d="M9.6 16.7c1 .7 2.2 1 3.4 1 1.5 0 2.9-.4 4.1-1.2"/><circle cx="15.3" cy="4.5" r=".85"/><circle cx="17.1" cy="5.2" r=".78"/><circle cx="18.4" cy="6.5" r=".72"/><circle cx="19.1" cy="8.1" r=".66"/><circle cx="19.3" cy="9.8" r=".58"/><path d="M5.5 12h13"/></svg>
+        </div>
+        <h3 class="t-h3">3D Scanner</h3>
+        <p class="t-body" style="margin-top:.75rem">Structure Sensor 3 on iPad—structured-light foot scanning to capture full plantar geometry in seconds for lab-accurate orthotics.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-item__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.55a11 11 0 0114.08 0M1.42 9a16 16 0 0121.16 0M8.53 16.11a6 6 0 016.95 0"/><circle cx="12" cy="20" r="1" fill="currentColor" stroke="none"/></svg>
+        </div>
+        <h3 class="t-h3">Internet Services</h3>
+        <p class="t-body" style="margin-top:.75rem">HIPAA-aligned cloud workflow—de-identified scan payloads only; your network policy stays in control.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-item__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 18V6a2 2 0 00-2-2H4a2 2 0 00-2 2v11a1 1 0 001 1h2"/><path d="M15 18h2"/><path d="M19 18h1a1 1 0 001-1v-3.65a1 1 0 00-.22-.624l-2.596-3.244a1 1 0 00-.788-.382H15"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg>
+        </div>
+        <h3 class="t-h3">Free Delivery</h3>
+        <p class="t-body" style="margin-top:.75rem">Complimentary shipping on every completed orthotic order—plus delivery confirmations, fitting checks, and 24/7 customer service from our team.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-item__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        <h3 class="t-h3">On-Site Training</h3>
+        <p class="t-body" style="margin-top:.75rem">Our team provides on-site training and support for podiatrists and staff to ensure optimal scanning results and workflow integration.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-item__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="2"/><path d="M9 12l2 2 4-4"/></svg>
+        </div>
+        <h3 class="t-h3">Fitting Check</h3>
+        <p class="t-body" style="margin-top:.75rem">Every order includes a fitting verification step to confirm orthotic fit and alignment before delivery, ensuring the device performs as prescribed.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-item__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 18v-6a9 9 0 0118 0v6"/><path d="M21 19a2 2 0 01-2 2h-1a2 2 0 01-2-2v-3a2 2 0 012-2h3z"/><path d="M3 19a2 2 0 002 2h1a2 2 0 002-2v-3a2 2 0 00-2-2H3z"/></svg>
+        </div>
+        <h3 class="t-h3">24/7 Customer Service</h3>
+        <p class="t-body" style="margin-top:.75rem">Our support team is available around the clock to assist with orders, scanning questions, and clinical guidance. Any time your facility needs us.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-item__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><polyline points="16 11 18 13 22 9"/></svg>
+        </div>
+        <h3 class="t-h3">Dedicated Account Rep</h3>
+        <p class="t-body" style="margin-top:.75rem">Every facility is assigned a dedicated account representative: a single point of contact who knows your program, your team, and your patients.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════ COMPARISON TABLE -->
+<section class="section section--dark">
+  <div class="container">
+    <div style="text-align:center;max-width:580px;margin:0 auto clamp(2.5rem,5vw,4rem)">
+      <span class="t-label reveal">Why AccuScan DP</span>
+      <h2 class="t-h2 reveal" style="margin-top:1rem;transition-delay:.1s">AccuScan DP vs.<br><span class="accent">Traditional Casting</span></h2>
+    </div>
+    <div class="reveal" style="overflow-x:auto">
+      <table style="width:100%;border-collapse:collapse;font-size:.88rem">
+        <thead>
+          <tr>
+            <th style="text-align:left;padding:1rem 1.25rem;border-bottom:1px solid var(--text-faint);color:var(--text-dim);font-weight:500;letter-spacing:.08em;text-transform:uppercase;font-size:.72rem;width:35%"></th>
+            <th style="text-align:center;padding:1rem 1.25rem;border-bottom:1px solid var(--text-faint);color:var(--text-dim);font-weight:500;letter-spacing:.08em;text-transform:uppercase;font-size:.72rem">Traditional Casting</th>
+            <th style="text-align:center;padding:1rem 1.25rem;border-bottom:2px solid var(--cyan);color:var(--accent);font-weight:600;letter-spacing:.08em;text-transform:uppercase;font-size:.72rem;background:rgba(0,174,199,.06);border-radius:2px 2px 0 0">AccuScan DP</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding:1rem 1.25rem;border-bottom:1px solid var(--text-faint);color:var(--text-dim)">Scan / Cast Time</td>
+            <td style="padding:1rem 1.25rem;border-bottom:1px solid var(--text-faint);text-align:center;color:var(--text-dim)">15 – 30 minutes</td>
+            <td style="padding:1rem 1.25rem;border-bottom:1px solid var(--text-faint);text-align:center;background:rgba(0,174,199,.04);font-weight:600;color:var(--accent)">Under 5 minutes</td>
+          </tr>
+          <tr>
+            <td style="padding:1rem 1.25rem;border-bottom:1px solid var(--text-faint);color:var(--text-dim)">Mess & Cleanup</td>
+            <td style="padding:1rem 1.25rem;border-bottom:1px solid var(--text-faint);text-align:center;color:var(--text-dim)">Plaster, foam, curing wait</td>
+            <td style="padding:1rem 1.25rem;border-bottom:1px solid var(--text-faint);text-align:center;background:rgba(0,174,199,.04);font-weight:600;color:var(--accent)">None</td>
+          </tr>
+          <tr>
+            <td style="padding:1rem 1.25rem;border-bottom:1px solid var(--text-faint);color:var(--text-dim)">HIPAA Compliant</td>
+            <td style="padding:1rem 1.25rem;border-bottom:1px solid var(--text-faint);text-align:center;color:var(--text-dim)">Digital transmission blocked</td>
+            <td style="padding:1rem 1.25rem;border-bottom:1px solid var(--text-faint);text-align:center;background:rgba(0,174,199,.04);font-weight:600;color:var(--accent)">100% compliant</td>
+          </tr>
+          <tr>
+            <td style="padding:1rem 1.25rem;border-bottom:1px solid var(--text-faint);color:var(--text-dim)">PHI Risk</td>
+            <td style="padding:1rem 1.25rem;border-bottom:1px solid var(--text-faint);text-align:center;color:var(--text-dim)">High</td>
+            <td style="padding:1rem 1.25rem;border-bottom:1px solid var(--text-faint);text-align:center;background:rgba(0,174,199,.04);font-weight:600;color:var(--accent)">Zero</td>
+          </tr>
+          <tr>
+            <td style="padding:1rem 1.25rem;border-bottom:1px solid var(--text-faint);color:var(--text-dim)">Scan Accuracy</td>
+            <td style="padding:1rem 1.25rem;border-bottom:1px solid var(--text-faint);text-align:center;color:var(--text-dim)">Moderate</td>
+            <td style="padding:1rem 1.25rem;border-bottom:1px solid var(--text-faint);text-align:center;background:rgba(0,174,199,.04);font-weight:600;color:var(--accent)">Precision 3D geometry</td>
+          </tr>
+          <tr>
+            <td style="padding:1rem 1.25rem;color:var(--text-dim)">Shipping</td>
+            <td style="padding:1rem 1.25rem;text-align:center;color:var(--text-dim)">Additional cost</td>
+            <td style="padding:1rem 1.25rem;text-align:center;background:rgba(0,174,199,.04);font-weight:600;color:var(--accent);border-radius:0 0 2px 2px">Free, direct to facility</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════ PROCESS STEPS -->
+<section class="section">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(3rem,8vw,10rem);align-items:center">
+      <div>
+        <span class="t-label reveal">Workflow</span>
+        <h2 class="t-h2 reveal" style="margin-top:1rem;transition-delay:.1s">Scanning in<br><span class="accent">Three Simple Steps</span></h2>
+        <p class="t-body reveal" style="margin-top:1.25rem;transition-delay:.2s">From patient chair to fabrication order in under five minutes. No plaster. No foam. No delays.</p>
+      </div>
+      <div class="process-steps stagger">
+        <div class="process-step">
+          <div class="process-step__num">01</div>
+          <div>
+            <h3 class="t-h3">Position & Scan</h3>
+            <p class="t-body" style="margin-top:.5rem">Position the scanner beneath the patient's foot. The system captures a full 3D geometry model in under 60 seconds.</p>
+          </div>
+        </div>
+        <div class="process-step">
+          <div class="process-step__num">02</div>
+          <div>
+            <h3 class="t-h3">De-Identify & Transmit</h3>
+            <p class="t-body" style="margin-top:.5rem">All PHI is automatically removed. The de-identified scan is securely transmitted to our fabrication lab, fully HIPAA compliant.</p>
+          </div>
+        </div>
+        <div class="process-step">
+          <div class="process-step__num">03</div>
+          <div>
+            <h3 class="t-h3">Receive Custom Orthotics</h3>
+            <p class="t-body" style="margin-top:.5rem">Custom-fabricated orthotics are shipped free directly to your facility, ready for the patient.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════ CTA -->
+<section class="section section--dark">
+  <div class="container">
+    <div style="text-align:center;max-width:600px;margin:0 auto">
+      <span class="t-label reveal">Get Started</span>
+      <h2 class="t-h2 reveal" style="margin-top:1rem;transition-delay:.1s">Ready to Modernize<br>Your Orthotic Program?</h2>
+      <p class="t-body reveal" style="margin-top:1.25rem;transition-delay:.2s">Contact our sales team to create a personalized plan for your facility's specific needs.</p>
+      <div class="reveal" style="display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;margin-top:2.5rem;transition-delay:.3s">
+        <a class="btn btn--primary" href="contact.html">
+          Contact Sales
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+        </a>
+        <a class="btn btn--outline" href="tel:8443668911">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.06 1.18 2 2 0 012.03 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          844-FOOT-911
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div>
+        <img class="footer__logo" src="logo.png" alt="3D Orthotics">
+        <p class="footer__tagline">Precision digital orthotics for VA and DOD hospitals. HIPAA-compliant. Veteran-owned.</p>
+      </div>
+      <div>
+        <p class="footer__heading">Navigate</p>
+        <div class="footer__links">
+          <a class="footer__link" href="index.html">Home</a>
+          <a class="footer__link" href="accuscan-dp.html">AccuScan DP</a>
+          <a class="footer__link" href="orthotics.html">Orthotics</a>
+          <a class="footer__link" href="va-resource-guide.html">VA Resources</a>
+        </div>
+      </div>
+      <div>
+        <p class="footer__heading">About</p>
+        <div class="footer__links">
+          <a class="footer__link" href="about.html">About Us</a>
+          <a class="footer__link" href="faq.html">FAQ</a>
+          <a class="footer__link" href="guides.html">Guides</a>
+          <a class="footer__link" href="awards.html">Awards</a>
+        </div>
+      </div>
+      <div>
+        <p class="footer__heading">Contact</p>
+        <div class="footer__links">
+          <a class="footer__link" href="tel:8443668911">844-FOOT-911</a>
+          <a class="footer__link" href="mailto:PatientCare@3DOrthotics.com">PatientCare@3DOrthotics.com</a>
+          <a class="footer__link" href="mailto:Orders@3DOrthotics.com">Orders@3DOrthotics.com</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2024 3D Orthotics. All rights reserved.</span>
+      <div class="footer__badges">
+        <span class="footer__badge">SDVOSB</span>
+        <span class="footer__badge">WOSB</span>
+        <span class="footer__badge">FDA Registered</span>
+        <span class="footer__badge">HIPAA Compliant</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/OBJLoader.js"></script>
+<script src="js/foot-3d.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
