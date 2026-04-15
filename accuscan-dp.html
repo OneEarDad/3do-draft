@@ -3,10 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AccuScan DP | 3D Orthotics</title>
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="logo.png">
   <link rel="manifest" href="site.webmanifest">
   <meta name="theme-color" content="#00549d">  <meta name="description" content="AccuScan DP: The world's first truly HIPAA-compliant digital orthotic scanning program. Scan in 5 minutes or less with complete patient de-identification.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self'; frame-src https://www.youtube.com; object-src 'none'; base-uri 'self'; form-action 'self' mailto:; upgrade-insecure-requests">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <link rel="stylesheet" href="css/style.css">
   <style>
     .spec-table { width: 100%; border-collapse: collapse; }
@@ -18,43 +21,177 @@
     .hipaa-badge {
       display: inline-flex;
       align-items: center;
-      gap: .6rem;
-      background: rgba(0,212,200,.08);
-      border: 1px solid rgba(0,212,200,.3);
-      border-radius: 2px;
-      padding: .6rem 1.2rem;
-      font-size: .8rem;
-      letter-spacing: .08em;
+      gap: .5rem;
+      background: var(--surface);
+      border: none;
+      border-radius: 9999px;
+      padding: .4rem .9rem;
+      font-size: .72rem;
+      font-weight: 500;
+      letter-spacing: .04em;
       text-transform: uppercase;
-      color: var(--accent);
-      font-weight: 600;
+      color: var(--text-dim);
     }
-    .hipaa-badge svg { width: 16px; height: 16px; }
+    .hipaa-badge svg { width: 14px; height: 14px; color: var(--cyan); }
     .scan-visual {
       position: relative;
       aspect-ratio: 1;
-      background: var(--surface);
-      border: 1px solid var(--text-faint);
-      border-radius: 4px;
-      overflow: hidden;
+      background: transparent;
+      border: none;
       display: grid;
       place-items: center;
     }
-    .scan-visual canvas { width: 100% !important; height: 100% !important; }
-    .scan-visual__label {
+    .scan-visual canvas { width: 100% !important; height: 100% !important; background: transparent; }
+    /* ── AccuScan DP wordmark (replaces h1 text) ───────────── */
+    .accuscan-wordmark {
+      display: block;
+      width: 100%;
+      max-width: 620px;
+      height: auto;
+      margin: 0 auto;
+    }
+    @media (max-width: 860px) {
+      .accuscan-wordmark { max-width: 460px; }
+    }
+    /* ── Centered stacked hero ─────────────────────────────── */
+    .page-hero--centered { background: rgba(255, 255, 255, 0.35); text-align: center; }
+    .page-hero--centered .page-hero__bg {
+      background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(0,174,199,.05) 0%, transparent 70%);
+    }
+    .hero-stack {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: clamp(1.25rem, 2.4vw, 1.75rem);
+    }
+    .hero-stack__tagline {
+      max-width: 620px;
+      margin: 0 auto;
+      color: var(--text-mid);
+    }
+    .hero-stack .scan-visual {
+      width: 100%;
+      max-width: 420px;
+      margin-inline: auto;
+    }
+    @media (max-width: 640px) {
+      .hero-stack .scan-visual { max-width: 340px; }
+    }
+    /* ── Hero orbit — bubbles circling the foot scan ──────── */
+    .hero-orbit {
+      position: relative;
+      width: 100%;
+      max-width: 640px;
+      aspect-ratio: 1;
+      margin: 0 auto;
+    }
+    .hero-orbit > .scan-visual {
       position: absolute;
-      bottom: 1.5rem;
+      top: 50%;
       left: 50%;
-      transform: translateX(-50%);
-      font-size: .72rem;
-      letter-spacing: .16em;
+      transform: translate(-50%, -50%);
+      width: 125%;
+      height: 125%;
+      max-width: none;
+      aspect-ratio: 1;
+      z-index: 1;
+      pointer-events: none;
+    }
+    .hero-orbit > .scan-visual .foot-canvas { pointer-events: auto; }
+    .hero-orbit__ring {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 3;
+    }
+    .hero-orbit__ring .bubble {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 76px;
+      height: 76px;
+      pointer-events: auto;
+      /* transform is set by JS each frame */
+      animation: none !important;
+      will-change: transform;
+    }
+    @media (max-width: 860px) {
+      .hero-orbit { max-width: 560px; }
+      .hero-orbit__ring .bubble { width: 58px; height: 58px; }
+    }
+    @media (max-width: 540px) {
+      .hero-orbit { max-width: 400px; }
+      .hero-orbit__ring .bubble { width: 46px; height: 46px; }
+    }
+    .page-hero--centered {
+      padding-top: calc(var(--nav-h) + clamp(2rem, 4vw, 3.5rem));
+      padding-bottom: clamp(3rem, 6vw, 5rem);
+      overflow: visible;
+    }
+    .hero-stack__badges {
+      display: flex;
+      justify-content: center;
+      gap: .75rem;
+      flex-wrap: wrap;
+    }
+    .hero-stack__ctas {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    /* ── Comparison table ─────────────────────────────────── */
+    .compare-table-wrap {
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid var(--text-faint);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .92rem;
+    }
+    .compare-table thead th {
+      text-align: center;
+      padding: 1.4rem 1.5rem;
+      border-bottom: 1px solid var(--text-faint);
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: .8rem;
+      letter-spacing: .04em;
       text-transform: uppercase;
-      color: var(--accent);
-      white-space: nowrap;
+      color: var(--text-dim);
+    }
+    .compare-table thead th:first-child { width: 32%; }
+    .compare-table thead th.compare-table__accu { color: var(--navy); }
+    .compare-table tbody td {
+      padding: 1.15rem 1.5rem;
+      border-bottom: 1px solid var(--text-faint);
+      text-align: center;
+      color: var(--text-dim);
+    }
+    .compare-table tbody tr:last-child td { border-bottom: none; }
+    .compare-table__row-label {
+      text-align: left !important;
+      color: var(--text) !important;
+      font-weight: 500;
+    }
+    .compare-table__accu-cell {
+      color: var(--text) !important;
+      font-weight: 600;
+    }
+    @media (max-width: 640px) {
+      .compare-table { font-size: .82rem; }
+      .compare-table thead th,
+      .compare-table tbody td { padding: .9rem .8rem; }
     }
   </style>
 </head>
 <body>
+
+<!-- Particle background -->
+<canvas id="particles-bg"></canvas>
 
 <div id="loader">
   <img class="loader__logo" src="logo.png" alt="3D Orthotics">
@@ -99,44 +236,54 @@
   <a href="contact.html">Contact Us</a>
 </div>
 
-<!-- ══════════════════════════════════ PAGE HERO -->
-<section class="page-hero">
+<!-- ══════════════════════════════════ PAGE HERO (with live scan) -->
+<section class="page-hero page-hero--centered">
   <div class="page-hero__bg"></div>
   <div class="container">
-    <span class="t-label page-hero__eyebrow reveal">Product</span>
-    <h1 class="t-h1 reveal" style="transition-delay:.1s">AccuScan <span class="accent">DP</span></h1>
-    <p class="t-body reveal" style="max-width:580px;margin-top:1.25rem;transition-delay:.2s">
-      The world's first truly HIPAA-compliant digitally scanned orthotic program. Complete patient de-identification. Five minutes. No mess.
-    </p>
-    <div class="reveal" style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:2rem;transition-delay:.3s">
-      <span class="hipaa-badge">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        100% HIPAA Compliant
-      </span>
-      <span class="hipaa-badge" style="border-color:var(--cyan);color:var(--accent);background:rgba(0,174,199,.08);font-weight:600">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-        5 Minutes or Less
-      </span>
-      <span class="hipaa-badge">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-        PHI-Free Transmission
-      </span>
+    <div class="hero-stack">
+      <img class="accuscan-wordmark reveal" src="images/accuscan-dp-logo.png" alt="AccuScan DP">
+      <p class="t-body hero-stack__tagline reveal" style="transition-delay:.1s">
+        The world's first truly HIPAA-compliant digitally scanned orthotic program. Complete patient de-identification. Five minutes. No mess.
+      </p>
+
+      <!-- 3D Scan visual with orbiting product bubbles -->
+      <div class="hero-orbit reveal" style="transition-delay:.2s">
+        <div class="scan-visual">
+          <canvas class="foot-canvas"></canvas>
+        </div>
+        <div class="hero-orbit__ring" data-bubble-variant="orbit"></div>
+      </div>
+
+      <div class="hero-stack__badges reveal" style="transition-delay:.3s">
+        <span class="hipaa-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          100% PHI-Safe Workflow
+        </span>
+        <span class="hipaa-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          5 Minutes or Less
+        </span>
+        <span class="hipaa-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+          PHI-Free Transmission
+        </span>
+      </div>
+
+      <div class="hero-stack__ctas reveal" style="transition-delay:.4s">
+        <a class="btn btn--primary" href="contact.html?demo=1">
+          Request a Demo
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+        </a>
+        <a class="btn btn--ghost" href="guides.html">View Guides</a>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ══════════════════════════════════ MAIN FEATURE SPLIT -->
+<!-- ══════════════════════════════════ THE PROBLEM WE SOLVED -->
 <section class="section">
   <div class="container">
     <div class="split" style="gap:clamp(3rem,8vw,10rem)">
-      <!-- 3D Scan visual -->
-      <div class="reveal--left">
-        <div class="scan-visual">
-          <canvas class="foot-canvas"></canvas>
-          <span class="scan-visual__label">Live 3D Scan Simulation</span>
-        </div>
-      </div>
-
       <div>
         <span class="t-label reveal">The Problem We Solved</span>
         <h2 class="t-h2 reveal" style="margin-top:1rem;transition-delay:.1s">
@@ -148,31 +295,23 @@
         <p class="t-body reveal" style="margin-top:1rem;transition-delay:.3s">
           AccuScan DP is our answer: a complete workflow that strips all identifying patient data before any file leaves the facility. The result is a 100% digital process with zero PHI exposure. The only system of its kind approved for federal healthcare environments.
         </p>
-
-        <div style="margin-top:2rem" class="reveal" style="transition-delay:.4s">
-          <table class="spec-table">
-            <tr><td>Product Code</td><td>DP-001</td></tr>
-            <tr><td>Compliance</td><td>100% HIPAA / PHI-Free</td></tr>
-            <tr><td>Scan Time</td><td>5 Minutes or Less</td></tr>
-            <tr><td>Category</td><td>Digital Orthotic Program</td></tr>
-            <tr><td>FDA Registration</td><td>RN #3015146490</td></tr>
-            <tr><td>Environments</td><td>VA Hospitals, DOD Facilities</td></tr>
-          </table>
-        </div>
-        <div class="reveal" style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:2rem;transition-delay:.5s">
-          <a class="btn btn--primary" href="contact.html?demo=1">
-            Request a Demo
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-          </a>
-          <a class="btn btn--ghost" href="guides.html">View Guides</a>
-        </div>
+      </div>
+      <div class="reveal" style="transition-delay:.4s">
+        <table class="spec-table">
+          <tr><td>Product Code</td><td>DP-001</td></tr>
+          <tr><td>Compliance</td><td>100% HIPAA / PHI-Free</td></tr>
+          <tr><td>Scan Time</td><td>5 Minutes or Less</td></tr>
+          <tr><td>Category</td><td>Digital Orthotic Program</td></tr>
+          <tr><td>FDA Registration</td><td>RN #3015146490</td></tr>
+          <tr><td>Environments</td><td>VA Hospitals, DOD Facilities</td></tr>
+        </table>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ══════════════════════════════════ WHAT'S INCLUDED -->
-<section class="section section--dark">
+<section class="section section--light">
   <div class="container">
     <div style="text-align:center;margin:0 auto clamp(3rem,6vw,5rem)">
       <span class="t-label reveal">Package</span>
@@ -240,51 +379,51 @@
 </section>
 
 <!-- ══════════════════════════════════ COMPARISON TABLE -->
-<section class="section section--dark">
+<section class="section">
   <div class="container">
     <div style="text-align:center;max-width:580px;margin:0 auto clamp(2.5rem,5vw,4rem)">
       <span class="t-label reveal">Why AccuScan DP</span>
       <h2 class="t-h2 reveal" style="margin-top:1rem;transition-delay:.1s">AccuScan DP vs.<br><span class="accent">Traditional Casting</span></h2>
     </div>
-    <div class="reveal" style="overflow-x:auto">
-      <table style="width:100%;border-collapse:collapse;font-size:.88rem">
+    <div class="reveal compare-table-wrap">
+      <table class="compare-table">
         <thead>
           <tr>
-            <th style="text-align:left;padding:1rem 1.25rem;border-bottom:1px solid var(--text-faint);color:var(--text-dim);font-weight:500;letter-spacing:.08em;text-transform:uppercase;font-size:.72rem;width:35%"></th>
-            <th style="text-align:center;padding:1rem 1.25rem;border-bottom:1px solid var(--text-faint);color:var(--text-dim);font-weight:500;letter-spacing:.08em;text-transform:uppercase;font-size:.72rem">Traditional Casting</th>
-            <th style="text-align:center;padding:1rem 1.25rem;border-bottom:2px solid var(--cyan);color:var(--accent);font-weight:600;letter-spacing:.08em;text-transform:uppercase;font-size:.72rem;background:rgba(0,174,199,.06);border-radius:2px 2px 0 0">AccuScan DP</th>
+            <th></th>
+            <th>Traditional Casting</th>
+            <th class="compare-table__accu">AccuScan DP</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td style="padding:1rem 1.25rem;border-bottom:1px solid var(--text-faint);color:var(--text-dim)">Scan / Cast Time</td>
-            <td style="padding:1rem 1.25rem;border-bottom:1px solid var(--text-faint);text-align:center;color:var(--text-dim)">15 – 30 minutes</td>
-            <td style="padding:1rem 1.25rem;border-bottom:1px solid var(--text-faint);text-align:center;background:rgba(0,174,199,.04);font-weight:600;color:var(--accent)">Under 5 minutes</td>
+            <td class="compare-table__row-label">Scan / Cast Time</td>
+            <td>15 – 30 minutes</td>
+            <td class="compare-table__accu-cell">Under 5 minutes</td>
           </tr>
           <tr>
-            <td style="padding:1rem 1.25rem;border-bottom:1px solid var(--text-faint);color:var(--text-dim)">Mess & Cleanup</td>
-            <td style="padding:1rem 1.25rem;border-bottom:1px solid var(--text-faint);text-align:center;color:var(--text-dim)">Plaster, foam, curing wait</td>
-            <td style="padding:1rem 1.25rem;border-bottom:1px solid var(--text-faint);text-align:center;background:rgba(0,174,199,.04);font-weight:600;color:var(--accent)">None</td>
+            <td class="compare-table__row-label">Mess &amp; Cleanup</td>
+            <td>Plaster, foam, curing wait</td>
+            <td class="compare-table__accu-cell">None</td>
           </tr>
           <tr>
-            <td style="padding:1rem 1.25rem;border-bottom:1px solid var(--text-faint);color:var(--text-dim)">HIPAA Compliant</td>
-            <td style="padding:1rem 1.25rem;border-bottom:1px solid var(--text-faint);text-align:center;color:var(--text-dim)">Digital transmission blocked</td>
-            <td style="padding:1rem 1.25rem;border-bottom:1px solid var(--text-faint);text-align:center;background:rgba(0,174,199,.04);font-weight:600;color:var(--accent)">100% compliant</td>
+            <td class="compare-table__row-label">PHI-Safe Workflow</td>
+            <td>Digital transmission blocked</td>
+            <td class="compare-table__accu-cell">100% compliant</td>
           </tr>
           <tr>
-            <td style="padding:1rem 1.25rem;border-bottom:1px solid var(--text-faint);color:var(--text-dim)">PHI Risk</td>
-            <td style="padding:1rem 1.25rem;border-bottom:1px solid var(--text-faint);text-align:center;color:var(--text-dim)">High</td>
-            <td style="padding:1rem 1.25rem;border-bottom:1px solid var(--text-faint);text-align:center;background:rgba(0,174,199,.04);font-weight:600;color:var(--accent)">Zero</td>
+            <td class="compare-table__row-label">PHI Risk</td>
+            <td>High</td>
+            <td class="compare-table__accu-cell">Zero</td>
           </tr>
           <tr>
-            <td style="padding:1rem 1.25rem;border-bottom:1px solid var(--text-faint);color:var(--text-dim)">Scan Accuracy</td>
-            <td style="padding:1rem 1.25rem;border-bottom:1px solid var(--text-faint);text-align:center;color:var(--text-dim)">Moderate</td>
-            <td style="padding:1rem 1.25rem;border-bottom:1px solid var(--text-faint);text-align:center;background:rgba(0,174,199,.04);font-weight:600;color:var(--accent)">Precision 3D geometry</td>
+            <td class="compare-table__row-label">Scan Accuracy</td>
+            <td>Moderate</td>
+            <td class="compare-table__accu-cell">Precision 3D geometry</td>
           </tr>
           <tr>
-            <td style="padding:1rem 1.25rem;color:var(--text-dim)">Shipping</td>
-            <td style="padding:1rem 1.25rem;text-align:center;color:var(--text-dim)">Additional cost</td>
-            <td style="padding:1rem 1.25rem;text-align:center;background:rgba(0,174,199,.04);font-weight:600;color:var(--accent);border-radius:0 0 2px 2px">Free, direct to facility</td>
+            <td class="compare-table__row-label">Shipping</td>
+            <td>Additional cost</td>
+            <td class="compare-table__accu-cell">Free, direct to facility</td>
           </tr>
         </tbody>
       </table>
@@ -329,7 +468,7 @@
 </section>
 
 <!-- ══════════════════════════════════ CTA -->
-<section class="section section--dark">
+<section class="section section--light">
   <div class="container">
     <div style="text-align:center;max-width:600px;margin:0 auto">
       <span class="t-label reveal">Get Started</span>
@@ -355,7 +494,7 @@
     <div class="footer__grid">
       <div>
         <img class="footer__logo" src="logo.png" alt="3D Orthotics">
-        <p class="footer__tagline">Precision digital orthotics for VA and DOD hospitals. HIPAA-compliant. Veteran-owned.</p>
+        <p class="footer__tagline">Precision digital orthotics for VA and DOD hospitals. PHI-safe workflow. Veteran-owned.</p>
       </div>
       <div>
         <p class="footer__heading">Navigate</p>
@@ -390,7 +529,7 @@
         <span class="footer__badge">SDVOSB</span>
         <span class="footer__badge">WOSB</span>
         <span class="footer__badge">FDA Registered</span>
-        <span class="footer__badge">HIPAA Compliant</span>
+        <span class="footer__badge">PHI-Safe Workflow</span>
       </div>
     </div>
   </div>
@@ -399,6 +538,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/OBJLoader.js"></script>
 <script src="js/foot-3d.js"></script>
+<script src="js/particles-bg.js"></script>
+<script src="js/bubbles.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>

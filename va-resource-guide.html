@@ -3,10 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VA Resources | 3D Orthotics</title>
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="logo.png">
   <link rel="manifest" href="site.webmanifest">
   <meta name="theme-color" content="#00549d">  <meta name="description" content="3D Orthotics is your dedicated partner for VA orthotic programs. Resources for VA podiatrists, purchasers, and administrators. Reach out and we'll handle the rest.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self'; frame-src https://www.youtube.com; object-src 'none'; base-uri 'self'; form-action 'self' mailto:; upgrade-insecure-requests">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <link rel="stylesheet" href="css/style.css">
   <style>
     .va-resource-grid {
@@ -87,6 +90,9 @@
   </style>
 </head>
 <body>
+
+<!-- Particle background -->
+<canvas id="particles-bg"></canvas>
 
 <div id="loader"><img class="loader__logo" src="logo.png" alt="3D Orthotics"></div>
 <div class="cursor"><div class="cursor__ring"></div><div class="cursor__dot"></div></div>
@@ -235,7 +241,7 @@
         <span class="va-trust-strip__badge">WOSB</span>
         <span class="va-trust-strip__badge">FDA Registered</span>
         <span class="va-trust-strip__badge">SAM Registered</span>
-        <span class="va-trust-strip__badge">HIPAA Compliant</span>
+        <span class="va-trust-strip__badge">PHI-Safe Workflow</span>
       </div>
     </div>
 
@@ -261,7 +267,7 @@
 </section>
 
 <!-- BOTTOM CTA -->
-<section class="section section--dark">
+<section class="section section--light">
   <div class="container">
     <div class="split" style="align-items:center">
       <div>
@@ -287,11 +293,11 @@
 <footer class="footer">
   <div class="container">
     <div class="footer__grid">
-      <div><img class="footer__logo" src="logo.png" alt="3D Orthotics"><p class="footer__tagline">Precision digital orthotics for VA and DOD hospitals. HIPAA-compliant. Veteran-owned.</p></div>
+      <div><img class="footer__logo" src="logo.png" alt="3D Orthotics"><p class="footer__tagline">Precision digital orthotics for VA and DOD hospitals. PHI-safe workflow. Veteran-owned.</p></div>
       <div><p class="footer__heading">Navigate</p><div class="footer__links"><a class="footer__link" href="index.html">Home</a><a class="footer__link" href="accuscan-dp.html">AccuScan DP</a><a class="footer__link" href="orthotics.html">Orthotics</a><a class="footer__link" href="va-resource-guide.html">VA Resources</a></div></div><div><p class="footer__heading">About</p><div class="footer__links"><a class="footer__link" href="about.html">About Us</a><a class="footer__link" href="faq.html">FAQ</a><a class="footer__link" href="guides.html">Guides</a><a class="footer__link" href="awards.html">Awards</a></div></div>
       <div><p class="footer__heading">Contact</p><div class="footer__links"><a class="footer__link" href="tel:8443668911">844-FOOT-911</a><a class="footer__link" href="mailto:PatientCare@3DOrthotics.com">PatientCare@3DOrthotics.com</a><a class="footer__link" href="mailto:Orders@3DOrthotics.com">Orders@3DOrthotics.com</a></div></div>
     </div>
-    <div class="footer__bottom"><span>© 2024 3D Orthotics. All rights reserved.</span><div class="footer__badges"><span class="footer__badge">SDVOSB</span><span class="footer__badge">WOSB</span><span class="footer__badge">FDA Registered</span><span class="footer__badge">HIPAA Compliant</span></div></div>
+    <div class="footer__bottom"><span>© 2024 3D Orthotics. All rights reserved.</span><div class="footer__badges"><span class="footer__badge">SDVOSB</span><span class="footer__badge">WOSB</span><span class="footer__badge">FDA Registered</span><span class="footer__badge">PHI-Safe Workflow</span></div></div>
   </div>
 </footer>
 
@@ -397,6 +403,8 @@ function closeOverlayOnBackdrop(e) {
 }
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeOverlay(); });
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="js/particles-bg.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>

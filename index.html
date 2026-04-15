@@ -3,10 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3D Orthotics | Digital orthotic scanning for VA &amp; DOD</title>
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="logo.png">
   <link rel="manifest" href="site.webmanifest">
   <meta name="theme-color" content="#00549d">  <meta name="description" content="3D Orthotics delivers HIPAA-compliant digital orthotic scanning for VA and DOD hospitals. AccuScan DP: scan in minutes, protect patient privacy.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self'; frame-src https://www.youtube.com; object-src 'none'; base-uri 'self'; form-action 'self' mailto:; upgrade-insecure-requests">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <link rel="stylesheet" href="css/style.css">
   <style>
     /* ── Homepage Orthotic Modal ─────────────────────────── */
@@ -75,6 +78,9 @@
 </head>
 <body>
 
+<!-- Particle background -->
+<canvas id="particles-bg"></canvas>
+
 <!-- Loader -->
 <div id="loader">
   <img class="loader__logo" src="logo.png" alt="3D Orthotics">
@@ -129,14 +135,14 @@
 <!-- ══════════════════════════════════════════════ HERO -->
 <section class="hero">
   <div class="hero__content">
-    <span class="t-label reveal">The Future of Orthotic Care</span>
-    <h1 class="t-display" style="margin-top:1rem">
+    <span class="t-label reveal">Digital Orthotic Scanning</span>
+    <h1 class="t-display" style="margin-top:1.25rem">
       <span class="reveal" style="display:block">Precision</span>
       <span class="reveal accent" style="display:block;transition-delay:.1s">Scanning.</span>
       <span class="reveal" style="display:block;transition-delay:.2s">Perfect Fit.</span>
     </h1>
-    <p class="t-body reveal" style="max-width:460px;margin-top:1.75rem;transition-delay:.3s">
-      HIPAA-compliant digital orthotics for VA and DOD: sub-five-minute scans, PHI stripped before data leaves your facility, and veteran-focused support from program design through delivery.
+    <p class="t-body reveal" style="max-width:480px;margin-top:2rem;transition-delay:.3s;font-size:1.05rem;line-height:1.8">
+      HIPAA-compliant digital orthotics for VA and DOD hospitals. Sub-five-minute scans with PHI stripped before data leaves your facility.
     </p>
     <div class="reveal" style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:2.5rem;transition-delay:.4s">
       <a class="btn btn--primary" href="accuscan-dp.html">
@@ -146,21 +152,11 @@
       <a class="btn btn--outline" href="contact.html?demo=1">Request a Demo</a>
     </div>
 
-    <!-- Certifications strip -->
-    <div class="reveal" style="display:flex;gap:.75rem;flex-wrap:wrap;margin-top:3rem;transition-delay:.5s">
-      <span style="font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text-dim);border:1px solid var(--text-faint);padding:.3rem .7rem;border-radius:2px">SDVOSB</span>
-      <span style="font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text-dim);border:1px solid var(--text-faint);padding:.3rem .7rem;border-radius:2px">WOSB</span>
-      <span style="font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text-dim);border:1px solid var(--text-faint);padding:.3rem .7rem;border-radius:2px">FDA Registered</span>
-      <span style="font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text-dim);border:1px solid var(--text-faint);padding:.3rem .7rem;border-radius:2px">HIPAA Compliant</span>
-    </div>
-
-    <!-- VA Award badge -->
-    <div class="reveal" style="display:flex;align-items:center;gap:.85rem;margin-top:2rem;transition-delay:.6s;padding:1rem 1.25rem;border:1px solid rgba(0,174,199,.3);border-left:3px solid var(--cyan);border-radius:2px;background:rgba(0,174,199,.04);max-width:420px">
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
-      <div>
-        <div style="font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)">VA Podiatry Nationally</div>
-        <div style="font-size:.85rem;color:var(--text);font-weight:500;margin-top:.15rem">Most Improved Product Award</div>
-      </div>
+    <!-- Minimal trust badges -->
+    <div class="hero__badges reveal" style="transition-delay:.5s">
+      <span class="hero__badge">SDVOSB</span>
+      <span class="hero__badge">PHI-Safe Workflow</span>
+      <span class="hero__badge">FDA Registered</span>
     </div>
   </div>
 
@@ -176,6 +172,85 @@
   </div>
 </section>
 
+<!-- ══════════════════════════════════════════════ ORTHOTICS BUBBLE STREAM -->
+<div data-bubble-variant="marquee" data-count="14" class="bubble-marquee home-bubble-stream"></div>
+
+<!-- ══════════════════════════════════════════════ iPAD SHOWCASE -->
+<section class="section ipad-section">
+  <div class="container">
+    <div style="text-align:center;max-width:600px;margin:0 auto clamp(2.5rem,5vw,4rem)">
+      <img src="images/accuscan-dp-logo.png" alt="AccuScan DP" class="reveal" style="height:clamp(3.6rem,7vw,5.2rem);width:auto;display:block;margin:0 auto">
+      <h2 class="t-h2 reveal" style="margin-top:1rem;transition-delay:.1s;white-space:nowrap">See How It <span class="accent">Works</span></h2>
+      <p class="t-body reveal" style="margin-top:1rem;transition-delay:.2s">From app launch to order submission — the entire workflow happens on one iPad.</p>
+    </div>
+
+    <div class="ipad-showcase reveal">
+      <!-- iPad frame -->
+      <div class="ipad-device">
+        <div class="ipad-bezel">
+          <div class="ipad-camera"></div>
+          <div class="ipad-screen">
+            <!-- Slides -->
+            <div class="ipad-slides">
+              <div class="ipad-slide is-active" data-step="0">
+                <div class="ipad-slide__logo">
+                  <img src="logo.png" alt="AccuScan DP">
+                </div>
+              </div>
+              <div class="ipad-slide" data-step="1">
+                <img src="Scanned foot screenshot.png" alt="Scanning the patient's foot">
+              </div>
+              <div class="ipad-slide" data-step="2">
+                <video muted playsinline loop preload="metadata">
+                  <source src="Foot Scan video (new).mp4" type="video/mp4">
+                </video>
+              </div>
+              <div class="ipad-slide" data-step="3">
+                <img src="Device selection.png" alt="Select orthotic device">
+              </div>
+              <div class="ipad-slide" data-step="4">
+                <img src="Device Send.png" alt="Review and send order">
+              </div>
+            </div>
+          </div>
+          <div class="ipad-home-bar"></div>
+        </div>
+      </div>
+
+      <!-- Navigation arrows -->
+      <button class="ipad-nav ipad-nav--prev" aria-label="Previous step">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <button class="ipad-nav ipad-nav--next" aria-label="Next step">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+    </div>
+
+    <!-- Arrow flag pipeline -->
+    <div class="ipad-pipeline">
+      <div class="pipeline-track">
+        <button class="pipeline-flag pipeline-flag--first" data-goto="1">
+          <span class="pipeline-flag__fill"><span class="pipeline-flag__fill-label">Scan</span></span>
+          <span class="pipeline-flag__label">Scan</span>
+        </button>
+        <button class="pipeline-flag" data-goto="2">
+          <span class="pipeline-flag__fill"><span class="pipeline-flag__fill-label">Review</span></span>
+          <span class="pipeline-flag__label">Review</span>
+        </button>
+        <button class="pipeline-flag" data-goto="3">
+          <span class="pipeline-flag__fill"><span class="pipeline-flag__fill-label">Customize</span></span>
+          <span class="pipeline-flag__label">Customize</span>
+        </button>
+        <button class="pipeline-flag pipeline-flag--last" data-goto="4">
+          <span class="pipeline-flag__fill"><span class="pipeline-flag__fill-label">Send</span></span>
+          <span class="pipeline-flag__label">Send</span>
+        </button>
+      </div>
+      <p class="pipeline-desc" id="pipeline-desc"></p>
+    </div>
+  </div>
+</section>
+
 <!-- ══════════════════════════════════════════════ STATS -->
 <div class="stats">
   <div class="stat">
@@ -188,7 +263,7 @@
   </div>
   <div class="stat">
     <div class="stat__num" data-count="100" data-suffix="%">100%</div>
-    <div class="stat__label">HIPAA Compliant</div>
+    <div class="stat__label">PHI-Safe Workflow</div>
   </div>
   <div class="stat">
     <div class="stat__num">844</div>
@@ -201,73 +276,52 @@
   <div class="container">
     <div class="split">
       <div>
-        <div class="section__label">
-          <span class="t-label reveal--left">AccuScan DP</span>
-        </div>
-        <h2 class="t-h2 reveal--left" style="transition-delay:.1s">
+        <span class="t-label reveal--left">AccuScan DP</span>
+        <h2 class="t-h2 reveal--left" style="margin-top:1rem;transition-delay:.1s">
           No More Mess.<br>No More Wait.
         </h2>
         <p class="t-body reveal--left" style="margin-top:1.5rem;transition-delay:.2s">
-          Traditional cast molding is time-consuming and messy. Digital scanning was faster, but federal healthcare systems couldn't transmit Protected Health Information (PHI) without violating HIPAA. AccuScan DP solves both problems.
+          Traditional cast molding is time-consuming and messy. Digital scanning was faster, but federal healthcare systems couldn't transmit Protected Health Information (PHI) without violating HIPAA.
         </p>
         <p class="t-body reveal--left" style="margin-top:1rem;transition-delay:.3s">
           Our system fully de-identifies patient data before any digital transmission, making it the <strong style="color:var(--text)">world's first truly HIPAA-compliant digitally scanned orthotic program</strong>, designed specifically for VA and DOD hospitals.
         </p>
-        <a class="btn btn--outline reveal--left" href="accuscan-dp.html" style="margin-top:2rem;transition-delay:.4s">
+        <a class="btn btn--primary reveal--left" href="accuscan-dp.html" style="margin-top:2.5rem;transition-delay:.4s">
           Learn More
           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
         </a>
       </div>
 
-      <!-- Included items visual -->
+      <!-- Included items — clean card grid -->
       <div class="reveal--right">
-        <div style="background:var(--surface);border:1px solid var(--text-faint);border-radius:4px;padding:clamp(2rem,4vw,3rem)">
-          <p class="t-label" style="margin-bottom:1.5rem">What's Included</p>
-          <div style="display:flex;flex-direction:column;gap:1.25rem">
-            <!-- iPad: landscape tablet silhouette -->
-            <div style="display:flex;align-items:center;gap:1rem">
-              <div style="width:40px;height:36px;border:1px solid var(--accent-dim);border-radius:2px;display:grid;place-items:center;flex-shrink:0;color:var(--accent);padding:2px 0">
-                <svg width="32" height="22" viewBox="0 0 32 22" fill="none" aria-hidden="true"><rect x="1.5" y="3" width="29" height="16" rx="2.2" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="5.5" width="24" height="11" rx="0.8" stroke="currentColor" stroke-width="1.2" opacity="0.35"/><circle cx="16" cy="18.5" r="0.9" fill="currentColor"/></svg>
-              </div>
-              <div>
-                <div style="font-weight:600;font-size:.95rem">iPad</div>
-                <div style="font-size:.8rem;color:var(--text-dim);line-height:1.5">Apple iPad with AccuScan DP already installed—power on and scan. No additional software installs or facility IT prep required.</div>
-              </div>
+        <div class="included-grid">
+          <div class="included-item">
+            <div class="included-item__icon">
+              <svg width="28" height="20" viewBox="0 0 32 22" fill="none" aria-hidden="true"><rect x="1.5" y="3" width="29" height="16" rx="2.2" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="5.5" width="24" height="11" rx="0.8" stroke="currentColor" stroke-width="1.2" opacity="0.35"/><circle cx="16" cy="18.5" r="0.9" fill="currentColor"/></svg>
             </div>
-            <!-- 3D scanner: viewfinder / scan frame -->
-            <div style="display:flex;align-items:center;gap:1rem">
-              <div style="width:36px;height:36px;border:1px solid var(--accent-dim);border-radius:2px;display:grid;place-items:center;flex-shrink:0;color:var(--accent)">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7V5a2 2 0 012-2h2m10 0h2a2 2 0 012 2v2m0 6v2a2 2 0 01-2 2h-2m-10 0H5a2 2 0 01-2-2v-2"/><ellipse cx="12" cy="12" rx="3.8" ry="2.6" opacity="0.9"/></svg>
-              </div>
-              <div>
-                <div style="font-weight:600;font-size:.95rem">3D Scanner</div>
-                <div style="font-size:.8rem;color:var(--text-dim);line-height:1.5">Dedicated structured-light foot scanner—capture full plantar geometry in seconds for lab-accurate orthotics.</div>
-              </div>
-            </div>
-            <!-- Internet: Wi‑Fi -->
-            <div style="display:flex;align-items:center;gap:1rem">
-              <div style="width:36px;height:36px;border:1px solid var(--accent-dim);border-radius:2px;display:grid;place-items:center;flex-shrink:0;color:var(--accent)">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.55a11 11 0 0114.08 0"/><path d="M1.42 9a16 16 0 0121.16 0"/><path d="M8.53 16.11a6 6 0 016.95 0"/><circle cx="12" cy="20" r="1" fill="currentColor" stroke="none"/></svg>
-              </div>
-              <div>
-                <div style="font-weight:600;font-size:.95rem">Internet Services</div>
-                <div style="font-size:.8rem;color:var(--text-dim);line-height:1.5">HIPAA-aligned cloud workflow—de-identified scan payloads only; your network policy stays in control.</div>
-              </div>
-            </div>
-            <!-- Delivery & support: truck -->
-            <div style="display:flex;align-items:flex-start;gap:1rem">
-              <div style="width:36px;height:36px;border:1px solid var(--accent-dim);border-radius:2px;display:grid;place-items:center;flex-shrink:0;color:var(--accent);margin-top:.1rem">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 18V6a2 2 0 00-2-2H4a2 2 0 00-2 2v11a1 1 0 001 1h2"/><path d="M15 18h2"/><path d="M19 18h1a1 1 0 001-1v-3.65a1 1 0 00-.22-.624l-2.596-3.244a1 1 0 00-.788-.382H15"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg>
-              </div>
-              <div>
-                <div style="font-weight:600;font-size:.95rem">Customer Service</div>
-                <div style="font-size:.8rem;color:var(--text-dim);line-height:1.5">Complimentary shipping on every completed orthotic order—plus delivery confirmations, fitting checks, and hands-on support from our team.</div>
-              </div>
-            </div>
+            <div class="included-item__title">iPad</div>
+            <div class="included-item__desc">AccuScan DP pre-installed. Power on and scan.</div>
           </div>
-          <div style="margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--text-faint)">
-            <div style="font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:.5rem">Scan Time</div>
-            <div style="font-family:var(--font-display);font-size:2.5rem;font-weight:400;line-height:1">5 <span style="font-size:1.2rem;color:var(--text-dim)">minutes or less</span></div>
+          <div class="included-item">
+            <div class="included-item__icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7V5a2 2 0 012-2h2m10 0h2a2 2 0 012 2v2m0 6v2a2 2 0 01-2 2h-2m-10 0H5a2 2 0 01-2-2v-2"/><ellipse cx="12" cy="12" rx="3.8" ry="2.6" opacity="0.9"/></svg>
+            </div>
+            <div class="included-item__title">3D Scanner</div>
+            <div class="included-item__desc">Structured-light foot scanner for lab-accurate orthotics.</div>
+          </div>
+          <div class="included-item">
+            <div class="included-item__icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.55a11 11 0 0114.08 0"/><path d="M1.42 9a16 16 0 0121.16 0"/><path d="M8.53 16.11a6 6 0 016.95 0"/><circle cx="12" cy="20" r="1" fill="currentColor" stroke="none"/></svg>
+            </div>
+            <div class="included-item__title">Cloud Workflow</div>
+            <div class="included-item__desc">HIPAA-aligned de-identified scan transmission.</div>
+          </div>
+          <div class="included-item">
+            <div class="included-item__icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 18V6a2 2 0 00-2-2H4a2 2 0 00-2 2v11a1 1 0 001 1h2"/><path d="M15 18h2"/><path d="M19 18h1a1 1 0 001-1v-3.65a1 1 0 00-.22-.624l-2.596-3.244a1 1 0 00-.788-.382H15"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg>
+            </div>
+            <div class="included-item__title">Free Shipping</div>
+            <div class="included-item__desc">Delivery confirmations, fitting checks, and support.</div>
           </div>
         </div>
       </div>
@@ -276,7 +330,7 @@
 </section>
 
 <!-- ══════════════════════════════════════════════ HOW IT WORKS -->
-<section class="section section--dark">
+<section class="section section--light">
   <div class="container">
     <div style="text-align:center;max-width:600px;margin:0 auto clamp(3rem,6vw,5rem)">
       <span class="t-label reveal">Process</span>
@@ -313,14 +367,14 @@
 <!-- ══════════════════════════════════════════════ VIDEO -->
 <section class="section">
   <div class="container">
-    <div style="text-align:center;max-width:600px;margin:0 auto clamp(2rem,4vw,3rem)">
+    <div style="text-align:center;max-width:600px;margin:0 auto clamp(2rem,4vw,3.5rem)">
       <span class="t-label reveal">See It In Action</span>
       <h2 class="t-h2 reveal" style="margin-top:1rem;transition-delay:.1s">How to Scan with<br><span class="accent">AccuScan DP</span></h2>
       <p class="t-body reveal" style="margin-top:1rem;transition-delay:.2s">From patient positioning to completed scan order.<br>See exactly how AccuScan DP fits into your clinical workflow.</p>
     </div>
-    <div class="reveal" style="transition-delay:.2s;position:relative;width:100%;max-width:860px;margin:0 auto;border-radius:4px;overflow:hidden;border:1px solid var(--text-faint);box-shadow:0 8px 40px rgba(0,51,102,.12)">
+    <div class="reveal" style="transition-delay:.2s;position:relative;width:100%;max-width:960px;margin:0 auto;border-radius:20px;overflow:hidden;border:1px solid var(--text-faint);box-shadow:0 16px 60px rgba(0,0,0,.06)">
       <div style="position:relative;padding-bottom:56.25%;height:0">
-        <iframe src="https://www.youtube.com/embed/_NBr2amn6cQ" title="AccuScan DP Quick Start" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%"></iframe>
+        <iframe src="https://www.youtube.com/embed/_NBr2amn6cQ" title="AccuScan DP Quick Start" frameborder="0" sandbox="allow-scripts allow-same-origin allow-presentation" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%"></iframe>
       </div>
     </div>
   </div>
@@ -405,8 +459,7 @@
 </section>
 
 <!-- ══════════════════════════════════════════════ VETERAN MISSION -->
-<section class="section section--dark" style="position:relative">
-  <div style="position:absolute;top:0;right:0;bottom:0;width:45%;background:radial-gradient(ellipse at right,rgba(26,79,158,.25) 0%,transparent 70%);pointer-events:none;overflow:hidden"></div>
+<section class="section section--light">
   <div class="container">
     <div class="split">
       <div>
@@ -420,28 +473,28 @@
         <p class="t-body reveal" style="margin-top:1rem;transition-delay:.3s">
           With over 50 years of combined experience in durable medical equipment, surgical implants, and medical device distribution, our team brings the expertise and the dedication veterans deserve.
         </p>
-        <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:2.5rem" class="reveal" style="transition-delay:.4s">
+        <div class="reveal" style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:2.5rem;transition-delay:.4s">
           <a class="btn btn--primary" href="about.html">Our Story</a>
-          <a class="btn btn--ghost" href="contact.html">Get in Touch</a>
+          <a class="btn btn--outline" href="contact.html">Get in Touch</a>
         </div>
       </div>
       <div class="reveal--right">
-        <div class="cert-table">
-          <div class="cert-table__cell">
-            <div style="font-family:var(--font-display);font-size:2rem;font-weight:400;color:var(--accent)">SDVOSB</div>
-            <div style="font-size:.78rem;color:var(--text-dim);margin-top:.4rem">Service-Disabled Veteran-Owned Small Business</div>
+        <div class="cert-grid-modern">
+          <div class="cert-modern-item">
+            <div class="cert-modern-item__code">SDVOSB</div>
+            <div class="cert-modern-item__label">Service-Disabled Veteran-Owned Small Business</div>
           </div>
-          <div class="cert-table__cell">
-            <div style="font-family:var(--font-display);font-size:2rem;font-weight:400;color:var(--accent)">WOSB</div>
-            <div style="font-size:.78rem;color:var(--text-dim);margin-top:.4rem">Woman-Owned Small Business</div>
+          <div class="cert-modern-item">
+            <div class="cert-modern-item__code">WOSB</div>
+            <div class="cert-modern-item__label">Woman-Owned Small Business</div>
           </div>
-          <div class="cert-table__cell">
-            <div style="font-family:var(--font-display);font-size:1.1rem;font-weight:400;color:var(--accent)">FDA Registered</div>
-            <div style="font-size:.78rem;color:var(--text-dim);margin-top:.4rem">RN#3015146490</div>
+          <div class="cert-modern-item">
+            <div class="cert-modern-item__code">FDA Registered</div>
+            <div class="cert-modern-item__label">RN#3015146490</div>
           </div>
-          <div class="cert-table__cell">
-            <div style="font-family:var(--font-display);font-size:1.1rem;font-weight:400;color:var(--accent)">SAM Registered</div>
-            <div style="font-size:.78rem;color:var(--text-dim);margin-top:.4rem">CAGE: 9PXW1</div>
+          <div class="cert-modern-item">
+            <div class="cert-modern-item__code">SAM Registered</div>
+            <div class="cert-modern-item__label">CAGE: 9PXW1</div>
           </div>
         </div>
       </div>
@@ -452,11 +505,11 @@
 <!-- ══════════════════════════════════════════════ AWARD CALLOUT -->
 <section class="section">
   <div class="container">
-    <div style="text-align:center;max-width:700px;margin:0 auto">
+    <div style="text-align:center;max-width:680px;margin:0 auto">
       <span class="t-label reveal">Recognition</span>
       <h2 class="t-h2 reveal" style="margin-top:1rem;transition-delay:.1s">Recognized Nationally<br>by VA Podiatry</h2>
-      <p class="t-body reveal" style="margin-top:1.25rem;transition-delay:.2s">AccuScan DP was named <strong style="color:var(--text)">Most Improved Product by the VA Podiatry Nationally</strong>, validating our commitment to advancing orthotic care for veterans across the country.</p>
-      <div class="reveal" style="transition-delay:.3s;margin-top:2.5rem;display:flex;justify-content:center;gap:1rem;flex-wrap:wrap">
+      <p class="t-body reveal" style="margin-top:1.5rem;transition-delay:.2s;font-size:1.05rem">AccuScan DP was named <strong style="color:var(--text)">Most Improved Product by the VA Podiatry Nationally</strong>, validating our commitment to advancing orthotic care for veterans across the country.</p>
+      <div class="reveal" style="transition-delay:.3s;margin-top:3rem;display:flex;justify-content:center;gap:1rem;flex-wrap:wrap">
         <a class="btn btn--primary" href="awards.html">View Awards</a>
         <a class="btn btn--outline" href="contact.html">Contact Sales</a>
       </div>
@@ -470,7 +523,7 @@
     <div class="footer__grid">
       <div>
         <img class="footer__logo" src="logo.png" alt="3D Orthotics">
-        <p class="footer__tagline">Precision digital orthotics for VA and DOD hospitals. HIPAA-compliant. Veteran-owned.</p>
+        <p class="footer__tagline">Precision digital orthotics for VA and DOD hospitals. PHI-safe workflow. Veteran-owned.</p>
       </div>
       <div>
         <p class="footer__heading">Navigate</p>
@@ -506,7 +559,7 @@
         <span class="footer__badge">SDVOSB</span>
         <span class="footer__badge">WOSB</span>
         <span class="footer__badge">FDA Registered</span>
-        <span class="footer__badge">HIPAA Compliant</span>
+        <span class="footer__badge">PHI-Safe Workflow</span>
       </div>
     </div>
   </div>
@@ -634,6 +687,130 @@ const HOME_ORTHO_DATA = {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/OBJLoader.js"></script>
 <script src="js/foot-3d.js"></script>
+<script src="js/particles-bg.js"></script>
 <script src="js/main.js"></script>
+<script src="js/bubbles.js"></script>
+
+<!-- iPad Showcase logic -->
+<script>
+(function () {
+  const device    = document.querySelector('.ipad-device');
+  const slides    = document.querySelectorAll('.ipad-slide');
+  const flags     = document.querySelectorAll('.pipeline-flag');
+  const prevBtn   = document.querySelector('.ipad-nav--prev');
+  const nextBtn   = document.querySelector('.ipad-nav--next');
+  const descEl    = document.getElementById('pipeline-desc');
+  if (!device || !slides.length) return;
+
+  const descriptions = {
+    1: 'A precision 3D scan captures the patient\u2019s foot in under 5 minutes.',
+    2: 'Review the 3D model and verify scan accuracy before proceeding.',
+    3: 'Select the orthotic device and configure to patient needs.',
+    4: 'Submit the de-identified order securely to the lab.'
+  };
+
+  let current     = 0;
+  const total     = slides.length;
+  let autoTimer   = null;
+  let isVisible   = false;
+
+  // Durations: logo screen 3s, others 5s
+  function getDuration(step) { return step === 0 ? 3000 : 5000; }
+
+  function goTo(idx) {
+    if (idx < 0 || idx >= total) return;
+
+    // Deactivate all slides
+    slides.forEach(s => s.classList.remove('is-active'));
+
+    // Reset all flags — force reflow so clip-path animation restarts
+    flags.forEach(flag => {
+      flag.classList.remove('is-active', 'is-done', 'is-filling');
+      const fill = flag.querySelector('.pipeline-flag__fill');
+      if (fill) {
+        fill.style.animation = 'none';
+        void fill.offsetHeight;
+        fill.style.animation = '';
+      }
+    });
+
+    current = idx;
+    slides[current].classList.add('is-active');
+
+    // Update pipeline flags
+    flags.forEach(flag => {
+      const flagStep = parseInt(flag.dataset.goto);
+      if (flagStep < current) {
+        flag.classList.add('is-done');
+      } else if (flagStep === current) {
+        flag.classList.add('is-active', 'is-filling');
+        flag.style.setProperty('--fill-duration', getDuration(current) + 'ms');
+      }
+    });
+
+    // Update description
+    if (descriptions[current]) {
+      descEl.classList.remove('is-visible');
+      setTimeout(() => {
+        descEl.textContent = descriptions[current];
+        descEl.classList.add('is-visible');
+      }, 150);
+    } else {
+      descEl.classList.remove('is-visible');
+    }
+
+    // Handle video play/pause
+    slides.forEach((s, i) => {
+      const vid = s.querySelector('video');
+      if (vid) { i === current ? vid.play() : vid.pause(); }
+    });
+
+    // Arrow visibility
+    prevBtn.classList.toggle('is-hidden', current === 0);
+    nextBtn.classList.toggle('is-hidden', current === total - 1);
+
+    // Restart auto-advance
+    startAuto();
+  }
+
+  function next() { if (current < total - 1) goTo(current + 1); else stopAuto(); }
+  function prev() { if (current > 0) goTo(current - 1); }
+
+  function startAuto() {
+    stopAuto();
+    if (current >= total - 1) return;
+    autoTimer = setTimeout(next, getDuration(current));
+  }
+  function stopAuto() {
+    if (autoTimer) { clearTimeout(autoTimer); autoTimer = null; }
+  }
+
+  // Arrow clicks
+  prevBtn.addEventListener('click', () => { goTo(current - 1); });
+  nextBtn.addEventListener('click', () => { goTo(current + 1); });
+
+  // Flag clicks
+  flags.forEach(flag => {
+    flag.addEventListener('click', () => {
+      goTo(parseInt(flag.dataset.goto));
+    });
+  });
+
+  // Scroll-triggered slide-in
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !isVisible) {
+        isVisible = true;
+        device.classList.add('is-visible');
+        setTimeout(() => { goTo(0); }, 600);
+      }
+    });
+  }, { threshold: 0.3 });
+  observer.observe(device);
+
+  // Initialize: hide prev arrow, show next
+  prevBtn.classList.add('is-hidden');
+})();
+</script>
 </body>
 </html>

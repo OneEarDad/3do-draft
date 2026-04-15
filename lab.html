@@ -1,0 +1,1466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex,nofollow">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self'; frame-src https://www.youtube.com; object-src 'none'; base-uri 'self'; form-action 'self' mailto:; upgrade-insecure-requests">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>Lab — Hidden</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Lab page is a deliberately stripped-down test surface.
+       Not linked from anywhere on the live site. */
+    body {
+      background: #ffffff;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    /* ── Section wrapper ─────────────────────────────────── */
+    .lab-section {
+      width: 100%;
+      padding: clamp(2rem, 4vw, 4rem) 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: clamp(1.25rem, 2.5vw, 2rem);
+    }
+    .lab-divider {
+      width: 100%;
+      max-width: 1200px;
+      border: none;
+      border-top: 1px solid var(--text-faint);
+      margin: clamp(2rem, 4vw, 4rem) auto;
+    }
+
+    /* ── Lab UI primitives ───────────────────────────────── */
+    .lab-tag {
+      display: inline-block;
+      font-family: var(--font-body);
+      font-size: .68rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      background: var(--surface);
+      padding: .35rem .85rem;
+      border-radius: 9999px;
+      border: 1px solid var(--text-faint);
+    }
+    .lab-title {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      letter-spacing: var(--ls-tight);
+      color: var(--navy);
+      margin: 0;
+      text-align: center;
+    }
+    .lab-sub {
+      max-width: 540px;
+      text-align: center;
+      color: var(--text-dim);
+      font-size: .92rem;
+      line-height: 1.6;
+      margin: 0;
+    }
+    .lab-stage {
+      width: 100%;
+      max-width: 640px;
+      aspect-ratio: 1;
+      position: relative;
+    }
+    .lab-stage canvas {
+      width: 100% !important;
+      height: 100% !important;
+      display: block;
+    }
+    .lab-controls {
+      display: flex;
+      gap: .75rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .lab-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .75rem 1.5rem;
+      background: var(--navy);
+      color: #fff;
+      border: none;
+      border-radius: 9999px;
+      font-family: var(--font-body);
+      font-size: .85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background .3s var(--ease-out-quint), transform .3s var(--ease-out-quint);
+      text-decoration: none;
+    }
+    .lab-btn:hover {
+      background: var(--navy-mid);
+      transform: translateY(-2px);
+    }
+    .lab-btn--ghost {
+      background: transparent;
+      color: var(--text-mid);
+      border: 1px solid var(--text-faint);
+    }
+    .lab-btn--ghost:hover {
+      background: var(--surface);
+      color: var(--navy);
+    }
+    .lab-foot {
+      font-family: var(--font-body);
+      font-size: .72rem;
+      color: var(--text-dim);
+      text-align: center;
+      max-width: 540px;
+    }
+    .lab-foot code {
+      background: var(--surface);
+      padding: .15rem .4rem;
+      border-radius: 4px;
+      font-size: .68rem;
+    }
+
+    /* ══════════════════════════════════════════════════════
+       HERO VARIANT A — Background Foot + Centered Text
+       ══════════════════════════════════════════════════════ */
+    .hero-lab {
+      position: relative;
+      width: 100%;
+      min-height: 100svh;
+      overflow: hidden;
+      display: grid;
+      place-items: center;
+      padding: var(--nav-h) clamp(1.5rem, 4vw, 4rem) clamp(3rem, 6vw, 5rem);
+      isolation: isolate;
+    }
+    /* Foot canvas fills the hero, sits behind everything */
+    .hero-lab__canvas-wrap {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      display: grid;
+      place-items: center;
+    }
+    .hero-lab__canvas-wrap canvas {
+      /* Bigger than container so the foot reads as ambient backdrop */
+      width: min(95vmin, 1100px) !important;
+      height: min(95vmin, 1100px) !important;
+      max-width: none;
+    }
+    /* White-soft scrim so the centered text remains legible.
+       Radial: bright + opaque in the middle, transparent at edges. */
+    .hero-lab__scrim {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse 55% 45% at 50% 50%,
+          rgba(255,255,255,0.78) 0%,
+          rgba(255,255,255,0.55) 35%,
+          rgba(255,255,255,0.0) 70%);
+    }
+    /* Centered text content sits on top */
+    .hero-lab__content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 820px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: clamp(1.25rem, 2.5vw, 2rem);
+    }
+    .hero-lab__eyebrow {
+      font-size: .72rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: .6rem;
+    }
+    .hero-lab__eyebrow::before,
+    .hero-lab__eyebrow::after {
+      content: '';
+      width: 28px; height: 1px;
+      background: var(--text-faint);
+    }
+    .hero-lab__heading {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: clamp(3.4rem, 7.5vw, 7.5rem);
+      line-height: 0.95;
+      letter-spacing: var(--ls-tight);
+      color: var(--text);
+      margin: 0;
+    }
+    .hero-lab__heading .accent { color: var(--cyan); }
+    .hero-lab__tagline {
+      max-width: 580px;
+      font-size: clamp(1rem, 1.2vw, 1.15rem);
+      line-height: 1.7;
+      color: var(--text-mid);
+      margin: 0;
+    }
+    .hero-lab__ctas {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .hero-lab__badges {
+      display: flex;
+      gap: .6rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: .5rem;
+    }
+    .hero-lab__badges span {
+      font-size: .7rem;
+      font-weight: 500;
+      letter-spacing: .04em;
+      color: var(--text-dim);
+      background: rgba(255,255,255,.65);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      padding: .35rem .85rem;
+      border-radius: 9999px;
+      border: 1px solid var(--text-faint);
+    }
+    /* Live ambient stat-pill near the foot */
+    .hero-lab__live {
+      position: absolute;
+      bottom: clamp(2rem, 4vw, 3.5rem);
+      right: clamp(2rem, 4vw, 3.5rem);
+      z-index: 2;
+      display: inline-flex;
+      align-items: center;
+      gap: .55rem;
+      font-size: .68rem;
+      font-weight: 500;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      background: rgba(255,255,255,.78);
+      backdrop-filter: blur(10px);
+      padding: .5rem .85rem;
+      border-radius: 9999px;
+      border: 1px solid var(--text-faint);
+    }
+    .hero-lab__live::before {
+      content: '';
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 8px var(--cyan);
+      animation: pulse-dot 1.6s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%      { opacity: .4; transform: scale(1.3); }
+    }
+
+    @media (max-width: 720px) {
+      .hero-lab__canvas-wrap canvas {
+        width: min(110vmin, 800px) !important;
+        height: min(110vmin, 800px) !important;
+      }
+      .hero-lab__live { display: none; }
+    }
+
+    /* ══════════════════════════════════════════════════════
+       "FROM SCAN → PERFECT ORTHOTIC" iPAD SCAN ANIMATIONS
+       iPad hovers above text like an alien scanner, beam
+       sweeps top-to-bottom transforming the phrase.
+       ══════════════════════════════════════════════════════ */
+
+    /* ── Shared layout ── */
+    .ipad-scan {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(3rem, 8vh, 6rem) clamp(1rem, 4vw, 3rem);
+      background: var(--bg);
+    }
+
+    /* ── CSS iPad silhouette ── */
+    .ipad-scan__device {
+      position: relative;
+      width: clamp(90px, 13vw, 150px);
+      aspect-ratio: 4 / 3;
+      border-radius: clamp(10px, 1.5vw, 16px);
+      background: linear-gradient(165deg, #1e2740, #2c3650);
+      border: 2px solid rgba(0, 174, 199, 0.18);
+      box-shadow:
+        0 6px 30px rgba(0, 84, 157, 0.10),
+        0 0 50px rgba(0, 174, 199, 0.04);
+      z-index: 3;
+      flex-shrink: 0;
+    }
+    /* Camera dot */
+    .ipad-scan__device::before {
+      content: '';
+      position: absolute;
+      top: 6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--cyan);
+      opacity: 0.4;
+      box-shadow: 0 0 3px var(--cyan);
+    }
+    /* Scanner light at base */
+    .ipad-scan__device::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 18%;
+      right: 18%;
+      height: 3px;
+      background: var(--cyan);
+      border-radius: 0 0 3px 3px;
+      box-shadow:
+        0 2px 10px var(--cyan),
+        0 6px 20px rgba(0, 174, 199, 0.25);
+      opacity: 0.7;
+    }
+
+    /* ── Text area — grid overlay keeps both texts sized to the wider one ── */
+    .ipad-scan__text-wrap {
+      position: relative;
+      display: grid;
+      grid-template-areas: "text";
+      justify-items: center;
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: clamp(2.4rem, 6vw, 5.5rem);
+      line-height: 1.1;
+      letter-spacing: var(--ls-tight);
+      color: var(--text);
+      text-align: center;
+    }
+    .ipad-scan__old,
+    .ipad-scan__new {
+      grid-area: text;
+      display: block;
+      white-space: nowrap;
+    }
+    .ipad-scan__new {
+      color: var(--cyan);
+      clip-path: inset(0 0 100% 0);
+    }
+
+    /* ── Shared keyframes ── */
+    @keyframes vwipe-in {
+      from { clip-path: inset(0 0 100% 0); }
+      to   { clip-path: inset(0 0 0 0); }
+    }
+    @keyframes vwipe-out {
+      from { clip-path: inset(0 0 0 0); }
+      to   { clip-path: inset(100% 0 0 0); }
+    }
+    @keyframes ipad-float {
+      0%, 100% { transform: translateY(0); }
+      50%      { transform: translateY(-6px); }
+    }
+
+    /* ════════════════════════════════════════════════════
+       VARIANT A — Clean Vertical Beam
+       Single glowing line descends through the text.
+       ════════════════════════════════════════════════════ */
+    .ipad-scan--beam .ipad-scan__device {
+      animation: ipad-float 3.5s ease-in-out infinite;
+    }
+    .ipad-scan--beam .ipad-scan__connector {
+      width: 2px;
+      height: clamp(1rem, 2.5vw, 2rem);
+      background: linear-gradient(180deg, var(--cyan), transparent);
+      opacity: 0.25;
+    }
+    .ipad-scan--beam .ipad-scan__beam-line {
+      position: absolute;
+      left: -10%;
+      right: -10%;
+      height: 3px;
+      top: 0;
+      background: var(--cyan);
+      box-shadow:
+        0 0 14px var(--cyan),
+        0 0 35px rgba(0, 174, 199, 0.2);
+      opacity: 0;
+      z-index: 5;
+      pointer-events: none;
+    }
+    @keyframes vbeam-sweep {
+      0%   { top: -5%; opacity: 0; }
+      5%   { opacity: 1; }
+      88%  { opacity: 1; }
+      100% { top: 105%; opacity: 0; }
+    }
+    /* Forward: "From Scan" → "Perfect Orthotic" */
+    .ipad-scan--beam.is-animating .ipad-scan__new {
+      animation: vwipe-in 2.5s var(--ease-out-expo) forwards;
+    }
+    .ipad-scan--beam.is-animating .ipad-scan__old {
+      animation: vwipe-out 2.5s var(--ease-out-expo) forwards;
+    }
+    .ipad-scan--beam.is-animating .ipad-scan__beam-line {
+      animation: vbeam-sweep 2.5s var(--ease-out-expo) forwards;
+    }
+    /* Reverse: "Perfect Orthotic" → "From Scan" */
+    .ipad-scan--beam.is-reversing .ipad-scan__old {
+      animation: vwipe-in 2.5s var(--ease-out-expo) forwards;
+    }
+    .ipad-scan--beam.is-reversing .ipad-scan__new {
+      animation: vwipe-out 2.5s var(--ease-out-expo) forwards;
+    }
+    .ipad-scan--beam.is-reversing .ipad-scan__beam-line {
+      animation: vbeam-sweep 2.5s var(--ease-out-expo) forwards;
+    }
+
+    /* ════════════════════════════════════════════════════
+       VARIANT B — Cone Scanner
+       Trapezoidal beam with pulsing scan lines inside.
+       ════════════════════════════════════════════════════ */
+    .ipad-scan--cone .ipad-scan__device {
+      animation: ipad-float 4s ease-in-out infinite;
+    }
+    .ipad-scan--cone .ipad-scan__cone {
+      position: relative;
+      width: clamp(90px, 13vw, 150px);
+      height: clamp(2rem, 4vw, 3.5rem);
+      clip-path: polygon(30% 0, 70% 0, 100% 100%, 0% 100%);
+      background: linear-gradient(
+        180deg,
+        rgba(0, 174, 199, 0.12),
+        rgba(0, 174, 199, 0.03)
+      );
+      overflow: hidden;
+    }
+    /* Animated scan lines inside cone */
+    .ipad-scan--cone .ipad-scan__cone::after {
+      content: '';
+      position: absolute;
+      inset: -16px 0 0 0;
+      background: repeating-linear-gradient(
+        180deg,
+        transparent 0px, transparent 6px,
+        rgba(0, 174, 199, 0.1) 6px, rgba(0, 174, 199, 0.1) 8px
+      );
+      animation: cone-lines 1.5s linear infinite;
+    }
+    @keyframes cone-lines {
+      from { transform: translateY(0); }
+      to   { transform: translateY(16px); }
+    }
+    .ipad-scan--cone .ipad-scan__scan-glow {
+      position: absolute;
+      left: -15%;
+      right: -15%;
+      height: 24px;
+      top: -24px;
+      background: linear-gradient(
+        180deg,
+        transparent 0%,
+        rgba(0, 174, 199, 0.06) 20%,
+        rgba(0, 174, 199, 0.14) 50%,
+        rgba(0, 174, 199, 0.06) 80%,
+        transparent 100%
+      );
+      opacity: 0;
+      z-index: 5;
+      pointer-events: none;
+    }
+    @keyframes scan-glow-sweep {
+      0%   { top: -24px; opacity: 0; }
+      5%   { opacity: 1; }
+      85%  { opacity: 1; }
+      100% { top: calc(100% + 10px); opacity: 0; }
+    }
+    /* Forward */
+    .ipad-scan--cone.is-animating .ipad-scan__new {
+      animation: vwipe-in 3s var(--ease-out-expo) forwards;
+    }
+    .ipad-scan--cone.is-animating .ipad-scan__old {
+      animation: vwipe-out 3s var(--ease-out-expo) forwards;
+    }
+    .ipad-scan--cone.is-animating .ipad-scan__scan-glow {
+      animation: scan-glow-sweep 3s var(--ease-out-expo) forwards;
+    }
+    /* Reverse */
+    .ipad-scan--cone.is-reversing .ipad-scan__old {
+      animation: vwipe-in 3s var(--ease-out-expo) forwards;
+    }
+    .ipad-scan--cone.is-reversing .ipad-scan__new {
+      animation: vwipe-out 3s var(--ease-out-expo) forwards;
+    }
+    .ipad-scan--cone.is-reversing .ipad-scan__scan-glow {
+      animation: scan-glow-sweep 3s var(--ease-out-expo) forwards;
+    }
+
+    /* ════════════════════════════════════════════════════
+       VARIANT C — Descending iPad (Tractor Beam)
+       iPad physically descends over text; JS-driven.
+       ════════════════════════════════════════════════════ */
+    .ipad-scan--descend {
+      position: relative;
+      padding-top: clamp(7rem, 14vw, 11rem);
+    }
+    .ipad-scan--descend .ipad-scan__device {
+      position: absolute;
+      top: clamp(1.5rem, 3vw, 2.5rem);
+      left: 50%;
+      transform: translateX(-50%);
+      animation: none;
+      will-change: transform;
+    }
+    .ipad-scan--descend .ipad-scan__device::after {
+      transition: box-shadow 0.3s, opacity 0.3s;
+    }
+
+    /* ── Mobile tweaks ── */
+    @media (max-width: 600px) {
+      .ipad-scan {
+        padding: clamp(2rem, 6vh, 3.5rem) 1rem;
+      }
+      .ipad-scan__text-wrap {
+        font-size: clamp(1.6rem, 7.5vw, 2.6rem);
+      }
+      .ipad-scan__device {
+        width: clamp(70px, 20vw, 100px);
+      }
+      .ipad-scan--cone .ipad-scan__cone {
+        width: clamp(70px, 20vw, 100px);
+      }
+      .ipad-scan--descend {
+        padding-top: clamp(5rem, 12vw, 8rem);
+      }
+    }
+
+    /* ══════════════════════════════════════════════════════
+       HERO VARIANT B — Asymmetric Overlap + Ticker Strip
+       ══════════════════════════════════════════════════════ */
+    .hero-asym {
+      position: relative;
+      width: 100%;
+      min-height: 100svh;
+      overflow: hidden;
+      isolation: isolate;
+      display: flex;
+      align-items: center;
+      padding: var(--nav-h) 0 0;
+    }
+    /* Foot: anchored right, generous size, bleeds slightly off the right edge.
+       Capped at viewport height so the foot fits without overflow. */
+    .hero-asym__canvas-wrap {
+      position: absolute;
+      top: 50%;
+      right: -4%;
+      transform: translateY(-50%);
+      width: min(70%, 95svh);
+      height: min(70%, 95svh);
+      max-width: 920px;
+      max-height: 920px;
+      z-index: 0;
+    }
+    .hero-asym__canvas-wrap canvas {
+      width: 100% !important;
+      height: 100% !important;
+      display: block;
+    }
+    /* Soft fade on the left: solid white at far left → transparent past midpoint.
+       Tuned so the headline stays crisp on the left while the foot reads clearly
+       through the right half of the hero. */
+    .hero-asym__scrim {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background: linear-gradient(
+        95deg,
+        rgba(255,255,255,0.97) 0%,
+        rgba(255,255,255,0.90) 22%,
+        rgba(255,255,255,0.40) 42%,
+        rgba(255,255,255,0.05) 58%,
+        rgba(255,255,255,0.0)  72%
+      );
+    }
+    /* Text content: anchored left, allowed to extend past the scrim's midpoint
+       so the right edge of the words floats over the foot scan. */
+    .hero-asym__content {
+      position: relative;
+      z-index: 2;
+      max-width: 680px;
+      padding: 0 clamp(2rem, 5vw, 5rem);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: clamp(1.25rem, 2.4vw, 1.75rem);
+    }
+    .hero-asym__eyebrow {
+      font-size: .72rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: .6rem;
+    }
+    .hero-asym__eyebrow::before {
+      content: '';
+      width: 28px; height: 1px;
+      background: var(--cyan);
+    }
+    .hero-asym__heading {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: clamp(3.4rem, 7vw, 7rem);
+      line-height: 0.92;
+      letter-spacing: var(--ls-tight);
+      color: var(--text);
+      margin: 0;
+    }
+    .hero-asym__heading .accent { color: var(--cyan); }
+    .hero-asym__tagline {
+      max-width: 520px;
+      font-size: clamp(1rem, 1.2vw, 1.15rem);
+      line-height: 1.7;
+      color: var(--text-mid);
+      margin: 0;
+    }
+    .hero-asym__ctas {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .hero-asym__award {
+      display: inline-flex;
+      align-items: center;
+      gap: .65rem;
+      font-size: .72rem;
+      font-weight: 500;
+      letter-spacing: .04em;
+      color: var(--text-mid);
+      background: rgba(255,255,255,.85);
+      backdrop-filter: blur(8px);
+      padding: .55rem 1rem;
+      border-radius: 9999px;
+      border: 1px solid var(--text-faint);
+      margin-top: .25rem;
+    }
+    .hero-asym__award svg {
+      width: 14px; height: 14px; color: var(--cyan);
+    }
+
+    /* ── Bubble stream (overlaps the foot-scan grid) ─────── */
+    /* Right-to-left marquee of orthotic product bubbles. Positioned to
+       overlap the grid floor in the foot-scan visualization, so the row
+       looks like products waving "on the scan stage". Sits in FRONT of
+       the canvas (z-index 4). */
+    .hero-asym__stream {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 4%;     /* aligns with the grid line in the canvas */
+      z-index: 4;     /* in front of canvas (z 0) and scrim (z 1) */
+      height: 140px;
+      pointer-events: none; /* container is pass-through; bubbles re-enable */
+      /* Soft fade-out at both edges so bubbles enter/exit gracefully */
+      -webkit-mask-image: linear-gradient(to right,
+        transparent 0%, #000 8%, #000 92%, transparent 100%);
+              mask-image: linear-gradient(to right,
+        transparent 0%, #000 8%, #000 92%, transparent 100%);
+      overflow: hidden;
+    }
+    .hero-asym__stream-track {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      display: flex;
+      align-items: center;
+      gap: clamp(1rem, 2vw, 1.6rem);
+      width: max-content;
+      will-change: transform;
+      /* Right-to-left scroll. Track is duplicated 2x; -50% gives a
+         seamless loop. translateY(-50%) keeps the row centered in the strip. */
+      animation: stream-scroll 42s linear infinite;
+    }
+    @keyframes stream-scroll {
+      from { transform: translate(0,    -50%); }
+      to   { transform: translate(-50%, -50%); }
+    }
+    .hero-asym__stream:hover .hero-asym__stream-track {
+      animation-play-state: paused;
+    }
+    /* Per-bubble bob — phase set inline via --bob-delay so adjacent
+       bubbles aren't in sync and the row reads as a wave. */
+    .hero-asym__stream .bubble {
+      pointer-events: auto;
+      width: 78px;
+      height: 78px;
+      animation: stream-bob 3.2s ease-in-out infinite;
+      animation-delay: var(--bob-delay, 0s);
+    }
+    @keyframes stream-bob {
+      0%, 100% { transform: translateY(0); }
+      50%      { transform: translateY(-14px); }
+    }
+    /* Hide tooltip in the strip — too cluttered */
+    .hero-asym__stream .bubble__name { display: none; }
+
+    /* ══════════════════════════════════════════════════════
+       HERO VARIANT C — Asymmetric Desktop / Centered Overlap Mobile
+       ══════════════════════════════════════════════════════ */
+    /* Desktop: two-column flex — content (eyebrow, title, description,
+       CTAs, award) on the LEFT, foot scan on the RIGHT bleeding slightly
+       off the right edge. Bubble stream is absolute, full-width along
+       the bottom of the section in front of the canvas.
+       Mobile: stacks vertically. Content sits above the foot and gets
+       nudged DOWN so it overlays the empty top portion of the canvas
+       square without covering the foot particles. CTAs + bubble stream
+       still follow in flow below. */
+    .hero-c {
+      position: relative;
+      width: 100%;
+      min-height: 100svh;
+      overflow: hidden;
+      isolation: isolate;
+      display: flex;
+      align-items: center;
+      padding: var(--nav-h) 0 0;
+    }
+    /* ── Right-side foot canvas ───────────────────────── */
+    .hero-c__stage {
+      position: absolute;
+      top: 50%;
+      right: -4%;
+      transform: translateY(-50%);
+      width: min(62%, 92svh);
+      height: min(85%, 92svh);
+      max-width: 860px;
+      max-height: 860px;
+      z-index: 0;
+      overflow: hidden;
+    }
+    /* Inner square box — Three.js reads its clientWidth/Height to size
+       the render target, so it MUST stay square on mobile even when the
+       outer stage frame is cropped to a flatter aspect. On desktop the
+       inner box fills the stage exactly. */
+    .hero-c__stage-inner {
+      position: absolute;
+      inset: 0;
+    }
+    .hero-c__stage-inner canvas {
+      width: 100% !important;
+      height: 100% !important;
+      display: block;
+    }
+    /* ── Left-side content column ─────────────────────── */
+    .hero-c__content {
+      position: relative;
+      z-index: 2;
+      max-width: 680px;
+      padding: 0 clamp(2rem, 5vw, 5rem);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: clamp(1rem, 2vw, 1.6rem);
+    }
+    .hero-c__intro {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: clamp(1rem, 2vw, 1.6rem);
+    }
+    .hero-c__actions {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: clamp(.75rem, 1.4vw, 1.1rem);
+    }
+    .hero-c__eyebrow {
+      font-size: .72rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: .6rem;
+    }
+    .hero-c__eyebrow::before {
+      content: '';
+      width: 28px; height: 1px;
+      background: var(--cyan);
+    }
+    .hero-c__heading {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: clamp(2.8rem, 6.6vw, 6.4rem);
+      line-height: 0.92;
+      letter-spacing: var(--ls-tight);
+      color: var(--text);
+      margin: 0;
+    }
+    /* Allow natural wrapping — with the narrow left column each phrase
+       wraps to two lines on desktop, matching the reference. */
+    .hero-c__heading .line { display: block; }
+    .hero-c__heading .accent { color: var(--cyan); }
+    .hero-c__description {
+      max-width: 460px;
+      font-size: clamp(.95rem, 1.15vw, 1.1rem);
+      line-height: 1.65;
+      color: var(--text-mid);
+      margin: 0;
+    }
+    .hero-c__ctas {
+      display: flex;
+      gap: .85rem;
+      flex-wrap: wrap;
+    }
+    .hero-c__ctas .lab-btn {
+      box-shadow: 0 8px 22px rgba(0, 84, 157, 0.18);
+    }
+    .hero-c__ctas .lab-btn--ghost {
+      background: #ffffff;
+      border-color: rgba(0, 84, 157, 0.18);
+    }
+    .hero-c__award {
+      display: inline-flex;
+      align-items: center;
+      gap: .65rem;
+      font-size: .72rem;
+      font-weight: 500;
+      letter-spacing: .04em;
+      color: var(--text-mid);
+      background: rgba(255, 255, 255, .85);
+      backdrop-filter: blur(8px);
+      padding: .55rem 1rem;
+      border-radius: 9999px;
+      border: 1px solid var(--text-faint);
+      margin-top: .25rem;
+    }
+    .hero-c__award svg {
+      width: 14px; height: 14px;
+      color: var(--cyan);
+    }
+
+    /* ── Bubble stream (full-width, overlaps the grid floor) ── */
+    .hero-c__stream {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 4;
+      height: 130px;
+      pointer-events: none;
+      -webkit-mask-image: linear-gradient(to right,
+        transparent 0%, #000 8%, #000 92%, transparent 100%);
+              mask-image: linear-gradient(to right,
+        transparent 0%, #000 8%, #000 92%, transparent 100%);
+      overflow: hidden;
+    }
+    .hero-c__stream-track {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      display: flex;
+      align-items: center;
+      gap: clamp(1rem, 2vw, 1.6rem);
+      width: max-content;
+      will-change: transform;
+      animation: hero-c-stream-scroll 42s linear infinite;
+    }
+    @keyframes hero-c-stream-scroll {
+      from { transform: translate(0, -50%); }
+      to   { transform: translate(-50%, -50%); }
+    }
+    .hero-c__stream:hover .hero-c__stream-track {
+      animation-play-state: paused;
+    }
+    .hero-c__stream .bubble {
+      pointer-events: auto;
+      width: 78px;
+      height: 78px;
+      animation: stream-bob 3.2s ease-in-out infinite;
+      animation-delay: var(--bob-delay, 0s);
+    }
+    .hero-c__stream .bubble__name { display: none; }
+
+    /* ── Mobile: template-compliant single-column stack ────
+       Rule: no negative margins, no absolute positioning hacks. Spacing
+       comes entirely from flex gap. The stage frame is cropped to a
+       flatter aspect ratio than the raw square canvas so we don't see
+       the empty transparent padding above/below the rendered foot —
+       that padding is what reads as "huge whitespace". */
+    @media (max-width: 860px) {
+      .hero-c {
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        min-height: 100svh;
+        padding:
+          calc(var(--nav-h) + clamp(.75rem, 2vh, 1.25rem))
+          1rem
+          clamp(.75rem, 2vh, 1.25rem);
+        gap: clamp(.85rem, 2vh, 1.25rem);
+      }
+      .hero-c__content {
+        display: contents;
+      }
+      .hero-c__intro {
+        order: 1;
+        width: 100%;
+        max-width: 440px;
+        padding: 0;
+        align-items: center;
+        text-align: center;
+        gap: clamp(.5rem, 1.4vh, .85rem);
+      }
+      /* Stage = visible clip frame. Flatter-than-square aspect crops
+         the transparent top/bottom of the render. Inner square box
+         is overscaled and centered so the foot sits dead-center. */
+      .hero-c__stage {
+        order: 2;
+        position: relative;
+        inset: auto;
+        top: auto;
+        right: auto;
+        transform: none;
+        width: min(78vw, 360px);
+        max-width: none;
+        height: auto;
+        max-height: none;
+        aspect-ratio: 5 / 4;
+        margin: 0 auto;
+        z-index: 1;
+        overflow: hidden;
+      }
+      .hero-c__stage-inner {
+        /* Reset desktop inset:0 first, THEN set the centering offsets.
+           Order matters — inset is shorthand for top/right/bottom/left,
+           so if it comes after left/top it wipes them back to auto. */
+        inset: auto;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 116%;
+        aspect-ratio: 1;
+      }
+      .hero-c__actions {
+        order: 3;
+        width: 100%;
+        max-width: 440px;
+        padding: 0;
+        align-items: center;
+        gap: clamp(.5rem, 1.4vh, .8rem);
+      }
+      .hero-c__heading {
+        font-size: clamp(1.7rem, 7.2vw, 2.6rem);
+        line-height: .94;
+      }
+      .hero-c__description {
+        max-width: 380px;
+        font-size: .9rem;
+        line-height: 1.5;
+      }
+      .hero-c__ctas {
+        justify-content: center;
+        flex-wrap: nowrap;
+        gap: .55rem;
+      }
+      .hero-c__ctas .lab-btn {
+        padding: .6rem 1rem;
+        font-size: .78rem;
+        white-space: nowrap;
+        box-shadow: 0 8px 22px rgba(0, 84, 157, 0.22);
+      }
+      .hero-c__award {
+        font-size: .64rem;
+        padding: .4rem .8rem;
+        margin-top: 0;
+      }
+      .hero-c__stream {
+        order: 4;
+        position: relative;
+        left: auto;
+        right: auto;
+        bottom: auto;
+        width: 100%;
+        height: 84px;
+        margin-top: 0;
+      }
+      .hero-c__stream .bubble { width: 52px; height: 52px; }
+    }
+
+    @media (max-width: 860px) {
+      /* Layout strategy on mobile:
+         - content (heading + CTAs + award) sits at the TOP of the section
+         - foot canvas is anchored to the BOTTOM of the section so the grid
+           floor renders near the bottom of the viewport
+         - bubble stream overlaps the grid floor in front of the canvas
+      */
+      .hero-asym {
+        align-items: flex-start;
+        min-height: 100svh;
+        padding: var(--nav-h) 0 0;
+      }
+      .hero-asym__tagline { display: none; }
+      .hero-asym__canvas-wrap {
+        position: absolute;
+        top: auto;
+        bottom: 0;
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
+        width: 130%;
+        height: auto;
+        max-width: 560px;
+        max-height: none;
+        aspect-ratio: 1;
+        opacity: 1;
+        z-index: 0;
+      }
+      .hero-asym__scrim {
+        background: linear-gradient(
+          180deg,
+          rgba(255,255,255,0.97) 0%,
+          rgba(255,255,255,0.92) 18%,
+          rgba(255,255,255,0.70) 38%,
+          rgba(255,255,255,0.20) 62%,
+          rgba(255,255,255,0.0)  85%
+        );
+      }
+      .hero-asym__content {
+        position: relative;
+        z-index: 2;
+        padding: clamp(2rem, 6vw, 3.5rem) clamp(1.25rem, 5vw, 2rem) 0;
+        gap: .9rem;
+      }
+      .hero-asym__heading {
+        font-size: clamp(2.6rem, 10.5vw, 4rem);
+        line-height: 0.95;
+      }
+      .hero-asym__ctas { gap: .65rem; flex-wrap: wrap; }
+      .hero-asym__ctas .lab-btn {
+        padding: .65rem 1.1rem;
+        font-size: .8rem;
+      }
+      .hero-asym__award {
+        font-size: .68rem;
+        padding: .5rem .85rem;
+      }
+      /* Stream overlaps the canvas grid floor near the bottom of the section */
+      .hero-asym__stream {
+        height: 96px;
+        bottom: 6%;
+      }
+      .hero-asym__stream .bubble { width: 58px; height: 58px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Particle background (same as live pages) -->
+<canvas id="particles-bg"></canvas>
+
+<!-- ══════════════════════════════════════════════════════
+     SECTION 1 — Foot Build Animation Test
+     ══════════════════════════════════════════════════════ -->
+<section class="lab-section">
+  <span class="lab-tag">Lab — Foot Build</span>
+  <h1 class="lab-title">Particle Build-Up Animation</h1>
+  <p class="lab-sub">
+    Particles materialize bottom-to-top over ~10 seconds.
+    Click <strong>Restart Build</strong> to replay.
+  </p>
+
+  <div class="lab-stage">
+    <canvas class="foot-canvas-build"></canvas>
+  </div>
+
+  <div class="lab-controls">
+    <button class="lab-btn" id="lab-restart">↻ Restart Build</button>
+    <a class="lab-btn lab-btn--ghost" href="index.html">Compare with live home</a>
+  </div>
+</section>
+
+<hr class="lab-divider">
+
+<!-- ══════════════════════════════════════════════════════
+     SECTION 3 — Hero Variant C: Centered + Build-up + CTA/Bubble Overlay
+     ══════════════════════════════════════════════════════ -->
+<section class="lab-section" style="padding-top: 0;">
+  <span class="lab-tag">Hero Lab — Variant C (New)</span>
+  <h2 class="lab-title">Centered Build-up + CTA &amp; Bubble Overlay</h2>
+  <p class="lab-sub">
+    Centered headline + description at the top. Foot scan with the build-up
+    animation in the middle. CTA pills overlay the foot above the grid line,
+    with the orthotic bubble stream waving right→left just below them on the grid.
+  </p>
+</section>
+
+<section class="hero-c">
+  <!-- Left column on desktop (intro + actions stacked). On mobile the
+       inner children reorder so the foot scan appears between intro
+       and actions (intro → stage → actions → stream). -->
+  <div class="hero-c__content">
+    <div class="hero-c__intro">
+      <span class="hero-c__eyebrow">Digital Orthotic Scanning</span>
+      <h1 class="hero-c__heading">
+        <span class="line">Precision Scanning.</span>
+        <span class="line accent">Perfect Fit.</span>
+      </h1>
+      <p class="hero-c__description">
+        HIPAA-compliant digital orthotics for VA and DOD hospitals.
+        Sub-five-minute scans with PHI stripped before data leaves your facility.
+      </p>
+    </div>
+    <div class="hero-c__actions">
+      <div class="hero-c__ctas">
+        <a class="lab-btn" href="accuscan-dp.html">Explore AccuScan DP →</a>
+        <a class="lab-btn lab-btn--ghost" href="contact.html?demo=1">Request a Demo</a>
+      </div>
+      <span class="hero-c__award">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M8.21 13.89 7 22l5-3 5 3-1.21-8.12"/></svg>
+        Most Improved Product - VA Podiatry Nationally
+      </span>
+    </div>
+  </div>
+
+  <!-- Right column on desktop (between intro + actions on mobile).
+       The stage is the visible clip frame; stage-inner is the square
+       box Three.js actually renders into. On mobile the frame is a
+       flatter aspect ratio so it crops the empty transparent padding
+       above and below the rendered foot. -->
+  <div class="hero-c__stage">
+    <div class="hero-c__stage-inner">
+      <canvas class="foot-canvas-build"></canvas>
+    </div>
+  </div>
+
+  <!-- Bubble stream spans full width at the bottom of the section -->
+  <div class="hero-c__stream" id="hero-c-stream">
+    <div class="hero-c__stream-track" id="hero-c-stream-track"></div>
+  </div>
+</section>
+
+<hr class="lab-divider">
+
+<!-- ══════════════════════════════════════════════════════
+     SECTION — "From Scan → Perfect Orthotic" iPad Scan Lab
+     iPad scans text top-to-bottom like an alien spaceship
+     ══════════════════════════════════════════════════════ -->
+<section class="lab-section">
+  <span class="lab-tag">Text Animation Lab</span>
+  <h2 class="lab-title">From Scan → Perfect Orthotic</h2>
+  <p class="lab-sub">iPad scans the phrase top-to-bottom like an alien spaceship. Three treatments.</p>
+</section>
+
+<!-- ── Variant A: iPad Vertical Beam Wipe ── -->
+<section class="lab-section" style="padding-top:0">
+  <span class="lab-tag" style="color:var(--cyan)">Variant A — iPad Beam Wipe</span>
+  <p class="lab-sub" style="margin-top:.5rem">iPad hovers above. A glowing beam line descends top-to-bottom, wiping old text into new.</p>
+</section>
+<div class="ipad-scan ipad-scan--beam" data-ipad-variant="beam">
+  <div class="ipad-scan__device"></div>
+  <div class="ipad-scan__connector"></div>
+  <div class="ipad-scan__text-wrap">
+    <span class="ipad-scan__old">From Scan</span>
+    <span class="ipad-scan__new">Perfect Orthotic</span>
+    <span class="ipad-scan__beam-line"></span>
+  </div>
+</div>
+
+<!-- ── Variant B: iPad Cone Scanner ── -->
+<section class="lab-section" style="padding-top:0">
+  <span class="lab-tag" style="color:var(--cyan)">Variant B — Cone Scanner</span>
+  <p class="lab-sub" style="margin-top:.5rem">iPad projects a trapezoidal scan beam with pulsing lines. Wider glow field transforms text.</p>
+</section>
+<div class="ipad-scan ipad-scan--cone" data-ipad-variant="cone">
+  <div class="ipad-scan__device"></div>
+  <div class="ipad-scan__cone"></div>
+  <div class="ipad-scan__text-wrap">
+    <span class="ipad-scan__old">From Scan</span>
+    <span class="ipad-scan__new">Perfect Orthotic</span>
+    <span class="ipad-scan__scan-glow"></span>
+  </div>
+</div>
+
+<!-- ── Variant C: Descending iPad (Tractor Beam) ── -->
+<section class="lab-section" style="padding-top:0">
+  <span class="lab-tag" style="color:var(--cyan)">Variant C — Tractor Beam Descent</span>
+  <p class="lab-sub" style="margin-top:.5rem">iPad physically descends over the text like an alien ship, transforming words as it passes.</p>
+</section>
+<div class="ipad-scan ipad-scan--descend" data-ipad-variant="descend">
+  <div class="ipad-scan__device"></div>
+  <div class="ipad-scan__text-wrap">
+    <span class="ipad-scan__old">From Scan</span>
+    <span class="ipad-scan__new">Perfect Orthotic</span>
+  </div>
+</div>
+
+<hr class="lab-divider">
+
+<!-- ══════════════════════════════════════════════════════
+     SECTION 4 — Hero Variant B: Asymmetric Overlap + Bubble Stream
+     ══════════════════════════════════════════════════════ -->
+<section class="lab-section" style="padding-top: 0;">
+  <span class="lab-tag">Hero Lab — Variant B</span>
+  <h2 class="lab-title">Asymmetric Overlap + Bubble Stream</h2>
+  <p class="lab-sub">
+    Foot dominates the right side and bleeds slightly off-screen. Text floats over
+    the left half with a soft white-to-transparent fade. Bubble stream waves
+    across the bottom over the foot-scan grid.
+  </p>
+</section>
+
+<section class="hero-asym">
+  <!-- Foot canvas — anchored right, large -->
+  <div class="hero-asym__canvas-wrap">
+    <canvas class="foot-canvas"></canvas>
+  </div>
+
+  <!-- Soft fade scrim (left → transparent right) -->
+  <div class="hero-asym__scrim"></div>
+
+  <!-- Text content — anchored left, overlaps the foot's left edge -->
+  <div class="hero-asym__content">
+    <span class="hero-asym__eyebrow">Digital Orthotic Scanning</span>
+    <h1 class="hero-asym__heading">
+      Precision<br>Scanning.<br><span class="accent">Perfect Fit.</span>
+    </h1>
+    <p class="hero-asym__tagline">
+      HIPAA-compliant digital orthotics for VA and DOD hospitals.
+      Sub-five-minute scans with PHI stripped before data leaves your facility.
+    </p>
+    <div class="hero-asym__ctas">
+      <a class="lab-btn" href="accuscan-dp.html">Explore AccuScan DP →</a>
+      <a class="lab-btn lab-btn--ghost" href="contact.html?demo=1">Request a Demo</a>
+    </div>
+    <div class="hero-asym__award">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="8" r="6"/>
+        <path d="M9 14l-2 7 5-3 5 3-2-7"/>
+      </svg>
+      Most Improved Product · VA Podiatry Nationally
+    </div>
+  </div>
+
+  <!-- Bubble stream — populated by inline script below -->
+  <div class="hero-asym__stream" id="hero-asym-stream">
+    <div class="hero-asym__stream-track" id="hero-asym-stream-track"></div>
+  </div>
+</section>
+
+<p class="lab-foot" style="margin: 2.5rem auto;">
+  This page is intentionally unlinked from the rest of the site. Use it to
+  preview new ideas before merging into <code>index.html</code> or other live pages.
+</p>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/OBJLoader.js"></script>
+<script src="js/foot-3d.js"></script>
+<script src="js/foot-3d-build.js"></script>
+<script src="js/particles-bg.js"></script>
+<script>
+  // Restart just the foot build — background behaves like production.
+  function startBuild() {
+    document.querySelectorAll('.foot-canvas-build').forEach(c => {
+      if (typeof c.restartBuild === 'function') c.restartBuild();
+    });
+  }
+  document.getElementById('lab-restart').addEventListener('click', startBuild);
+
+  // ── Hero bubble stream (lab-only) ─────────────────────
+  // Builds the right-to-left scrolling row of orthotic bubbles for
+  // Variant B. Kept inline so js/bubbles.js stays untouched until the
+  // user approves this idea.
+  (function buildBubbleStream() {
+    const PRODUCTS = [
+      { name: 'Comfort Soft',    img: 'Orthotics Pics/Comfort Soft 1.jpg',    slug: 'comfort-soft',    desc: 'Cushioned everyday comfort for sensitive feet.' },
+      { name: 'Diabetic Medium', img: 'Orthotics Pics/Diabetic Medium 1.jpg', slug: 'diabetic-medium', desc: 'Medium-density support built for diabetic foot care.' },
+      { name: 'Diabetic Soft',   img: 'Orthotics Pics/Diabetic Soft 1.jpg',   slug: 'diabetic-soft',   desc: 'Maximum cushioning for at-risk diabetic patients.' },
+      { name: 'Dress Elite',     img: 'Orthotics Pics/Dress Elite 1.jpg',     slug: 'dress-elite',     desc: 'Low-profile support that fits inside dress shoes.' },
+      { name: 'Dress High Heel', img: 'Orthotics Pics/Dress High Heel 1.jpg', slug: 'dress-heel',      desc: 'Engineered for high-heel shoes without compromise.' },
+      { name: 'FM Functional',   img: 'Orthotics Pics/FM Fuctional 1.jpg',    slug: 'fm-functional',   desc: 'Full-motion functional orthotic for active patients.' },
+      { name: 'FM Glider',       img: 'Orthotics Pics/FM Glider 1.jpg',       slug: 'fm-glider',       desc: 'Smooth, low-friction motion control.' },
+      { name: 'FM Integrated',   img: 'Orthotics Pics/FM Integrated 1.jpg',   slug: 'fm-integrated',   desc: 'Integrated support with full-motion flex.' },
+      { name: 'FM Sport',        img: 'Orthotics Pics/FM Sport 1.jpg',        slug: 'fm-sport',        desc: 'High-performance support for athletes.' },
+      { name: 'FM Support',      img: 'Orthotics Pics/FM Support 1.jpg',      slug: 'fm-support',      desc: 'Maximum-structure orthotic for demanding use.' },
+      { name: 'FM Trainer',      img: 'Orthotics Pics/FM Trainer 1.jpg',      slug: 'fm-trainer',      desc: 'Training-specific support with flex zones.' },
+      { name: 'Motion Soft',     img: 'Orthotics Pics/Motion Soft 1.jpg',     slug: 'motion-soft',     desc: 'Dynamic cushioning for everyday movement.' },
+      { name: 'PT Controller',   img: 'Orthotics Pics/PT Controller 1.jpg',   slug: 'pt-controller',   desc: 'Motion-control orthotic for physical therapy.' },
+      { name: 'Smart Basic',     img: 'Orthotics Pics/Smart Basic 1.jpg',     slug: 'smart-basic',     desc: 'Entry-level support with smart biomechanics.' },
+    ];
+
+    function makeBubble(p, i) {
+      const a = document.createElement('a');
+      a.className = 'bubble bubble--md';
+      a.href = 'orthotics.html#' + p.slug;
+      a.setAttribute('aria-label', p.name);
+      // Stagger the bob phase across a sine cycle so adjacent bubbles
+      // are out of sync and the row reads as a wave.
+      const phase = (i % PRODUCTS.length) / PRODUCTS.length; // 0..1
+      a.style.setProperty('--bob-delay', (-phase * 3.2).toFixed(2) + 's');
+      const img = document.createElement('img');
+      img.src = p.img;
+      img.alt = p.name;
+      img.loading = 'lazy';
+      img.draggable = false;
+      a.appendChild(img);
+      const label = document.createElement('span');
+      label.className = 'bubble__name';
+      label.textContent = p.name;
+      a.appendChild(label);
+      return a;
+    }
+
+    // Populate every stream-track on the page (Variants B and C)
+    document.querySelectorAll(
+      '#hero-asym-stream-track, #hero-c-stream-track'
+    ).forEach((track) => {
+      // Duplicate the list 2x for a seamless -50% loop
+      for (let dup = 0; dup < 2; dup++) {
+        PRODUCTS.forEach((p, i) => track.appendChild(makeBubble(p, i)));
+      }
+    });
+  })();
+
+  // ── "From Scan → Perfect Orthotic" iPad scan animations ──
+  (function initIpadScans() {
+    const LOOP_DELAY = 2800;
+
+    // ── VARIANT A: iPad Vertical Beam Wipe ──
+    document.querySelectorAll('[data-ipad-variant="beam"]').forEach(function (el) {
+      var showing = 0;
+      var started = false;
+      function cycle() {
+        if (showing === 0) {
+          el.classList.remove('is-reversing');
+          el.classList.add('is-animating');
+          showing = 1;
+        } else {
+          el.classList.remove('is-animating');
+          el.classList.add('is-reversing');
+          showing = 0;
+        }
+        setTimeout(cycle, LOOP_DELAY + 2500);
+      }
+      new IntersectionObserver(function (entries) {
+        if (entries[0].isIntersecting && !started) {
+          started = true;
+          setTimeout(cycle, LOOP_DELAY);
+        }
+      }, { threshold: 0.3 }).observe(el);
+    });
+
+    // ── VARIANT B: Cone Scanner ──
+    document.querySelectorAll('[data-ipad-variant="cone"]').forEach(function (el) {
+      var showing = 0;
+      var started = false;
+      function cycle() {
+        if (showing === 0) {
+          el.classList.remove('is-reversing');
+          el.classList.add('is-animating');
+          showing = 1;
+        } else {
+          el.classList.remove('is-animating');
+          el.classList.add('is-reversing');
+          showing = 0;
+        }
+        setTimeout(cycle, LOOP_DELAY + 3000);
+      }
+      new IntersectionObserver(function (entries) {
+        if (entries[0].isIntersecting && !started) {
+          started = true;
+          setTimeout(cycle, LOOP_DELAY);
+        }
+      }, { threshold: 0.3 }).observe(el);
+    });
+
+    // ── VARIANT C: Descending iPad (Tractor Beam) ──
+    document.querySelectorAll('[data-ipad-variant="descend"]').forEach(function (el) {
+      var ship = el.querySelector('.ipad-scan__device');
+      var oldText = el.querySelector('.ipad-scan__old');
+      var newText = el.querySelector('.ipad-scan__new');
+      var textWrap = el.querySelector('.ipad-scan__text-wrap');
+      var showing = 0;
+      var started = false;
+      var DESCEND_MS = 3500;
+
+      function descend(forward) {
+        var startTime = performance.now();
+        var shipRect = ship.getBoundingClientRect();
+        var textRect = textWrap.getBoundingClientRect();
+        var totalTravel = textRect.bottom - shipRect.top + 20;
+        var textStart = Math.max(0, (textRect.top - shipRect.top) / totalTravel);
+
+        ship.style.transition = 'none';
+        ship.style.transform = 'translateX(-50%) translateY(0)';
+
+        if (forward) {
+          newText.style.clipPath = 'inset(0 0 100% 0)';
+          oldText.style.clipPath = 'inset(0)';
+        } else {
+          oldText.style.clipPath = 'inset(0 0 100% 0)';
+          newText.style.clipPath = 'inset(0)';
+        }
+
+        function tick(now) {
+          var elapsed = now - startTime;
+          var raw = Math.min(1, elapsed / DESCEND_MS);
+          var t = raw === 1 ? 1 : 1 - Math.pow(2, -10 * raw);
+
+          ship.style.transform = 'translateX(-50%) translateY(' + (t * totalTravel).toFixed(1) + 'px)';
+
+          var textProgress = Math.max(0, Math.min(1, (t - textStart) / (1 - textStart)));
+          var pct = (textProgress * 100).toFixed(1);
+
+          if (forward) {
+            newText.style.clipPath = 'inset(0 0 ' + (100 - pct) + '% 0)';
+            oldText.style.clipPath = 'inset(' + pct + '% 0 0 0)';
+          } else {
+            oldText.style.clipPath = 'inset(0 0 ' + (100 - pct) + '% 0)';
+            newText.style.clipPath = 'inset(' + pct + '% 0 0 0)';
+          }
+
+          if (raw < 1) {
+            requestAnimationFrame(tick);
+          } else {
+            showing = forward ? 1 : 0;
+            setTimeout(function () {
+              ship.style.transition = 'transform 1s var(--ease-out-expo)';
+              ship.style.transform = 'translateX(-50%) translateY(0)';
+              setTimeout(function () {
+                ship.style.transition = 'none';
+                setTimeout(function () { descend(!forward); }, LOOP_DELAY);
+              }, 1100);
+            }, 600);
+          }
+        }
+        requestAnimationFrame(tick);
+      }
+
+      new IntersectionObserver(function (entries) {
+        if (entries[0].isIntersecting && !started) {
+          started = true;
+          setTimeout(function () { descend(true); }, LOOP_DELAY);
+        }
+      }, { threshold: 0.3 }).observe(el);
+    });
+  })();
+</script>
+</body>
+</html>

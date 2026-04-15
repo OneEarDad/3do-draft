@@ -1,0 +1,28 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls -la images/accuscan* \"AccuScan DP Logo \\(R\\).jpeg\")",
+      "Bash(ls screenshot*.js take-*.js *screenshot*.js)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:8000/accuscan-dp.html)",
+      "Bash(node shot-combined.js)",
+      "Bash(mkdir -p scripts)",
+      "Bash(mv .screenshots/capture-ipad-device.js .screenshots/capture-ipad-screen.js .screenshots/capture-ipad-steps.js scripts/)",
+      "Bash(find . -maxdepth 1 -type f -name \"*.png\" ! -name \"final-*\" ! -name \"combined-hero-*\" -delete)",
+      "Bash(node shot-hero.js)",
+      "Bash(ls node_modules/.bin/playwright*)",
+      "Bash(python -m http.server 8765)",
+      "Bash(node scripts/shot-bubbles-accuscan.js)",
+      "Bash(node scripts/shot-orbit.js)",
+      "Bash(netstat -ano -p tcp)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:8765/accuscan-dp.html)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:8765/lab.html)",
+      "Bash(node scripts/shot-lab.js)",
+      "Bash(ls .screenshots/lab-build-*)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:8765/index.html)",
+      "Bash(node scripts/verify-foot.js)",
+      "Bash(node scripts/shot-hero-lab.js)",
+      "Bash(curl -s -o /dev/null -w \"HTTP %{http_code}\\\\n\" http://localhost:8765/lab.html)",
+      "Bash(node -e ':*)"
+    ]
+  }
+}

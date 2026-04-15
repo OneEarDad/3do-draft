@@ -3,10 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Orthotics | 3D Orthotics</title>
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="logo.png">
   <link rel="manifest" href="site.webmanifest">
   <meta name="theme-color" content="#00549d">  <meta name="description" content="Browse our full range of custom digital orthotics: comfort, diabetic, sport, and dress. All fabricated from precision 3D scans.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self'; frame-src https://www.youtube.com; object-src 'none'; base-uri 'self'; form-action 'self' mailto:; upgrade-insecure-requests">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <link rel="stylesheet" href="css/style.css">
   <style>
     .portfolio-item { cursor: pointer; }
@@ -139,6 +142,9 @@
   </style>
 </head>
 <body>
+
+<!-- Particle background -->
+<canvas id="particles-bg"></canvas>
 
 <div id="loader">
   <img class="loader__logo" src="logo.png" alt="3D Orthotics">
@@ -417,7 +423,7 @@
 </section>
 
 <!-- ORDER CTA -->
-<section class="section section--dark">
+<section class="section section--light">
   <div class="container">
     <div class="split" style="align-items:center">
       <div>
@@ -464,7 +470,7 @@
     <div class="footer__grid">
       <div>
         <img class="footer__logo" src="logo.png" alt="3D Orthotics">
-        <p class="footer__tagline">Precision digital orthotics for VA and DOD hospitals. HIPAA-compliant. Veteran-owned.</p>
+        <p class="footer__tagline">Precision digital orthotics for VA and DOD hospitals. PHI-safe workflow. Veteran-owned.</p>
       </div>
       <div>
         <p class="footer__heading">Navigate</p>
@@ -713,6 +719,8 @@ const ORTHO_DATA = {
 })();
 </script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="js/particles-bg.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>

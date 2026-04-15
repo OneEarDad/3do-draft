@@ -3,10 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Awards | 3D Orthotics</title>
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="logo.png">
   <link rel="manifest" href="site.webmanifest">
   <meta name="theme-color" content="#00549d">  <meta name="description" content="See awards, recognitions, and certifications that reflect 3D Orthotics' quality, compliance, and service standards.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self'; frame-src https://www.youtube.com; object-src 'none'; base-uri 'self'; form-action 'self' mailto:; upgrade-insecure-requests">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <link rel="stylesheet" href="css/style.css">
   <style>
     .hero-award {
@@ -57,6 +60,9 @@
   </style>
 </head>
 <body>
+
+<!-- Particle background -->
+<canvas id="particles-bg"></canvas>
 
 <div id="loader"><img class="loader__logo" src="logo.png" alt="3D Orthotics"></div>
 <div class="cursor"><div class="cursor__ring"></div><div class="cursor__dot"></div></div>
@@ -267,6 +273,8 @@
   </div>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="js/particles-bg.js"></script>
 <script src="js/main.js"></script>
 <script>
 function openAwardOverlay(type) {
