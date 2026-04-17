@@ -16,7 +16,7 @@ for (const url of urls) {
     const serious = results.violations.filter((v) => v.impact === 'serious' || v.impact === 'critical');
     expect(
       serious,
-      serious.map((v) => `${v.id}: ${v.help} — ${v.nodes.length} node(s)`).join('\n'),
+      serious.map((v) => `${v.id}: ${v.help} (${v.nodes.length} node(s))`).join('\n'),
     ).toHaveLength(0);
   });
 }

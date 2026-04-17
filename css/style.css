@@ -1,7 +1,7 @@
 /* ============================================================
-   3D ORTHOTICS — Global Styles
+   3D ORTHOTICS: Global Styles
    Colors: White primary, dark blue #00549d ("3D") + light blue #00aec7 ("ORTHOTICS") from logo
-   Typography: Light-weight headings (250), extra-tight tracking — zetta-joule style
+   Typography: Light-weight headings (250), extra-tight tracking (zetta-joule style)
    ============================================================ */
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
@@ -37,7 +37,7 @@
   --font-display: 'Ethnocentric', 'Inter', sans-serif;
   --font-body:    'Inter', sans-serif;
 
-  /* Easing — antigravity-style smooth curves */
+  /* Easing: antigravity-style smooth curves */
   --ease-out-expo:  cubic-bezier(0.16, 1, 0.3, 1);
   --ease-out-quint: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out:    cubic-bezier(0.76, 0, 0.24, 1);
@@ -47,7 +47,7 @@
   --page-margin: clamp(1.5rem, 4vw, 4.5rem);
   --section-gap: clamp(6rem, 10vw, 10rem);
 
-  /* Fluid type — bigger, bolder, tighter like antigravity */
+  /* Fluid type: bigger, bolder, tighter like antigravity */
   --fs-display:  clamp(3.2rem, 6.5vw, 6.5rem);
   --fs-h1:       clamp(2.6rem, 5vw, 5rem);
   --fs-h2:       clamp(2rem, 3.8vw, 3.5rem);
@@ -58,7 +58,7 @@
   --fw-display: 400;
   --fw-heading: 400;
 
-  /* Letter spacing — tight for headings (antigravity uses -2px on hero) */
+  /* Letter spacing: tight for headings (antigravity uses -2px on hero) */
   --ls-tight:   -.035em;
   --ls-normal:  -.01em;
   --ls-label:    .14em;
@@ -141,7 +141,7 @@ body:has(button:hover) .cursor__ring { width: 52px; height: 52px; opacity: 0.7; 
 .loader__logo { width: 260px; animation: pulse-logo 1.2s ease-in-out infinite alternate; }
 @keyframes pulse-logo { from { opacity:.4;transform:scale(.97); } to { opacity:1;transform:scale(1); } }
 
-/* ── Navigation — clean & minimal ───────────────────────── */
+/* ── Navigation: clean & minimal ───────────────────────── */
 .nav {
   position: fixed;
   top: 0; left: 0; right: 0;
@@ -289,7 +289,7 @@ body:has(button:hover) .cursor__ring { width: 52px; height: 52px; opacity: 0.7; 
 }
 .nav__mobile a:hover { color: var(--navy); }
 
-/* ── Typography — clean & bold like antigravity ─────────── */
+/* ── Typography: clean & bold like antigravity ─────────── */
 .t-display {
   font-family: var(--font-display);
   font-size: var(--fs-display);
@@ -362,7 +362,7 @@ body:has(button:hover) .cursor__ring { width: 52px; height: 52px; opacity: 0.7; 
 
 /* ── White-bg components inside dark sections: force dark text ── */
 /* process-step, feature-item, and card all have white backgrounds  */
-/* but would inherit white text from section--dark — fix that here  */
+/* but would inherit white text from section--dark; override here */
 .section--dark .process-step { color: var(--text); }
 .section--dark .process-step .t-h3 { color: var(--navy); }
 .section--dark .process-step .t-body,
@@ -419,7 +419,7 @@ body:has(button:hover) .cursor__ring { width: 52px; height: 52px; opacity: 0.7; 
   line-height: 1.6;
 }
 
-/* ── Buttons — pill-shaped like antigravity ──────────────── */
+/* ── Buttons: pill-shaped like antigravity ──────────────── */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -486,7 +486,7 @@ body:has(button:hover) .cursor__ring { width: 52px; height: 52px; opacity: 0.7; 
 }
 .card:hover .card__num { color: var(--cyan-light); }
 
-/* ── Hero — clean, spacious, antigravity-inspired ────────── */
+/* ── Hero: clean, spacious, antigravity-inspired ────────── */
 .hero {
   min-height: 100svh;
   padding-top: var(--nav-h);
@@ -535,7 +535,7 @@ body:has(button:hover) .cursor__ring { width: 52px; height: 52px; opacity: 0.7; 
   50% { transform:scaleX(1.5);opacity:1; }
 }
 
-/* Hero trust badges — minimal pills */
+/* Hero trust badges: minimal pills */
 .hero__badges {
   display: flex;
   gap: .6rem;
@@ -552,7 +552,7 @@ body:has(button:hover) .cursor__ring { width: 52px; height: 52px; opacity: 0.7; 
   border-radius: 9999px;
 }
 
-/* ── Stats strip — clean with generous padding ──────────── */
+/* ── Stats strip: clean with generous padding ──────────── */
 .stats {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -661,7 +661,7 @@ body:has(button:hover) .cursor__ring { width: 52px; height: 52px; opacity: 0.7; 
   flex: 1; height: 1px; background: var(--text-faint);
 }
 
-/* ── Portfolio grid & cards — modern rounded ─────────────── */
+/* ── Portfolio grid & cards: modern rounded ─────────────── */
 .portfolio-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -735,7 +735,7 @@ body:has(button:hover) .cursor__ring { width: 52px; height: 52px; opacity: 0.7; 
 }
 .carousel__dot.active { background:var(--cyan);transform:scale(1.3); }
 
-/* ── Process steps — modern cards ────────────────────────── */
+/* ── Process steps: modern cards ────────────────────────── */
 .process-steps {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -926,7 +926,7 @@ body:has(button:hover) .cursor__ring { width: 52px; height: 52px; opacity: 0.7; 
 .guide-card__body { padding: 1.5rem 2rem; color: var(--text-dim); font-size: .85rem; line-height: 1.7; flex: 1; }
 .guide-card__footer { padding: 0 2rem 1.75rem; margin-top: auto; }
 
-/* ── Footer — clean & modern ─────────────────────────────── */
+/* ── Footer: clean & modern ─────────────────────────────── */
 .footer {
   background: rgba(248, 249, 252, 0.88);
   color: var(--text);
@@ -1049,7 +1049,7 @@ body:has(button:hover) .cursor__ring { width: 52px; height: 52px; opacity: 0.7; 
 .home-bubble-stream {
   padding: clamp(1rem, 2.5vw, 1.75rem) 0;
 }
-/* Hide second row — we only want a single right-to-left pass */
+/* Hide second row: we only want a single right-to-left pass */
 .home-bubble-stream .bubble-marquee__row--left {
   display: none;
 }
@@ -1159,7 +1159,7 @@ body:has(button:hover) .cursor__ring { width: 52px; height: 52px; opacity: 0.7; 
   transform: translateX(2.5%) scale(1.04);
   transform-origin: right center;
 }
-/* Steps 3 & 4: Cover fills naturally at 5:3 ratio — no overrides needed */
+/* Steps 3 & 4: Cover fills naturally at 5:3 ratio: no overrides needed */
 .ipad-slide__logo {
   background: var(--white);
   width: 100%;
@@ -1246,7 +1246,7 @@ body:has(button:hover) .cursor__ring { width: 52px; height: 52px; opacity: 0.7; 
   padding-right: 14px;
 }
 
-/* Fill overlay — revealed left-to-right via clip-path */
+/* Fill overlay: revealed left-to-right via clip-path */
 .pipeline-flag__fill {
   position: absolute;
   inset: 0;
@@ -1272,7 +1272,7 @@ body:has(button:hover) .cursor__ring { width: 52px; height: 52px; opacity: 0.7; 
   to   { clip-path: inset(0 0 0 0); }
 }
 
-/* White label inside the fill — revealed as fill sweeps across */
+/* White label inside the fill: revealed as fill sweeps across */
 .pipeline-flag__fill-label {
   font-family: var(--font-body);
   font-size: .78rem;
@@ -1284,7 +1284,7 @@ body:has(button:hover) .cursor__ring { width: 52px; height: 52px; opacity: 0.7; 
   white-space: nowrap;
 }
 
-/* Navy label underneath — visible where fill hasn't reached */
+/* Navy label underneath: visible where fill hasn't reached */
 .pipeline-flag__label {
   position: relative;
   z-index: 1;
@@ -1386,7 +1386,7 @@ body:has(button:hover) .cursor__ring { width: 52px; height: 52px; opacity: 0.7; 
     word-break: break-word;
   }
 
-  /* Reduce hero canvas on mobile — don't let it dominate the screen */
+  /* Reduce hero canvas on mobile: don't let it dominate the screen */
   .hero__canvas-wrap { min-height: 260px; }
 
   /* Cert row stacks fully on small mobile */
@@ -1487,7 +1487,7 @@ body:has(button:hover) .cursor__ring { width: 52px; height: 52px; opacity: 0.7; 
 .va-overlay__actions { display: flex; gap: .75rem; flex-wrap: wrap; }
 
 /* ══════════════════════════════════════════════════════════
-   PRODUCT BUBBLES — shared component (wave / marquee / fall)
+   PRODUCT BUBBLES: shared component (wave / marquee / fall)
    Used on AccuScan DP, Home, and Orthotics pages.
    ══════════════════════════════════════════════════════════ */
 
@@ -1686,7 +1686,7 @@ body:has(button:hover) .cursor__ring { width: 52px; height: 52px; opacity: 0.7; 
   transform: translate(-50%, 0);
 }
 
-/* Reduced motion — freeze everything */
+/* Reduced motion: freeze everything */
 @media (prefers-reduced-motion: reduce) {
   .bubble-wave .bubble,
   .bubble-marquee .bubble,
@@ -1696,7 +1696,7 @@ body:has(button:hover) .cursor__ring { width: 52px; height: 52px; opacity: 0.7; 
 }
 
 /* ══════════════════════════════════════════════════════════
-   BUBBLE POP — click modal
+   BUBBLE POP: click modal
    ══════════════════════════════════════════════════════════ */
 .bubble-pop {
   position: fixed;

@@ -1,5 +1,5 @@
 /* ============================================================
-   3D ORTHOTICS — Product Bubbles
+   3D ORTHOTICS: Product Bubbles
    Reusable component: wave / marquee / fall variants.
    Click any bubble → full-screen pop with catalog link.
 
@@ -28,7 +28,7 @@
     { name: 'Smart Basic',      img: 'Orthotics Pics/Smart Basic 1.jpg',              slug: 'smart-basic',     desc: 'Entry-level support with smart biomechanics.' },
   ];
 
-  // Repeating size pattern — sm/md/lg gives visual rhythm
+  // Repeating size pattern (sm/md/lg) for visual rhythm
   const SIZE_PATTERN = ['md','lg','sm','md','lg','sm','md','lg','md','sm','lg','md','sm','md','lg'];
 
   // ── Bubble factory ───────────────────────────────────────

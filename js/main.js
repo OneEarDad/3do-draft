@@ -1,5 +1,5 @@
 /* ============================================================
-   3D ORTHOTICS — Main JS
+   3D ORTHOTICS: Main JS
    Custom cursor, nav, scroll reveals, FAQ, carousels
    ============================================================ */
 

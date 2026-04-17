@@ -1,5 +1,5 @@
 /* ============================================================
-   3D ORTHOTICS — Foot Particle Cloud (Progressive Reveal)
+   3D ORTHOTICS: Foot Particle Cloud (Progressive Reveal)
    Pass 1 (bottom → top):  reveals ~15 000 particles
    Pass 2 (top → bottom):  adds    ~10 000 more particles
    Total: ~25 000 particles
@@ -121,8 +121,8 @@
 
     canvas.addEventListener('mousemove', e => {
       const r = canvas.getBoundingClientRect();
-      tgtRotY = ((e.clientX - r.left) / r.width  - 0.5) *  1.6;
-      tgtRotX = ((e.clientY - r.top)  / r.height - 0.5) * -0.70 + 0.60;
+      tgtRotY = ((e.clientX - r.left) / r.width - 0.5) * 1.6;
+      tgtRotX = ((e.clientY - r.top) / r.height - 0.5) * -0.70 + 0.60;
       autoRotate = false;
     });
     canvas.addEventListener('mouseleave', () => { autoRotate = true; });
@@ -140,7 +140,7 @@
         const isActive = (myGroup === scanPass);
 
         if (perm) {
-          // Already revealed — glow slightly when scan re-passes
+          // Already revealed: subtle glow when the scan re-passes
           const dY  = Math.abs(py - scanY);
           const fls = Math.max(0, 1.0 - dY / (FLASH_BAND * 1.5));
           rev[i]     = 1.0;
@@ -178,7 +178,7 @@
           }
 
         } else {
-          // Not targeted by current pass — keep hidden
+          // Not in this pass: keep hidden
           rev[i] = 0.0; sz[i] = 0.0;
         }
       }
@@ -198,7 +198,7 @@
         footGroup.rotation.x = 0.60;
       } else {
         footGroup.rotation.y += (tgtRotY - footGroup.rotation.y) * 0.055;
-        footGroup.rotation.x += (tgtRotX  - footGroup.rotation.x) * 0.055;
+        footGroup.rotation.x += (tgtRotX - footGroup.rotation.x) * 0.055;
       }
 
       // Scan state machine
@@ -273,7 +273,7 @@
         const scale = 4.0 / Math.max(maxX-minX, maxY-minY, maxZ-minZ);
 
         // Group 0: ~15 000 particles (every 4th vertex)
-        // Group 1: ~10 000 particles (every 6th vertex, offset 3 — no overlap)
+        // Group 1: ~10 000 particles (every 6th vertex, offset 3, no overlap)
         const totalVerts = raw.length / 3;
         const p0Indices = [], p1Indices = [];
         for (let i = 0; i < totalVerts; i++) {

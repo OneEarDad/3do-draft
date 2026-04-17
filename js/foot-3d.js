@@ -1,5 +1,5 @@
 /* ============================================================
-   3D ORTHOTICS — Foot Particle Cloud (OBJ-based)
+   3D ORTHOTICS: Foot Particle Cloud (OBJ-based)
    Foot stands upright, tilted back to show plantar surface,
    spinning horizontally around Y axis.
 
@@ -9,7 +9,7 @@
    Color logic and spawn animation both live in the vertex shader.
 
    The lab page uses the experimental js/foot-3d-build.js variant
-   (canvas class .foot-canvas-build) — left untouched here.
+   (canvas .foot-canvas-build). Left untouched here.
    ============================================================ */
 
 (function () {
@@ -76,7 +76,7 @@
     let buildStartMs      = performance.now(); // wall-clock start (reset on first OBJ load)
     let buildElapsed      = 0;    // seconds since current build started (wall-clock)
     let buildComplete     = false;
-    let mat               = null; // ShaderMaterial — set after OBJ loads
+    let mat               = null; // ShaderMaterial: set after OBJ loads
 
     // ── Animation state ───────────────────────────────────
     let scanY = -2.2, scanDir = 1, tick = 0;
@@ -85,8 +85,8 @@
 
     canvas.addEventListener('mousemove', e => {
       const r = canvas.getBoundingClientRect();
-      tgtRotY = ((e.clientX - r.left) / r.width  - 0.5) *  1.6;
-      tgtRotX = ((e.clientY - r.top)  / r.height - 0.5) * -0.70 + 0.60;
+      tgtRotY = ((e.clientX - r.left) / r.width - 0.5) * 1.6;
+      tgtRotX = ((e.clientY - r.top) / r.height - 0.5) * -0.70 + 0.60;
       autoRotate = false;
     });
     canvas.addEventListener('mouseleave', () => { autoRotate = true; });
@@ -109,8 +109,7 @@
         buildComplete = true;
       }
 
-      // Rotation only kicks in once the build finishes — gives the
-      // materialize-then-rotate sequence the lab page validated.
+      // Rotation only after the build finishes (materialize-then-rotate, lab-validated).
       if (buildComplete) {
         if (autoRotate) {
           rotY += 0.0030;
@@ -118,7 +117,7 @@
           footGroup.rotation.x = 0.60;
         } else {
           footGroup.rotation.y += (tgtRotY - footGroup.rotation.y) * 0.055;
-          footGroup.rotation.x += (tgtRotX  - footGroup.rotation.x) * 0.055;
+          footGroup.rotation.x += (tgtRotX - footGroup.rotation.x) * 0.055;
         }
       } else {
         footGroup.rotation.y = 0;

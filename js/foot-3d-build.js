@@ -1,5 +1,5 @@
 /* ============================================================
-   3D ORTHOTICS — Foot Particle Cloud (BUILD-UP variant)
+   3D ORTHOTICS: Foot Particle Cloud (BUILD-UP variant)
 
    No scan line. Particles materialize over ~10 seconds with a
    bottom-to-top bias: a few scattered first, then a wave fills
@@ -71,8 +71,8 @@
 
     canvas.addEventListener('mousemove', e => {
       const r = canvas.getBoundingClientRect();
-      tgtRotY = ((e.clientX - r.left) / r.width  - 0.5) *  1.6;
-      tgtRotX = ((e.clientY - r.top)  / r.height - 0.5) * -0.70 + 0.60;
+      tgtRotY = ((e.clientX - r.left) / r.width - 0.5) * 1.6;
+      tgtRotX = ((e.clientY - r.top) / r.height - 0.5) * -0.70 + 0.60;
       autoRotate = false;
     });
     canvas.addEventListener('mouseleave', () => { autoRotate = true; });
@@ -181,7 +181,7 @@
         const spawnTimes = new Float32Array(N);
         const colors     = new Float32Array(N * 3);
 
-        // Color palette — matches the original foot-3d.js look
+        // Color palette: matches the original foot-3d.js look
         // Mostly navy with a small fraction of cyan particles for accent
         const C_NAVY = { r: 0.000, g: 0.329, b: 0.616 }; // #00549d
         const C_CYAN = { r: 0.000, g: 0.682, b: 0.780 }; // #00aec7
@@ -236,8 +236,8 @@
           const rnd = Math.random();
           spawnTimes[i] = BUILD_DURATION * (0.65 * yNorm + 0.35 * Math.pow(rnd, 0.7));
 
-          // Color: 70% navy, 25% mid-blue, 5% cyan accent — matches the
-          // original "unscanned" palette so the foot reads the same.
+          // Color: 70% navy, 25% mid-blue, 5% cyan accent (matches the original
+          // "unscanned" palette so the foot reads the same).
           const r = Math.random();
           const c = (r < 0.70) ? C_NAVY : (r < 0.95) ? C_MID : C_CYAN;
           colors[i*3]     = c.r;

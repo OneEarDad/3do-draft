@@ -1,5 +1,5 @@
 /* ============================================================
-   3D ORTHOTICS — Interactive Particle Background
+   3D ORTHOTICS: Interactive Particle Background
    Soft floating dots that drift and respond to mouse movement.
    Inspired by antigravity.google's clean particle aesthetic.
    ============================================================ */
@@ -97,7 +97,7 @@
       void main() {
         float d = length(gl_PointCoord - 0.5);
         if (d > 0.5) discard;
-        // Soft radial falloff — bright center, gentle fade
+        // Soft radial falloff: bright center, gentle fade
         float glow = 1.0 - smoothstep(0.0, 0.5, d);
         glow = glow * glow;  // extra softness
         gl_FragColor = vec4(vColor, vAlpha * glow);

@@ -6,7 +6,7 @@
   <meta name="robots" content="noindex,nofollow">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self'; frame-src https://www.youtube.com; object-src 'none'; base-uri 'self'; form-action 'self' mailto:; upgrade-insecure-requests">
   <meta name="referrer" content="strict-origin-when-cross-origin">
-  <title>Lab — Hidden</title>
+  <title>Lab: Hidden</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="css/style.css">
   <style>
@@ -126,7 +126,7 @@
     }
 
     /* ══════════════════════════════════════════════════════
-       HERO VARIANT A — Background Foot + Centered Text
+       HERO VARIANT A: Background Foot + Centered Text
        ══════════════════════════════════════════════════════ */
     .hero-lab {
       position: relative;
@@ -334,7 +334,7 @@
       opacity: 0.7;
     }
 
-    /* ── Text area — grid overlay keeps both texts sized to the wider one ── */
+    /* ── Text area: grid overlay keeps both texts sized to the wider one ── */
     .ipad-scan__text-wrap {
       position: relative;
       display: grid;
@@ -374,7 +374,7 @@
     }
 
     /* ════════════════════════════════════════════════════
-       VARIANT A — Clean Vertical Beam
+       VARIANT A: Clean Vertical Beam
        Single glowing line descends through the text.
        ════════════════════════════════════════════════════ */
     .ipad-scan--beam .ipad-scan__device {
@@ -428,7 +428,7 @@
     }
 
     /* ════════════════════════════════════════════════════
-       VARIANT B — Cone Scanner
+       VARIANT B: Cone Scanner
        Trapezoidal beam with pulsing scan lines inside.
        ════════════════════════════════════════════════════ */
     .ipad-scan--cone .ipad-scan__device {
@@ -508,7 +508,7 @@
     }
 
     /* ════════════════════════════════════════════════════
-       VARIANT C — Descending iPad (Tractor Beam)
+       VARIANT C: Descending iPad (Tractor Beam)
        iPad physically descends over text; JS-driven.
        ════════════════════════════════════════════════════ */
     .ipad-scan--descend {
@@ -547,7 +547,7 @@
     }
 
     /* ══════════════════════════════════════════════════════
-       HERO VARIANT B — Asymmetric Overlap + Ticker Strip
+       HERO VARIANT B: Asymmetric Overlap + Ticker Strip
        ══════════════════════════════════════════════════════ */
     .hero-asym {
       position: relative;
@@ -702,7 +702,7 @@
     .hero-asym__stream:hover .hero-asym__stream-track {
       animation-play-state: paused;
     }
-    /* Per-bubble bob — phase set inline via --bob-delay so adjacent
+    /* Per-bubble bob: phase set inline via --bob-delay so adjacent
        bubbles aren't in sync and the row reads as a wave. */
     .hero-asym__stream .bubble {
       pointer-events: auto;
@@ -715,13 +715,13 @@
       0%, 100% { transform: translateY(0); }
       50%      { transform: translateY(-14px); }
     }
-    /* Hide tooltip in the strip — too cluttered */
+    /* Hide tooltip in the strip: too cluttered */
     .hero-asym__stream .bubble__name { display: none; }
 
     /* ══════════════════════════════════════════════════════
-       HERO VARIANT C — Asymmetric Desktop / Centered Overlap Mobile
+       HERO VARIANT C: Asymmetric Desktop / Centered Overlap Mobile
        ══════════════════════════════════════════════════════ */
-    /* Desktop: two-column flex — content (eyebrow, title, description,
+    /* Desktop: two-column flex: content (eyebrow, title, description,
        CTAs, award) on the LEFT, foot scan on the RIGHT bleeding slightly
        off the right edge. Bubble stream is absolute, full-width along
        the bottom of the section in front of the canvas.
@@ -752,7 +752,7 @@
       z-index: 0;
       overflow: hidden;
     }
-    /* Inner square box — Three.js reads its clientWidth/Height to size
+    /* Inner square box: Three.js reads its clientWidth/Height to size
        the render target, so it MUST stay square on mobile even when the
        outer stage frame is cropped to a flatter aspect. On desktop the
        inner box fills the stage exactly. */
@@ -812,7 +812,7 @@
       color: var(--text);
       margin: 0;
     }
-    /* Allow natural wrapping — with the narrow left column each phrase
+    /* Allow natural wrapping: with the narrow left column each phrase
        wraps to two lines on desktop, matching the reference. */
     .hero-c__heading .line { display: block; }
     .hero-c__heading .accent { color: var(--cyan); }
@@ -901,7 +901,7 @@
        Rule: no negative margins, no absolute positioning hacks. Spacing
        comes entirely from flex gap. The stage frame is cropped to a
        flatter aspect ratio than the raw square canvas so we don't see
-       the empty transparent padding above/below the rendered foot —
+       the empty transparent padding above/below the rendered foot;
        that padding is what reads as "huge whitespace". */
     @media (max-width: 860px) {
       .hero-c {
@@ -948,7 +948,7 @@
       }
       .hero-c__stage-inner {
         /* Reset desktop inset:0 first, THEN set the centering offsets.
-           Order matters — inset is shorthand for top/right/bottom/left,
+           Order matters: inset is shorthand for top/right/bottom/left,
            so if it comes after left/top it wipes them back to auto. */
         inset: auto;
         position: absolute;
@@ -1006,10 +1006,10 @@
 
     @media (max-width: 860px) {
       /* Layout strategy on mobile:
-         - content (heading + CTAs + award) sits at the TOP of the section
-         - foot canvas is anchored to the BOTTOM of the section so the grid
+         • content (heading + CTAs + award) sits at the TOP of the section
+         • foot canvas is anchored to the BOTTOM of the section so the grid
            floor renders near the bottom of the viewport
-         - bubble stream overlaps the grid floor in front of the canvas
+         • bubble stream overlaps the grid floor in front of the canvas
       */
       .hero-asym {
         align-items: flex-start;
@@ -1076,10 +1076,10 @@
 <canvas id="particles-bg"></canvas>
 
 <!-- ══════════════════════════════════════════════════════
-     SECTION 1 — Foot Build Animation Test
+     SECTION 1: Foot Build Animation Test
      ══════════════════════════════════════════════════════ -->
 <section class="lab-section">
-  <span class="lab-tag">Lab — Foot Build</span>
+  <span class="lab-tag">Lab: Foot Build</span>
   <h1 class="lab-title">Particle Build-Up Animation</h1>
   <p class="lab-sub">
     Particles materialize bottom-to-top over ~10 seconds.
@@ -1099,10 +1099,10 @@
 <hr class="lab-divider">
 
 <!-- ══════════════════════════════════════════════════════
-     SECTION 3 — Hero Variant C: Centered + Build-up + CTA/Bubble Overlay
+     SECTION 3: Hero Variant C: Centered + Build-up + CTA/Bubble Overlay
      ══════════════════════════════════════════════════════ -->
 <section class="lab-section" style="padding-top: 0;">
-  <span class="lab-tag">Hero Lab — Variant C (New)</span>
+  <span class="lab-tag">Hero Lab: Variant C (New)</span>
   <h2 class="lab-title">Centered Build-up + CTA &amp; Bubble Overlay</h2>
   <p class="lab-sub">
     Centered headline + description at the top. Foot scan with the build-up
@@ -1124,7 +1124,7 @@
       </h1>
       <p class="hero-c__description">
         HIPAA-compliant digital orthotics for VA and DOD hospitals.
-        Sub-five-minute scans with PHI stripped before data leaves your facility.
+        Sub-five-minute scans with patient information de-identified before data leaves your facility.
       </p>
     </div>
     <div class="hero-c__actions">
@@ -1134,7 +1134,7 @@
       </div>
       <span class="hero-c__award">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M8.21 13.89 7 22l5-3 5 3-1.21-8.12"/></svg>
-        Most Improved Product - VA Podiatry Nationally
+        Most Improved Product: VA Podiatry Nationally
       </span>
     </div>
   </div>
@@ -1159,7 +1159,7 @@
 <hr class="lab-divider">
 
 <!-- ══════════════════════════════════════════════════════
-     SECTION — "From Scan → Perfect Orthotic" iPad Scan Lab
+     SECTION: "From Scan → Perfect Orthotic" iPad Scan Lab
      iPad scans text top-to-bottom like an alien spaceship
      ══════════════════════════════════════════════════════ -->
 <section class="lab-section">
@@ -1170,7 +1170,7 @@
 
 <!-- ── Variant A: iPad Vertical Beam Wipe ── -->
 <section class="lab-section" style="padding-top:0">
-  <span class="lab-tag" style="color:var(--cyan)">Variant A — iPad Beam Wipe</span>
+  <span class="lab-tag" style="color:var(--cyan)">Variant A: iPad Beam Wipe</span>
   <p class="lab-sub" style="margin-top:.5rem">iPad hovers above. A glowing beam line descends top-to-bottom, wiping old text into new.</p>
 </section>
 <div class="ipad-scan ipad-scan--beam" data-ipad-variant="beam">
@@ -1185,7 +1185,7 @@
 
 <!-- ── Variant B: iPad Cone Scanner ── -->
 <section class="lab-section" style="padding-top:0">
-  <span class="lab-tag" style="color:var(--cyan)">Variant B — Cone Scanner</span>
+  <span class="lab-tag" style="color:var(--cyan)">Variant B: Cone Scanner</span>
   <p class="lab-sub" style="margin-top:.5rem">iPad projects a trapezoidal scan beam with pulsing lines. Wider glow field transforms text.</p>
 </section>
 <div class="ipad-scan ipad-scan--cone" data-ipad-variant="cone">
@@ -1200,7 +1200,7 @@
 
 <!-- ── Variant C: Descending iPad (Tractor Beam) ── -->
 <section class="lab-section" style="padding-top:0">
-  <span class="lab-tag" style="color:var(--cyan)">Variant C — Tractor Beam Descent</span>
+  <span class="lab-tag" style="color:var(--cyan)">Variant C: Tractor Beam Descent</span>
   <p class="lab-sub" style="margin-top:.5rem">iPad physically descends over the text like an alien ship, transforming words as it passes.</p>
 </section>
 <div class="ipad-scan ipad-scan--descend" data-ipad-variant="descend">
@@ -1214,10 +1214,10 @@
 <hr class="lab-divider">
 
 <!-- ══════════════════════════════════════════════════════
-     SECTION 4 — Hero Variant B: Asymmetric Overlap + Bubble Stream
+     SECTION 4: Hero Variant B: Asymmetric Overlap + Bubble Stream
      ══════════════════════════════════════════════════════ -->
 <section class="lab-section" style="padding-top: 0;">
-  <span class="lab-tag">Hero Lab — Variant B</span>
+  <span class="lab-tag">Hero Lab: Variant B</span>
   <h2 class="lab-title">Asymmetric Overlap + Bubble Stream</h2>
   <p class="lab-sub">
     Foot dominates the right side and bleeds slightly off-screen. Text floats over
@@ -1227,7 +1227,7 @@
 </section>
 
 <section class="hero-asym">
-  <!-- Foot canvas — anchored right, large -->
+  <!-- Foot canvas: anchored right, large -->
   <div class="hero-asym__canvas-wrap">
     <canvas class="foot-canvas"></canvas>
   </div>
@@ -1235,7 +1235,7 @@
   <!-- Soft fade scrim (left → transparent right) -->
   <div class="hero-asym__scrim"></div>
 
-  <!-- Text content — anchored left, overlaps the foot's left edge -->
+  <!-- Text content: anchored left, overlaps the foot's left edge -->
   <div class="hero-asym__content">
     <span class="hero-asym__eyebrow">Digital Orthotic Scanning</span>
     <h1 class="hero-asym__heading">
@@ -1243,7 +1243,7 @@
     </h1>
     <p class="hero-asym__tagline">
       HIPAA-compliant digital orthotics for VA and DOD hospitals.
-      Sub-five-minute scans with PHI stripped before data leaves your facility.
+      Sub-five-minute scans with patient information de-identified before data leaves your facility.
     </p>
     <div class="hero-asym__ctas">
       <a class="lab-btn" href="accuscan-dp.html">Explore AccuScan DP →</a>
@@ -1258,7 +1258,7 @@
     </div>
   </div>
 
-  <!-- Bubble stream — populated by inline script below -->
+  <!-- Bubble stream: populated by inline script below -->
   <div class="hero-asym__stream" id="hero-asym-stream">
     <div class="hero-asym__stream-track" id="hero-asym-stream-track"></div>
   </div>
@@ -1275,7 +1275,7 @@
 <script src="js/foot-3d-build.js"></script>
 <script src="js/particles-bg.js"></script>
 <script>
-  // Restart just the foot build — background behaves like production.
+  // Restart just the foot build; background behaves like production.
   function startBuild() {
     document.querySelectorAll('.foot-canvas-build').forEach(c => {
       if (typeof c.restartBuild === 'function') c.restartBuild();

@@ -1,5 +1,5 @@
 /* ============================================================
-   3D ORTHOTICS — Lab Particle Background
+   3D ORTHOTICS: Lab Particle Background
    LAB-ONLY variant of particles-bg.js. Identical resting state
    plus a "flow into foot" mode used by lab.html. The production
    particles-bg.js is intentionally untouched.
@@ -170,7 +170,7 @@
     for (let i = 0; i < PARTICLE_COUNT; i++) {
       const p = particles[i];
 
-      // Mouse repulsion (only when not flowing — flow takes priority)
+      // Mouse repulsion when idle (flow mode takes priority)
       if (labPhase !== 'flowing') {
         const dx = p.x - mouse.x;
         const dy = p.y - mouse.y;
@@ -218,7 +218,7 @@
       p.x += p.vx;
       p.y += p.vy;
 
-      // Wrap edges (but not during flow — let them die at center)
+      // Wrap edges except during flow; particles converge at center instead
       if (labPhase !== 'flowing') {
         if (p.x < -30) p.x = W + 30;
         if (p.x > W + 30) p.x = -30;

@@ -7,7 +7,7 @@
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="logo.png">
   <link rel="manifest" href="site.webmanifest">
-  <meta name="theme-color" content="#00549d">  <meta name="description" content="3D Orthotics delivers HIPAA-compliant digital orthotic scanning for VA and DOD hospitals. AccuScan DP: scan in minutes, protect patient privacy.">
+  <meta name="theme-color" content="#00549d">  <meta name="description" content="3D Orthotics: HIPAA-aligned digital orthotic scanning for VA and DOD hospitals. AccuScan DP: fast scans with patient information de-identified before transmission.">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self'; frame-src https://www.youtube.com; object-src 'none'; base-uri 'self'; form-action 'self' mailto:; upgrade-insecure-requests">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <link rel="stylesheet" href="css/style.css">
@@ -142,7 +142,7 @@
       <span class="reveal" style="display:block;transition-delay:.2s">Perfect Fit.</span>
     </h1>
     <p class="t-body reveal" style="max-width:480px;margin-top:2rem;transition-delay:.3s;font-size:1.05rem;line-height:1.8">
-      HIPAA-compliant digital orthotics for VA and DOD hospitals. Sub-five-minute scans with PHI stripped before data leaves your facility.
+      HIPAA-aligned digital orthotics for VA and DOD hospitals. Sub-five-minute scans with patient information de-identified before data leaves your facility.
     </p>
     <div class="reveal" style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:2.5rem;transition-delay:.4s">
       <a class="btn btn--primary" href="accuscan-dp.html">
@@ -181,7 +181,7 @@
     <div style="text-align:center;max-width:600px;margin:0 auto clamp(2.5rem,5vw,4rem)">
       <img src="images/accuscan-dp-logo.png" alt="AccuScan DP" class="reveal" style="height:clamp(3.6rem,7vw,5.2rem);width:auto;display:block;margin:0 auto">
       <h2 class="t-h2 reveal" style="margin-top:1rem;transition-delay:.1s;white-space:nowrap">See How It <span class="accent">Works</span></h2>
-      <p class="t-body reveal" style="margin-top:1rem;transition-delay:.2s">From app launch to order submission — the entire workflow happens on one iPad.</p>
+      <p class="t-body reveal" style="margin-top:1rem;transition-delay:.2s">From app launch to order submission: the entire workflow happens on one iPad.</p>
     </div>
 
     <div class="ipad-showcase reveal">
@@ -284,7 +284,7 @@
           Traditional cast molding is time-consuming and messy. Digital scanning was faster, but federal healthcare systems couldn't transmit Protected Health Information (PHI) without violating HIPAA.
         </p>
         <p class="t-body reveal--left" style="margin-top:1rem;transition-delay:.3s">
-          Our system fully de-identifies patient data before any digital transmission, making it the <strong style="color:var(--text)">world's first truly HIPAA-compliant digitally scanned orthotic program</strong>, designed specifically for VA and DOD hospitals.
+          Our system de-identifies patient information before any digital transmission: a <strong style="color:var(--text)">HIPAA-aligned digitally scanned orthotic program</strong> for VA and DOD hospitals.
         </p>
         <a class="btn btn--primary reveal--left" href="accuscan-dp.html" style="margin-top:2.5rem;transition-delay:.4s">
           Learn More
@@ -292,7 +292,7 @@
         </a>
       </div>
 
-      <!-- Included items — clean card grid -->
+      <!-- Included items: clean card grid -->
       <div class="reveal--right">
         <div class="included-grid">
           <div class="included-item">
@@ -314,7 +314,7 @@
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.55a11 11 0 0114.08 0"/><path d="M1.42 9a16 16 0 0121.16 0"/><path d="M8.53 16.11a6 6 0 016.95 0"/><circle cx="12" cy="20" r="1" fill="currentColor" stroke="none"/></svg>
             </div>
             <div class="included-item__title">Cloud Workflow</div>
-            <div class="included-item__desc">HIPAA-aligned de-identified scan transmission.</div>
+            <div class="included-item__desc">HIPAA-aligned transmission after patient de-identification.</div>
           </div>
           <div class="included-item">
             <div class="included-item__icon">
@@ -350,7 +350,7 @@
         <div class="process-step__num">02</div>
         <div>
           <h3 class="t-h3">Automatic De-Identification</h3>
-          <p class="t-body" style="margin-top:.75rem">Patient data is automatically stripped of all PHI (names, SSNs, addresses) before any digital transmission. Full HIPAA compliance, zero liability.</p>
+          <p class="t-body" style="margin-top:.75rem">Patient information is de-identified automatically before any digital transmission. AccuScan DP is HIPAA-aligned and built for federal care.</p>
         </div>
       </div>
       <div class="process-step">
@@ -706,7 +706,7 @@ const HOME_ORTHO_DATA = {
     1: 'A precision 3D scan captures the patient\u2019s foot in under 5 minutes.',
     2: 'Review the 3D model and verify scan accuracy before proceeding.',
     3: 'Select the orthotic device and configure to patient needs.',
-    4: 'Submit the de-identified order securely to the lab.'
+    4: 'Submit the order securely to the lab.'
   };
 
   let current     = 0;
@@ -723,7 +723,7 @@ const HOME_ORTHO_DATA = {
     // Deactivate all slides
     slides.forEach(s => s.classList.remove('is-active'));
 
-    // Reset all flags — force reflow so clip-path animation restarts
+    // Reset all flags; force reflow so clip-path animation restarts
     flags.forEach(flag => {
       flag.classList.remove('is-active', 'is-done', 'is-filling');
       const fill = flag.querySelector('.pipeline-flag__fill');
