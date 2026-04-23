@@ -97,8 +97,10 @@
     // ── Build-up timing ───────────────────────────────────
     // Tightened from 10.0s / 1.4s: doctors browsing the site shouldn't have
     // to wait 11s for the scan to finish materializing before interacting.
-    const BUILD_DURATION  = 5.5;  // seconds end-to-end
-    const PARTICLE_FADE   = 0.9;  // seconds per-particle fly-in
+    // Further tightened 30% (5.5s / 0.9s -> 4.2s / 0.7s) to feel snappier
+    // above the fold.
+    const BUILD_DURATION  = 4.2;  // seconds end-to-end
+    const PARTICLE_FADE   = 0.7;  // seconds per-particle fly-in
     let buildStartMs      = performance.now(); // wall-clock start (reset on first OBJ load)
     let buildElapsed      = 0;    // seconds since current build started (wall-clock)
     let buildComplete     = false;
@@ -150,8 +152,9 @@
         footGroup.rotation.x = 0.60;
       }
 
-      // Scan sweeps plantar → dorsal (bottom to top)
-      scanY += 0.0055 * scanDir;
+      // Scan sweeps plantar → dorsal (bottom to top) — 30% faster than
+      // original 0.0055/frame for a more active-feeling scan.
+      scanY += 0.00715 * scanDir;
       if (scanY >  2.2) scanDir = -1;
       if (scanY < -2.2) scanDir =  1;
 
