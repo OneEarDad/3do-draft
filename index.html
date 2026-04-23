@@ -271,6 +271,331 @@
   </div>
 </div>
 
+<!-- ══════════════════════════════════════════════ THE HANDOFF -->
+<style>
+  .handoff-intro { text-align:center; max-width:640px; margin:0 auto clamp(2.5rem,5vw,4rem); }
+  .handoff-intro .accent { color: var(--cyan); }
+
+  /* Unified flow thread: clinic bookend → 4 node cards → 3DO logo bookend */
+  .handoff-flow {
+    position: relative;
+    max-width: 1100px;
+    margin: 0 auto clamp(1.25rem, 2.5vw, 2rem);
+    display: flex; align-items: center; gap: .75rem;
+  }
+  .handoff-flow__endpoint {
+    display: flex; flex-direction: column; align-items: center; gap: .4rem;
+    flex-shrink: 0;
+  }
+  .handoff-flow__clinic {
+    width: 72px; height: 56px; display: block;
+  }
+  .handoff-flow__label {
+    font-family: var(--font-body);
+    text-transform: uppercase; letter-spacing: .14em;
+    font-size: .68rem; font-weight: 600; white-space: nowrap;
+    color: var(--text-dim);
+  }
+  .handoff-flow__logo {
+    height: 70px; width: auto; display: block;
+  }
+  .handoff-flow__track {
+    position: relative; flex: 1 1 auto; height: 24px;
+  }
+  .handoff-flow__svg {
+    width: 100%; height: 100%; overflow: visible; display: block;
+  }
+  .handoff-flow__line {
+    fill: none; stroke: rgba(33,34,38,.18);
+    stroke-width: 2; stroke-dasharray: 6 6;
+  }
+  .handoff-flow__node {
+    fill: #fff; stroke: rgba(33,34,38,.18); stroke-width: 2;
+    transform-box: fill-box; transform-origin: center;
+  }
+  .handoff-flow.in-view .handoff-flow__node { animation: handoff-node-hit .9s var(--ease-out-expo) forwards; }
+  .handoff-flow.in-view .handoff-flow__node:nth-of-type(1) { animation-delay: .9s;  }
+  .handoff-flow.in-view .handoff-flow__node:nth-of-type(2) { animation-delay: 2.0s; }
+  .handoff-flow.in-view .handoff-flow__node:nth-of-type(3) { animation-delay: 3.1s; }
+  .handoff-flow.in-view .handoff-flow__node:nth-of-type(4) { animation-delay: 4.2s; }
+  @keyframes handoff-node-hit {
+    0%   { fill:#fff; stroke: rgba(33,34,38,.18); transform: scale(1); }
+    40%  { fill: var(--cyan); stroke: var(--cyan); transform: scale(1.7); }
+    100% { fill: var(--cyan); stroke: var(--cyan); transform: scale(1); }
+  }
+  .handoff-flow__dot {
+    position: absolute; top: 50%; left: 0;
+    width: 14px; height: 14px; border-radius: 50%;
+    background: var(--cyan);
+    box-shadow: 0 0 0 5px rgba(0,174,199,.20);
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    pointer-events: none;
+  }
+  .handoff-flow.in-view .handoff-flow__dot {
+    animation: handoff-dot-travel 4.5s linear .3s forwards;
+  }
+  @keyframes handoff-dot-travel {
+    0%   { left: 0%;   opacity: 0; }
+    6%   { opacity: 1; }
+    92%  { opacity: 1; }
+    100% { left: 100%; opacity: 0; }
+  }
+
+  /* Card grid */
+  .handoff-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem;
+    max-width: 1100px; margin: 0 auto;
+    perspective: 1200px;
+  }
+  @media (max-width: 960px) { .handoff-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .handoff-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 960px) { .handoff-flow { display: none; } }
+
+  .handoff-card {
+    position: relative;
+    background: #fff; border: 1px solid var(--text-faint); border-radius: 16px;
+    padding: clamp(1.5rem, 2.4vw, 2rem);
+    padding-top: clamp(2.25rem, 3vw, 2.75rem);
+    display: flex; flex-direction: column; gap: 1rem;
+    transition: box-shadow .4s var(--ease-out-quint), border-color .3s;
+    transform-style: preserve-3d; will-change: transform;
+  }
+  .handoff-card:hover {
+    box-shadow: 0 16px 40px rgba(0,84,157,.10);
+    border-color: var(--cyan);
+  }
+  .handoff-card__step {
+    position: absolute; top: 1rem; right: 1.1rem;
+    font-family: var(--font-display); font-weight: 400;
+    font-size: .72rem; letter-spacing: .16em;
+    color: var(--cyan);
+    opacity: 0;
+    transition: opacity .55s var(--ease-out-expo);
+  }
+  .handoff-grid.in-view .handoff-card:nth-child(1) .handoff-card__step { transition-delay: 0.9s; opacity: 1; }
+  .handoff-grid.in-view .handoff-card:nth-child(2) .handoff-card__step { transition-delay: 2.0s; opacity: 1; }
+  .handoff-grid.in-view .handoff-card:nth-child(3) .handoff-card__step { transition-delay: 3.1s; opacity: 1; }
+  .handoff-grid.in-view .handoff-card:nth-child(4) .handoff-card__step { transition-delay: 4.2s; opacity: 1; }
+
+  .handoff-card__icon {
+    width: 46px; height: 46px; border-radius: 12px;
+    background: var(--cyan-light); color: var(--navy);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    transition: box-shadow .35s var(--ease-out-quint), transform .35s var(--ease-out-quint);
+  }
+  .handoff-card:hover .handoff-card__icon {
+    box-shadow: 0 0 0 6px rgba(0,174,199,.12);
+  }
+  .handoff-card__icon svg * {
+    stroke-dasharray: var(--l, 120);
+    stroke-dashoffset: var(--l, 120);
+  }
+  .handoff-grid.in-view .handoff-card__icon svg * {
+    animation: handoff-draw 1.5s var(--ease-out-expo) forwards;
+  }
+  .handoff-grid.in-view .handoff-card:nth-child(1) .handoff-card__icon svg * { animation-delay: 1.0s; }
+  .handoff-grid.in-view .handoff-card:nth-child(2) .handoff-card__icon svg * { animation-delay: 2.1s; }
+  .handoff-grid.in-view .handoff-card:nth-child(3) .handoff-card__icon svg * { animation-delay: 3.2s; }
+  .handoff-grid.in-view .handoff-card:nth-child(4) .handoff-card__icon svg * { animation-delay: 4.3s; }
+  @keyframes handoff-draw { to { stroke-dashoffset: 0; } }
+
+  .handoff-card__title {
+    font-family: var(--font-display); font-weight: 400;
+    font-size: 1.25rem; letter-spacing: var(--ls-tight);
+    color: var(--text); margin: 0;
+  }
+  .handoff-card__swap {
+    display: flex; align-items: center; gap: .55rem;
+    font-size: .88rem; flex-wrap: wrap;
+  }
+  .handoff-card__before {
+    color: var(--text-dim);
+    position: relative; display: inline-block; white-space: nowrap;
+  }
+  .handoff-card__before::after {
+    content: ''; position: absolute; top: 50%; left: 0;
+    height: 1px; width: 0;
+    background: rgba(107,125,146,.65);
+    transition: width 1.0s var(--ease-out-expo);
+  }
+  .handoff-grid.in-view .handoff-card__before::after { width: 100%; }
+  .handoff-grid.in-view .handoff-card:nth-child(1) .handoff-card__before::after { transition-delay: 1.5s; }
+  .handoff-grid.in-view .handoff-card:nth-child(2) .handoff-card__before::after { transition-delay: 2.6s; }
+  .handoff-grid.in-view .handoff-card:nth-child(3) .handoff-card__before::after { transition-delay: 3.7s; }
+  .handoff-grid.in-view .handoff-card:nth-child(4) .handoff-card__before::after { transition-delay: 4.8s; }
+
+  .handoff-card__arrow {
+    color: var(--cyan); font-weight: 700;
+    opacity: 0; transform: translateX(-6px);
+    transition: opacity .5s var(--ease-out-expo), transform .5s var(--ease-out-expo);
+  }
+  .handoff-card__after {
+    color: var(--navy); font-weight: 600;
+    opacity: 0; transform: translateX(-8px);
+    transition: opacity .7s var(--ease-out-expo), transform .7s var(--ease-out-expo);
+  }
+  .handoff-grid.in-view .handoff-card__arrow,
+  .handoff-grid.in-view .handoff-card__after { opacity: 1; transform: translateX(0); }
+  .handoff-grid.in-view .handoff-card:nth-child(1) .handoff-card__arrow { transition-delay: 2.1s; }
+  .handoff-grid.in-view .handoff-card:nth-child(2) .handoff-card__arrow { transition-delay: 3.2s; }
+  .handoff-grid.in-view .handoff-card:nth-child(3) .handoff-card__arrow { transition-delay: 4.3s; }
+  .handoff-grid.in-view .handoff-card:nth-child(4) .handoff-card__arrow { transition-delay: 5.4s; }
+  .handoff-grid.in-view .handoff-card:nth-child(1) .handoff-card__after { transition-delay: 2.3s; }
+  .handoff-grid.in-view .handoff-card:nth-child(2) .handoff-card__after { transition-delay: 3.4s; }
+  .handoff-grid.in-view .handoff-card:nth-child(3) .handoff-card__after { transition-delay: 4.5s; }
+  .handoff-grid.in-view .handoff-card:nth-child(4) .handoff-card__after { transition-delay: 5.6s; }
+
+  .handoff-card__outcome {
+    color: var(--text-mid); font-size: .935rem; line-height: 1.55;
+    margin: 0; margin-top: auto;
+  }
+
+  /* Summary callout */
+  .handoff-summary {
+    text-align: center;
+    max-width: 740px;
+    margin: clamp(2.75rem, 5vw, 4rem) auto 0;
+    font-family: var(--font-display); font-weight: 400;
+    font-size: clamp(1.15rem, 2vw, 1.6rem);
+    letter-spacing: var(--ls-tight);
+    color: var(--text); line-height: 1.35;
+  }
+  .handoff-summary .tail {
+    display: block;
+    font-family: var(--font-body); font-weight: 400;
+    letter-spacing: var(--ls-normal);
+    color: var(--text-mid);
+    font-size: clamp(.95rem, 1.4vw, 1.05rem);
+    margin-top: .75rem;
+  }
+  .handoff-summary .accent { color: var(--cyan); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .handoff-flow.in-view .handoff-flow__dot,
+    .handoff-flow.in-view .handoff-flow__node,
+    .handoff-grid.in-view .handoff-card__icon svg * { animation: none !important; }
+    .handoff-card__step,
+    .handoff-card__arrow,
+    .handoff-card__after { opacity: 1 !important; transform: none !important; }
+    .handoff-card__before::after { width: 100% !important; transition: none !important; }
+  }
+</style>
+<section class="section section--light">
+  <div class="container">
+    <div class="handoff-intro">
+      <span class="t-label reveal">The handoff</span>
+      <h2 class="t-h2 reveal" style="margin-top:1rem;transition-delay:.1s">
+        Four things off <span class="accent">your plate</span>.
+      </h2>
+      <p class="t-body reveal" style="margin-top:1rem;transition-delay:.2s">
+        Your staff focuses on patient care. We handle the coordination, complaints, and follow-up.
+      </p>
+    </div>
+
+    <div class="handoff-flow reveal" style="transition-delay:.3s">
+      <div class="handoff-flow__endpoint handoff-flow__endpoint--from">
+        <svg class="handoff-flow__clinic" viewBox="0 0 84 64" fill="none" aria-hidden="true">
+          <!-- Ground line -->
+          <line x1="4" y1="60" x2="80" y2="60" stroke="rgba(33,34,38,.18)" stroke-width="1.5" stroke-linecap="round"/>
+          <!-- Building -->
+          <rect x="12" y="22" width="60" height="38" rx="2" fill="#fff" stroke="var(--navy)" stroke-width="2"/>
+          <!-- Roof block with medical cross -->
+          <rect x="30" y="8" width="24" height="18" rx="1.5" fill="var(--navy)"/>
+          <path d="M42 12 V22 M37 17 H47" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/>
+          <!-- Windows -->
+          <rect x="20" y="30" width="9" height="8" rx="1" fill="var(--cyan-light)" stroke="var(--navy)" stroke-width="1"/>
+          <rect x="55" y="30" width="9" height="8" rx="1" fill="var(--cyan-light)" stroke="var(--navy)" stroke-width="1"/>
+          <rect x="20" y="42" width="9" height="8" rx="1" fill="var(--cyan-light)" stroke="var(--navy)" stroke-width="1"/>
+          <rect x="55" y="42" width="9" height="8" rx="1" fill="var(--cyan-light)" stroke="var(--navy)" stroke-width="1"/>
+          <!-- Door -->
+          <path d="M36 60 V44 H48 V60 Z" fill="var(--navy)"/>
+          <circle cx="45" cy="53" r="1.2" fill="var(--cyan)"/>
+        </svg>
+        <span class="handoff-flow__label">Your clinic</span>
+      </div>
+      <div class="handoff-flow__track">
+        <svg class="handoff-flow__svg" viewBox="0 0 1000 24" preserveAspectRatio="none" aria-hidden="true">
+          <line class="handoff-flow__line" x1="0" y1="12" x2="1000" y2="12" vector-effect="non-scaling-stroke"/>
+          <circle class="handoff-flow__node" cx="125" cy="12" r="6"/>
+          <circle class="handoff-flow__node" cx="375" cy="12" r="6"/>
+          <circle class="handoff-flow__node" cx="625" cy="12" r="6"/>
+          <circle class="handoff-flow__node" cx="875" cy="12" r="6"/>
+        </svg>
+        <span class="handoff-flow__dot" aria-hidden="true"></span>
+      </div>
+      <div class="handoff-flow__endpoint handoff-flow__endpoint--to">
+        <img class="handoff-flow__logo" src="logo.png" alt="3D Orthotics" width="105" height="70">
+      </div>
+    </div>
+
+    <div class="handoff-grid stagger">
+      <article class="handoff-card">
+        <span class="handoff-card__step">01</span>
+        <div class="handoff-card__icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        </div>
+        <h3 class="handoff-card__title">Casting</h3>
+        <div class="handoff-card__swap">
+          <span class="handoff-card__before">30-min plaster</span>
+          <span class="handoff-card__arrow">&rarr;</span>
+          <span class="handoff-card__after"><span class="handoff-count" data-from="30" data-to="5">30</span>-min scan</span>
+        </div>
+        <p class="handoff-card__outcome">Your staff powers on the iPad. That's it.</p>
+      </article>
+
+      <article class="handoff-card">
+        <span class="handoff-card__step">02</span>
+        <div class="handoff-card__icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.29 7 12 12 20.71 7"/><line x1="12" y1="22" x2="12" y2="12"/></svg>
+        </div>
+        <h3 class="handoff-card__title">Delivery</h3>
+        <div class="handoff-card__swap">
+          <span class="handoff-card__before">Chase the patient</span>
+          <span class="handoff-card__arrow">&rarr;</span>
+          <span class="handoff-card__after">We call &amp; confirm</span>
+        </div>
+        <p class="handoff-card__outcome">We confirm the address and schedule delivery directly with the patient.</p>
+      </article>
+
+      <article class="handoff-card">
+        <span class="handoff-card__step">03</span>
+        <div class="handoff-card__icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 18v-6a9 9 0 0118 0v6"/><path d="M21 19a2 2 0 01-2 2h-1a2 2 0 01-2-2v-3a2 2 0 012-2h3z"/><path d="M3 19a2 2 0 002 2h1a2 2 0 002-2v-3a2 2 0 00-2-2H3z"/></svg>
+        </div>
+        <h3 class="handoff-card__title">Customer Service</h3>
+        <div class="handoff-card__swap">
+          <span class="handoff-card__before">Nurses field complaints</span>
+          <span class="handoff-card__arrow">&rarr;</span>
+          <span class="handoff-card__after">Routes to us</span>
+        </div>
+        <p class="handoff-card__outcome">Every adjustment, concern, or question comes to 3DO &mdash; not your clinic.</p>
+      </article>
+
+      <article class="handoff-card">
+        <span class="handoff-card__step">04</span>
+        <div class="handoff-card__icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+        </div>
+        <h3 class="handoff-card__title">Comfort Call</h3>
+        <div class="handoff-card__swap">
+          <span class="handoff-card__before">Return appointments</span>
+          <span class="handoff-card__arrow">&rarr;</span>
+          <span class="handoff-card__after">We call first</span>
+        </div>
+        <p class="handoff-card__outcome">We check in after delivery. Most issues resolve without a return visit.</p>
+      </article>
+    </div>
+
+    <p class="handoff-summary reveal" style="transition-delay:.1s">
+      <strong style="font-weight:400">Four tasks. <span class="accent">One handoff.</span></strong>
+      <span class="tail">Hours of clinic time back to patient care.</span>
+    </p>
+  </div>
+</section>
+<script src="js/handoff-flare.js"></script>
+
 <!-- ══════════════════════════════════════════════ ACCUSCAN INTRO -->
 <section class="section">
   <div class="container">
