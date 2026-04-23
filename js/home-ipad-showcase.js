@@ -34,8 +34,6 @@
   function goTo(idx) {
     if (idx < 0 || idx >= total) return;
 
-    slides.forEach(s => s.classList.remove('is-active'));
-
     flags.forEach(flag => {
       flag.classList.remove('is-active', 'is-done', 'is-filling');
       const fill = flag.querySelector('.pipeline-flag__fill');
@@ -47,7 +45,16 @@
     });
 
     current = idx;
-    slides[current].classList.add('is-active');
+
+    // Position every slide relative to the current index so transitions
+    // read as a left→right iPad swipe: `.is-past` = already-shown (parked
+    // off-screen left), `.is-active` = on-screen, no class = upcoming
+    // (parked off-screen right via default `translateX(100%)`).
+    slides.forEach((s, i) => {
+      s.classList.remove('is-active', 'is-past');
+      if (i < current) s.classList.add('is-past');
+      else if (i === current) s.classList.add('is-active');
+    });
 
     flags.forEach(flag => {
       const flagStep = parseInt(flag.dataset.goto, 10);
