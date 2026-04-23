@@ -1234,7 +1234,12 @@ body:has(button:hover) .cursor__ring { width: 52px; height: 52px; opacity: 0.7; 
 
 /* Per-slide media adjustments */
 /* Step 1: Anchor top so the instruction banner stays visible. The PNG was
-   pre-cropped to remove its 1-2px white perimeter, so no scale hack needed. */
+   pre-cropped to remove its 1-2px white perimeter. The slide itself gets a
+   black background so any subpixel gap at the screen edge blends with the
+   iPad bezel instead of flashing white. */
+.ipad-slide[data-step="1"] {
+  background: #000;
+}
 .ipad-slide[data-step="1"] img {
   object-position: center top;
 }
