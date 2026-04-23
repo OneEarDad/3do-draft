@@ -202,3 +202,32 @@ const statObserver = new IntersectionObserver(entries => {
 }, { threshold: 0.5 });
 
 document.querySelectorAll('.stat__num[data-count]').forEach(el => statObserver.observe(el));
+
+// ── Live counter (e.g. "Veterans Served") ────────────────
+// Computes the current count from (elapsed days since start) × rate, so the
+// displayed base stays plausible across visits without manual updates. After
+// the initial count-up animation, ticks +1 every `data-tick-ms` for a visible
+// "always growing" feel. This is a demo counter, not a source of truth.
+document.querySelectorAll('.stat__num[data-count-live]').forEach(el => {
+  const startMs = new Date(el.dataset.startDate).getTime();
+  const perDay  = parseFloat(el.dataset.perDay) || 0;
+  const tickMs  = parseInt(el.dataset.tickMs, 10) || 60000;
+  const elapsedDays = (Date.now() - startMs) / 86400000;
+  let live = Math.max(0, Math.floor(elapsedDays * perDay));
+
+  const liveObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      animateCounter(el, live, 2400);
+      setTimeout(() => {
+        el.textContent = live.toLocaleString();
+        setInterval(() => {
+          live += 1;
+          el.textContent = live.toLocaleString();
+        }, tickMs);
+      }, 2500);
+      liveObserver.unobserve(el);
+    });
+  }, { threshold: 0.5 });
+  liveObserver.observe(el);
+});
