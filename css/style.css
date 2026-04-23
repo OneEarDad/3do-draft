@@ -1233,15 +1233,15 @@ body:has(button:hover) .cursor__ring { width: 52px; height: 52px; opacity: 0.7; 
 }
 
 /* Per-slide media adjustments */
-/* Step 1: Anchor top so the instruction banner stays visible. The PNG was
-   pre-cropped to remove its 1-2px white perimeter. The slide itself gets a
-   black background so any subpixel gap at the screen edge blends with the
-   iPad bezel instead of flashing white. */
+/* Step 1: Stretch the scan screenshot edge-to-edge with the iPad bezel so no
+   white perimeter is ever visible. `object-fit: fill` ignores aspect ratio,
+   which slightly widens the foot (~12%) but guarantees zero gap. Slide also
+   gets a black background as a safety net for any subpixel rounding. */
 .ipad-slide[data-step="1"] {
   background: #000;
 }
 .ipad-slide[data-step="1"] img {
-  object-position: center top;
+  object-fit: fill;
 }
 /* Step 2: Shift right & zoom to crop out white back-arrow in top-left */
 .ipad-slide[data-step="2"] video {
