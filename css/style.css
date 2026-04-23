@@ -1233,11 +1233,10 @@ body:has(button:hover) .cursor__ring { width: 52px; height: 52px; opacity: 0.7; 
 }
 
 /* Per-slide media adjustments */
-/* Step 1: Anchor top to keep instruction text, zoom slightly to hide white screenshot edges */
+/* Step 1: Anchor top so the instruction banner stays visible. The PNG was
+   pre-cropped to remove its 1-2px white perimeter, so no scale hack needed. */
 .ipad-slide[data-step="1"] img {
-  object-position: center calc(0% + 2px);
-  transform: scale(1.05);
-  transform-origin: top center;
+  object-position: center top;
 }
 /* Step 2: Shift right & zoom to crop out white back-arrow in top-left */
 .ipad-slide[data-step="2"] video {
