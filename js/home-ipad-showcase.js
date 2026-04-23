@@ -20,7 +20,16 @@
   let autoTimer   = null;
   let isVisible   = false;
 
-  function getDuration(step) { return step === 0 ? 3000 : 5000; }
+  // Step 0 (launch logo): 3s. Step 2 (Review — foot scan video): 7s so the
+  // 2× sped-up video has room to show a full rotation. Everything else: 5s.
+  function getDuration(step) {
+    if (step === 0) return 3000;
+    if (step === 2) return 7000;
+    return 5000;
+  }
+  // Playback rate applied per-step to the <video> in that slide.
+  // 2× on Review compresses the 31-second source video into the 7s window.
+  function getPlaybackRate(step) { return step === 2 ? 2.0 : 1.0; }
 
   function goTo(idx) {
     if (idx < 0 || idx >= total) return;
@@ -62,7 +71,14 @@
 
     slides.forEach((s, i) => {
       const vid = s.querySelector('video');
-      if (vid) { i === current ? vid.play() : vid.pause(); }
+      if (!vid) return;
+      if (i === current) {
+        vid.playbackRate = getPlaybackRate(i);
+        vid.currentTime = 0;          // always restart from the top
+        vid.play();
+      } else {
+        vid.pause();
+      }
     });
 
     prevBtn.classList.toggle('is-hidden', current === 0);
