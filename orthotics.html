@@ -8,15 +8,76 @@
   <link rel="apple-touch-icon" href="logo.png">
   <link rel="manifest" href="site.webmanifest">
   <meta name="theme-color" content="#00549d">  <meta name="description" content="Browse our full range of custom digital orthotics: comfort, diabetic, sport, and dress. All fabricated from precision 3D scans.">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self'; frame-src https://www.youtube.com; object-src 'none'; base-uri 'self'; form-action 'self' mailto:; upgrade-insecure-requests">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self'; frame-src https://www.youtube.com; object-src 'none'; base-uri 'self'; form-action 'self' mailto:; upgrade-insecure-requests">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <link rel="stylesheet" href="css/style.css">
   <style>
     .portfolio-item { cursor: pointer; }
+    .orthotics-hero {
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+    }
+    .orthotics-hero .container { text-align: center; }
+    .orthotics-hero .t-body {
+      margin-left: auto;
+      margin-right: auto;
+    }
     .orthotics-hero-bg {
       position: absolute; inset: 0;
       background: radial-gradient(ellipse 70% 70% at 100% 0%, rgba(0,174,199,.08) 0%, transparent 60%);
       pointer-events: none;
+      z-index: 1;
+    }
+    .orthotics-hero-skyfall {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      --bubble-size: 66px;
+      --bubble-opacity: .32;
+    }
+    .orthotics-hero-skyfall .bubble {
+      position: absolute;
+      top: -110px;
+      left: var(--x, 50%);
+      width: var(--bubble-size);
+      height: var(--bubble-size);
+      opacity: var(--bubble-opacity);
+      animation:
+        orthotics-skyfall-drop var(--dur, 10.8s) linear var(--delay, 0s) infinite,
+        orthotics-skyfall-sway calc(var(--dur, 10.8s) * .45) ease-in-out var(--delay, 0s) infinite;
+      filter: saturate(.98);
+    }
+    .orthotics-hero-skyfall .bubble__name { display: none; }
+    .orthotics-hero-scrim {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      pointer-events: none;
+      background:
+        radial-gradient(65% 55% at 50% 38%, rgba(255,255,255,.74) 0%, rgba(255,255,255,.56) 40%, rgba(255,255,255,.3) 66%, rgba(255,255,255,.1) 82%, rgba(255,255,255,.03) 100%),
+        linear-gradient(180deg, rgba(255,255,255,.24), rgba(255,255,255,.14));
+    }
+    .orthotics-hero .container { position: relative; z-index: 4; }
+    @keyframes orthotics-skyfall-drop {
+      0% { transform: translate(-50%, -120px) scale(.94); }
+      100% { transform: translate(-50%, var(--fall-distance, 760px)) scale(1.04); }
+    }
+    @keyframes orthotics-skyfall-sway {
+      0%, 100% { margin-left: calc(var(--sway, 10px) * -1); rotate: -3deg; }
+      50% { margin-left: var(--sway, 10px); rotate: 3deg; }
+    }
+    @media (max-width: 860px) {
+      .orthotics-hero-skyfall {
+        --bubble-size: 48px;
+        --bubble-opacity: .28;
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .orthotics-hero-skyfall .bubble {
+        animation: none;
+      }
     }
 
     /* ── Orthotic Modal ─────────────────────────────────── */
@@ -67,9 +128,9 @@
       position: absolute; top: .75rem; right: .75rem; z-index: 10;
       background: var(--white, #fff); border: 1px solid var(--text-faint, #b8d8f0);
       color: var(--accent, #00aec7); border-radius: 50%;
-      width: 2rem; height: 2rem;
+      width: 2.75rem; height: 2.75rem;
       display: flex; align-items: center; justify-content: center;
-      cursor: pointer; font-size: 1.1rem; line-height: 1;
+      cursor: pointer; font-size: 1.25rem; line-height: 1;
       transition: background .15s;
     }
     .ortho-modal__close:hover { background: var(--surface, #f0f6fd); }
@@ -116,7 +177,7 @@
       top: 50%; transform: translateY(-50%);
       background: rgba(255,255,255,.9); border: 1px solid var(--text-faint, #b8d8f0);
       color: var(--navy, #00549d); font-size: 1.8rem; line-height: 1;
-      width: 2.2rem; height: 2.2rem;
+      width: 2.75rem; height: 2.75rem;
       border-radius: 50%; cursor: pointer;
       display: flex; align-items: center; justify-content: center;
       transition: background .15s, opacity .15s;
@@ -158,7 +219,7 @@
 <nav class="nav">
   <a class="nav__logo" href="index.html"><img src="logo.png" alt="3D Orthotics"></a>
   <div class="nav__links">
-    <span class="nav__phone">844-FOOT-911</span>
+    <a class="nav__phone" href="tel:+18443668911" aria-label="Call 844-FOOT-911">844-FOOT-911</a>
     <a class="nav__link" href="index.html">Home</a>
     <a class="nav__link" href="accuscan-dp.html">AccuScan DP</a>
     <a class="nav__link" href="orthotics.html">Orthotics</a>
@@ -190,8 +251,10 @@
 </div>
 
 <!-- PAGE HERO -->
-<section class="page-hero">
+<section class="page-hero orthotics-hero">
   <div class="orthotics-hero-bg"></div>
+  <div class="orthotics-hero-skyfall" id="orthotics-hero-skyfall" aria-hidden="true"></div>
+  <div class="orthotics-hero-scrim" aria-hidden="true"></div>
   <div class="container">
     <span class="t-label page-hero__eyebrow reveal">Custom Orthotics</span>
     <h1 class="t-h1 reveal" style="transition-delay:.1s">Every Foot.<br><span class="accent">Every Need.</span></h1>
@@ -495,7 +558,7 @@
         <div class="footer__links">
           <a class="footer__link" href="tel:8443668911">844-FOOT-911</a>
           <a class="footer__link" href="mailto:Orders@3DOrthotics.com">Orders@3DOrthotics.com</a>
-          <a class="footer__link" href="contact.html">Contact Form</a>
+          <a class="footer__link" href="contact.html">Contact Us</a>
         </div>
       </div>
     </div>
@@ -541,185 +604,10 @@
   </div>
 </div>
 
-<script>
-const ORTHO_DATA = {
-  'comfort-soft': {
-    name: 'Comfort Soft',
-    imgs: ['Orthotics Pics/Comfort Soft 1.jpg','Orthotics Pics/Comfort Soft 2.jpg','Orthotics Pics/Comfort Soft 3.jpg'],
-    materials: 'Cushioned fabric top cover · Flexible EVA foam base · Polyurethane heel cup',
-    tags: ['Everyday wear', 'Foot fatigue', 'Mild overpronation', 'Plantar fasciitis'],
-    feature: 'Dual-density construction provides all-day cushioning while maintaining just enough biomechanical support to reduce fatigue on long shifts or active days.'
-  },
-  'diabetic-medium': {
-    name: 'Diabetic Medium',
-    imgs: ['Orthotics Pics/Diabetic Medium 1.jpg','Orthotics Pics/Diabetic Medium 2.jpg','Orthotics Pics/Diabetic Medium 3.jpg'],
-    materials: 'Plastazote® top cover · PPT® medium-density base · Seamless bonded edges',
-    tags: ['Diabetic neuropathy', 'Pressure offloading', 'VA / DOD standard', 'Moderate risk'],
-    feature: 'Pressure-mapped design reduces peak plantar pressures to protect sensory-impaired feet while maintaining functional support throughout the day.'
-  },
-  'diabetic-soft': {
-    name: 'Diabetic Soft',
-    imgs: ['Orthotics Pics/Diabetic Soft 1.jpg','Orthotics Pics/Diabetic Soft 2.jpg','Orthotics Pics/Diabetic Soft 3.jpg'],
-    materials: 'Soft Plastazote® top cover · Extra-soft PPT® base · Total contact construction',
-    tags: ['High ulcer risk', 'Severe neuropathy', 'Charcot foot', 'Post-wound care'],
-    feature: 'Extra-soft total contact fit minimizes shear and friction at every contact point. The highest level of pressure protection in our diabetic line.'
-  },
-  'dress-elite': {
-    name: 'Dress Elite',
-    imgs: ['Orthotics Pics/Dress Elite 1.jpg','Orthotics Pics/Dress Elite 2.jpg','Orthotics Pics/Dress Elite 3.jpg'],
-    materials: 'Microfiber top cover · Slim carbon-composite shell · Low-profile foam base',
-    tags: ['Dress shoes', 'Professional wear', 'Mild correction', 'Low-volume footwear'],
-    feature: 'Ultra-slim 3mm profile delivers full custom biomechanical correction without modifying fit. Designed to disappear inside standard dress and uniform footwear.'
-  },
-  'dress-high-heel': {
-    name: 'Dress High Heel',
-    imgs: ['Orthotics Pics/Dress High Heel 1.jpg','Orthotics Pics/Dress High Heel 2.jpg','Orthotics Pics/Dress High Heel 3.jpg'],
-    materials: 'Satin top cover · Forefoot metatarsal pad · Contoured heel platform',
-    tags: ['High heels', 'Forefoot pain', 'Metatarsalgia', "Morton's neuroma"],
-    feature: 'Contoured specifically for heel elevation. Shifts load rearward and offloads the metatarsal heads without altering the shoe\'s profile.'
-  },
-  'fm-functional': {
-    name: 'FM Functional',
-    imgs: ['Orthotics Pics/FM Fuctional 1.jpg','Orthotics Pics/FM Functional 2.jpg','Orthotics Pics/FM Functional 3.jpg'],
-    materials: 'Leather top cover · Rigid polypropylene shell · Extrinsic rear-foot & forefoot post',
-    tags: ['Overpronation', 'Supination', 'Plantar fasciitis', 'Achilles tendinopathy'],
-    feature: 'Full rear-foot and forefoot posting capability gives clinicians precise control over biomechanical correction. The most versatile functional orthotic in the FM line.'
-  },
-  'fm-glider': {
-    name: 'FM Glider',
-    imgs: ['Orthotics Pics/FM Glider 1.jpg','Orthotics Pics/FM Glider 2.jpg','Orthotics Pics/FM Glider 3.jpg'],
-    materials: 'Synthetic top cover · Semi-flexible polypropylene shell · Low-profile EVA base',
-    tags: ['Athletic casual', 'Mild pronation', 'Everyday active', 'Low-volume shoes'],
-    feature: 'Low-profile shell fits casual and athletic footwear without heel elevation. Full custom correction without the bulk of a traditional functional device.'
-  },
-  'fm-integrated': {
-    name: 'FM Integrated',
-    imgs: ['Orthotics Pics/FM Integrated 1.jpg','Orthotics Pics/FM Integrated 2.jpg','Orthotics Pics/FM Integrated 3.jpg'],
-    materials: 'Cushioned top cover · Multi-density polypropylene shell · Strategically placed PPT® pads',
-    tags: ['Mixed activity', 'Combined needs', 'Cushion + control', 'General population'],
-    feature: 'Multi-density zones target high-pressure areas with cushioning while the firm shell maintains structural correction. One device for patients with mixed biomechanical and comfort needs.'
-  },
-  'fm-sport': {
-    name: 'FM Sport',
-    imgs: ['Orthotics Pics/FM Sport 1.jpg','Orthotics Pics/FM Sport 2.jpg','Orthotics Pics/FM Sport 3.jpg'],
-    materials: 'Moisture-wicking top cover · Rigid carbon fiber shell · Deep heel cup',
-    tags: ['Running', 'High-impact sport', 'IT band syndrome', 'Overpronation'],
-    feature: 'Carbon fiber shell returns energy with each stride while the deep heel cup locks the rearfoot. Built for repetitive high-impact loading without fatigue or breakdown.'
-  },
-  'fm-support': {
-    name: 'FM Support',
-    imgs: ['Orthotics Pics/FM Support 1.jpg','Orthotics Pics/FM Support 2.jpg','Orthotics Pics/FM Support 3.jpg'],
-    materials: 'Firm EVA top cover · Extra-rigid polypropylene shell · Extended heel counter',
-    tags: ['Severe pronation', 'PTTD', 'Heavy-duty use', 'Maximum control'],
-    feature: 'Extended heel counter and extra-rigid shell deliver maximum rearfoot stability. The highest level of motion control in the FM line for demanding clinical presentations.'
-  },
-  'fm-trainer': {
-    name: 'FM Trainer',
-    imgs: ['Orthotics Pics/FM Trainer 1.jpg','Orthotics Pics/FM Trainer 2.jpg','Orthotics Pics/FM Trainer 3.jpg'],
-    materials: 'Shock-absorbing top cover · Semi-rigid shell · Dual-density forefoot pad',
-    tags: ['Gym & training', 'Shin splints', 'Repetitive impact', 'Cross-training'],
-    feature: 'Dual-density forefoot pad absorbs ground reaction forces during high-repetition training while the semi-rigid shell maintains alignment across varied movement planes.'
-  },
-  'motion-soft': {
-    name: 'Motion Soft',
-    imgs: ['Orthotics Pics/Motion Soft 1.jpg','Orthotics Pics/Motion Soft 2.jpg','Orthotics Pics/Motion Soft 3.jpg'],
-    materials: 'Soft fabric top cover · Flexible motion-control shell · Cushioned heel pad',
-    tags: ['Overpronation', 'Active daily use', 'Mild–moderate control', 'Comfort-focused'],
-    feature: 'Motion-control shell paired with a soft top cover bridges the gap between comfort and correction. Ideal for patients who need guidance without a rigid device.'
-  },
-  'pt-controller': {
-    name: 'PT Controller',
-    imgs: ['Orthotics Pics/PT Controller 1.jpg','Orthotics Pics/PT Controller 2.jpg','Orthotics Pics/PT Controller 3.jpg'],
-    materials: 'Medical-grade top cover · Firm control shell · Clinician-adjustable posting system',
-    tags: ['Post-surgical rehab', 'Gait retraining', 'Tendon recovery', 'Ligament rehab'],
-    feature: 'The adjustable posting system lets the treating clinician modify the degree of correction at each appointment. Designed to evolve with the patient through the rehabilitation process.'
-  },
-  'smart-basic': {
-    name: 'Smart Basic',
-    imgs: ['Orthotics Pics/Smart Basic 1.jpg','Orthotics Pics/Smart Basic 2.jpg','Orthotics Pics/Smart Basic 3.jpg'],
-    materials: 'Breathable top cover · Flexible polypropylene shell · Standard cushion base',
-    tags: ['Mild correction', 'General support', 'Entry-level custom', 'Wide population'],
-    feature: 'Every Smart Basic is fully custom-fabricated from a precision 3D scan. No off-the-shelf sizing, no compromises. Full custom fit at the most accessible tier in our catalog.'
-  }
-};
+<script src="js/orthotics-page.js"></script>
+<script src="js/orthotics-tilt.js"></script>
 
-(function () {
-  const backdrop = document.getElementById('orthoModal');
-  const closeBtn = document.getElementById('orthoModalClose');
-  const photo    = document.getElementById('orthoModalPhoto');
-  const nameEl   = document.getElementById('orthoModalName');
-  const matsEl   = document.getElementById('orthoModalMaterials');
-  const tagsEl   = document.getElementById('orthoModalTags');
-  const featEl   = document.getElementById('orthoModalFeature');
-  const prevBtn  = document.getElementById('orthoModalPrev');
-  const nextBtn  = document.getElementById('orthoModalNext');
-  const dotsEl   = document.getElementById('orthoModalDots');
-
-  let currentImgs = [];
-  let currentIdx  = 0;
-
-  function setImage(idx) {
-    currentIdx = idx;
-    photo.src  = currentImgs[idx];
-    // Update dots
-    dotsEl.querySelectorAll('.ortho-modal__dot').forEach((d, i) => {
-      d.classList.toggle('is-active', i === idx);
-    });
-    // Show/hide arrows
-    prevBtn.classList.toggle('is-hidden', currentImgs.length <= 1);
-    nextBtn.classList.toggle('is-hidden', currentImgs.length <= 1);
-  }
-
-  function openModal(key) {
-    const d = ORTHO_DATA[key];
-    if (!d) return;
-    currentImgs = d.imgs;
-    nameEl.textContent = d.name;
-    matsEl.innerHTML   = d.materials.split(' · ').map(m => `<div class="ortho-modal__mat-item">${m}</div>`).join('');
-    tagsEl.innerHTML   = d.tags.map(t => `<span class="ortho-modal__tag">${t}</span>`).join('');
-    featEl.textContent = d.feature;
-    photo.alt          = d.name;
-    // Build dots
-    dotsEl.innerHTML   = d.imgs.map(() => `<div class="ortho-modal__dot"></div>`).join('');
-    setImage(0);
-    backdrop.classList.add('is-open');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeModal() {
-    backdrop.classList.remove('is-open');
-    document.body.style.overflow = '';
-  }
-
-  prevBtn.addEventListener('click', e => {
-    e.stopPropagation();
-    setImage((currentIdx - 1 + currentImgs.length) % currentImgs.length);
-  });
-  nextBtn.addEventListener('click', e => {
-    e.stopPropagation();
-    setImage((currentIdx + 1) % currentImgs.length);
-  });
-
-  // Open on card click (but not on carousel dot clicks)
-  document.querySelectorAll('.portfolio-card[data-key]').forEach(card => {
-    card.addEventListener('click', e => {
-      if (e.target.closest('.carousel__dots')) return;
-      openModal(card.dataset.key);
-    });
-  });
-
-  closeBtn.addEventListener('click', closeModal);
-  backdrop.addEventListener('click', e => { if (e.target === backdrop) closeModal(); });
-  document.addEventListener('keydown', e => {
-    if (!backdrop.classList.contains('is-open')) return;
-    if (e.key === 'Escape') closeModal();
-    if (e.key === 'ArrowLeft')  setImage((currentIdx - 1 + currentImgs.length) % currentImgs.length);
-    if (e.key === 'ArrowRight') setImage((currentIdx + 1) % currentImgs.length);
-  });
-})();
-</script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<!-- three.min.js removed: no WebGL foot scanner on this page. particles-bg.js is Canvas 2D. -->
 <script src="js/particles-bg.js"></script>
 <script src="js/main.js"></script>
 </body>

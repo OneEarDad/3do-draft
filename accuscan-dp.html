@@ -8,7 +8,7 @@
   <link rel="apple-touch-icon" href="logo.png">
   <link rel="manifest" href="site.webmanifest">
   <meta name="theme-color" content="#00549d">  <meta name="description" content="AccuScan DP: HIPAA-aligned digital orthotic scanning for federal facilities. Patient information de-identified before transmission. Fast, clean, five minutes.">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self'; frame-src https://www.youtube.com; object-src 'none'; base-uri 'self'; form-action 'self' mailto:; upgrade-insecure-requests">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self'; frame-src https://www.youtube.com; object-src 'none'; base-uri 'self'; form-action 'self' mailto:; upgrade-insecure-requests">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <link rel="stylesheet" href="css/style.css">
   <style>
@@ -36,12 +36,14 @@
     .scan-visual {
       position: relative;
       aspect-ratio: 1;
-      background: transparent;
+      background:
+        radial-gradient(ellipse 55% 50% at 50% 50%, rgba(0,174,199,.10) 0%, transparent 65%),
+        radial-gradient(ellipse 75% 65% at 50% 55%, rgba(0,84,157,.05) 0%, transparent 70%);
       border: none;
       display: grid;
       place-items: center;
     }
-    .scan-visual canvas { width: 100% !important; height: 100% !important; background: transparent; }
+    .scan-visual canvas { width: 100% !important; height: 100% !important; background: transparent; position: relative; z-index: 1; }
     /* ── AccuScan DP wordmark (replaces h1 text) ───────────── */
     .accuscan-wordmark {
       display: block;
@@ -205,7 +207,7 @@
 <nav class="nav">
   <a class="nav__logo" href="index.html"><img src="logo.png" alt="3D Orthotics"></a>
   <div class="nav__links">
-    <span class="nav__phone">844-FOOT-911</span>
+    <a class="nav__phone" href="tel:+18443668911" aria-label="Call 844-FOOT-911">844-FOOT-911</a>
     <a class="nav__link" href="index.html">Home</a>
     <a class="nav__link" href="accuscan-dp.html">AccuScan DP</a>
     <a class="nav__link" href="orthotics.html">Orthotics</a>
@@ -241,6 +243,7 @@
   <div class="page-hero__bg"></div>
   <div class="container">
     <div class="hero-stack">
+      <h1 class="sr-only">AccuScan DP — HIPAA-Aligned Digital Orthotic Scanner</h1>
       <img class="accuscan-wordmark reveal" src="images/accuscan-dp-logo.png" alt="AccuScan DP">
       <p class="t-body hero-stack__tagline reveal" style="transition-delay:.1s">
         HIPAA-aligned digital orthotic scanning built for federal facilities. Patient information is de-identified before transmission. Five minutes. No mess.
@@ -270,8 +273,8 @@
       </div>
 
       <div class="hero-stack__ctas reveal" style="transition-delay:.4s">
-        <a class="btn btn--primary" href="contact.html?demo=1">
-          Request a Demo
+        <a class="btn btn--primary" href="contact.html">
+          Talk to Our Clinical Team
           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
         </a>
         <a class="btn btn--ghost" href="guides.html">View Guides</a>
@@ -468,21 +471,28 @@
 </section>
 
 <!-- ══════════════════════════════════ CTA -->
-<section class="section section--light">
-  <div class="container">
-    <div style="text-align:center;max-width:600px;margin:0 auto">
+<section class="section section--dark" style="position:relative;overflow:hidden">
+  <div aria-hidden="true" style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 45% at 50% 30%, rgba(0,174,199,.18) 0%, transparent 65%), radial-gradient(ellipse 80% 60% at 50% 90%, rgba(0,174,199,.10) 0%, transparent 70%);pointer-events:none"></div>
+  <div class="container" style="position:relative;z-index:1">
+    <div style="text-align:center;max-width:680px;margin:0 auto">
       <span class="t-label reveal">Get Started</span>
-      <h2 class="t-h2 reveal" style="margin-top:1rem;transition-delay:.1s">Ready to Modernize<br>Your Orthotic Program?</h2>
-      <p class="t-body reveal" style="margin-top:1.25rem;transition-delay:.2s">Contact our sales team to create a personalized plan for your facility's specific needs.</p>
+      <h2 class="t-h2 reveal" style="margin-top:1rem;transition-delay:.1s">Ready to Modernize<br><span class="accent" style="color:var(--cyan)">Your Orthotic Program?</span></h2>
+      <p class="t-body reveal" style="margin-top:1.25rem;transition-delay:.2s;max-width:540px;margin-left:auto;margin-right:auto">Contact our sales team to create a personalized plan for your facility's specific needs. Implementation walkthrough, staff training, and federal-compliance documentation included.</p>
       <div class="reveal" style="display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;margin-top:2.5rem;transition-delay:.3s">
         <a class="btn btn--primary" href="contact.html">
           Contact Sales
           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
         </a>
-        <a class="btn btn--outline" href="tel:8443668911">
+        <a class="btn btn--outline" href="tel:+18443668911">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.06 1.18 2 2 0 012.03 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
           844-FOOT-911
         </a>
+      </div>
+      <div class="reveal" style="display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;margin-top:2.5rem;padding-top:2rem;border-top:1px solid rgba(255,255,255,.12);transition-delay:.4s">
+        <span style="font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan)">SDVOSB</span>
+        <span style="font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan)">WOSB</span>
+        <span style="font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan)">FDA Registered</span>
+        <span style="font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan)">SAM Registered</span>
       </div>
     </div>
   </div>
@@ -535,9 +545,9 @@
   </div>
 </footer>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/OBJLoader.js"></script>
-<script src="js/foot-3d.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" integrity="sha384-CI3ELBVUz9XQO+97x6nwMDPosPR5XvsxW2ua7N1Xeygeh1IxtgqtCkGfQY9WWdHu" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/OBJLoader.js" integrity="sha384-UWFC8mrevmKCZhKbJ/8/dqLrRAvHArRwJCKjwruJuXyhsebGMFsIK5zrn+R9r+fT" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="js/foot-3d.js?v=2"></script>
 <script src="js/particles-bg.js"></script>
 <script src="js/bubbles.js"></script>
 <script src="js/main.js"></script>

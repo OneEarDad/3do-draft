@@ -8,7 +8,7 @@
   <link rel="apple-touch-icon" href="logo.png">
   <link rel="manifest" href="site.webmanifest">
   <meta name="theme-color" content="#00549d">  <meta name="description" content="Contact 3D Orthotics for AccuScan DP demos, ordering support, and digital orthotic program assistance.">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self'; frame-src https://www.youtube.com; object-src 'none'; base-uri 'self'; form-action 'self' mailto:; upgrade-insecure-requests">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self'; frame-src https://www.youtube.com; object-src 'none'; base-uri 'self'; form-action 'self' mailto:; upgrade-insecure-requests">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <link rel="stylesheet" href="css/style.css">
 </head>
@@ -23,7 +23,7 @@
 <nav class="nav">
   <a class="nav__logo" href="index.html"><img src="logo.png" alt="3D Orthotics"></a>
   <div class="nav__links">
-    <span class="nav__phone">844-FOOT-911</span>
+    <a class="nav__phone" href="tel:+18443668911" aria-label="Call 844-FOOT-911">844-FOOT-911</a>
     <a class="nav__link" href="index.html">Home</a>
     <a class="nav__link" href="accuscan-dp.html">AccuScan DP</a>
     <a class="nav__link" href="orthotics.html">Orthotics</a>
@@ -125,66 +125,48 @@
         </div>
       </div>
 
-      <!-- Form column -->
+      <!-- No-input contact options column -->
       <div class="reveal--right">
-        <form class="form" id="contact-form" onsubmit="handleSubmit(event)">
-          <p class="t-body" style="margin-bottom:1rem;font-size:.9rem;border-left:2px solid var(--accent);padding-left:.85rem">
-            Security Notice: Please do not include patient health information (PHI) in this message.
+        <div class="contact-options">
+          <div class="contact-options__card">
+            <div class="contact-options__header">
+              <div class="contact-options__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 8l9 6 9-6"/></svg>
+              </div>
+              <div class="contact-options__eyebrow">AccuScan Program</div>
+            </div>
+            <p class="t-body contact-options__lead">Speak with our clinical team about implementation planning, staff training, and your facility's workflow. We respond within one business day.</p>
+            <a class="btn btn--primary" href="mailto:PatientCare@3DOrthotics.com?subject=AccuScan%20Program%20Inquiry" style="font-size:.82rem;padding:.6rem 1rem">
+              Email Patient Care
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+            </a>
+          </div>
+          <div class="contact-options__card">
+            <div class="contact-options__header">
+              <div class="contact-options__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.3 7 12 12 20.7 7"/><line x1="12" y1="22" x2="12" y2="12"/></svg>
+              </div>
+              <div class="contact-options__eyebrow">Orders &amp; Contracts</div>
+            </div>
+            <p class="t-body contact-options__lead">Purchase orders, contract vehicles, and L-code billing questions go direct to our procurement team. SDVOSB and SAM registered.</p>
+            <a class="btn btn--primary" href="mailto:Orders@3DOrthotics.com?subject=Orders%20and%20Contracts%20Inquiry" style="font-size:.82rem;padding:.6rem 1rem">
+              Email Orders Team
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+            </a>
+          </div>
+          <div class="contact-options__card">
+            <div class="contact-options__header">
+              <div class="contact-options__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.06 1.18 2 2 0 012.03 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+              </div>
+              <div class="contact-options__eyebrow">Talk to a Person</div>
+            </div>
+            <p class="t-body contact-options__lead">Prefer to skip email? Our team answers the phone directly — no ticketing system, no phone tree.</p>
+            <a class="btn btn--ghost" href="tel:+18443668911" style="font-size:.82rem;padding:.6rem 1rem">Call 844-FOOT-911</a>
+          </div>
+          <p class="t-body contact-options__notice">
+            We don't collect personal information through web forms. All PHI stays inside your facility — scans are de-identified before transmission.
           </p>
-          <div class="form__row">
-            <div class="form__group">
-              <label class="form__label" for="first-name">First Name</label>
-              <input class="form__input" id="first-name" name="firstName" type="text" placeholder="John" required maxlength="50" pattern="[A-Za-z\\-\\s']+">
-            </div>
-            <div class="form__group">
-              <label class="form__label" for="last-name">Last Name</label>
-              <input class="form__input" id="last-name" name="lastName" type="text" placeholder="Smith" required maxlength="50" pattern="[A-Za-z\\-\\s']+">
-            </div>
-          </div>
-          <div class="form__group">
-            <label class="form__label" for="email">Email</label>
-            <input class="form__input" id="email" name="email" type="email" placeholder="you@va.gov" required maxlength="120">
-          </div>
-          <div class="form__group">
-            <label class="form__label" for="phone">Phone</label>
-            <input class="form__input" id="phone" name="phone" type="tel" placeholder="(555) 000-0000" maxlength="25" pattern="[0-9\\-\\s()+.]{7,25}">
-          </div>
-          <div class="form__group">
-            <label class="form__label" for="facility">Facility / Organization</label>
-            <input class="form__input" id="facility" name="facility" type="text" placeholder="VA Medical Center – [City]" maxlength="120">
-          </div>
-          <div class="form__group">
-            <label class="form__label" for="subject">Subject</label>
-            <select class="form__select" id="subject" name="subject" required>
-              <option value="">Select a topic...</option>
-              <option>AccuScan DP Program Inquiry</option>
-              <option>Orthotic Order</option>
-              <option>Training / On-Site Support</option>
-              <option>Pricing & Contracts</option>
-              <option>Patient Care Question</option>
-              <option>Other</option>
-            </select>
-          </div>
-          <div class="form__group">
-            <label class="form__label" for="message">Message</label>
-            <textarea class="form__textarea" id="message" name="message" placeholder="Tell us about your facility and what you're looking for..." required maxlength="2000"></textarea>
-          </div>
-          <div class="form__group">
-            <label class="form__label" for="human-check">Spam Check: What is 3 + 1?</label>
-            <input class="form__input" id="human-check" name="humanCheck" type="text" inputmode="numeric" placeholder="Enter 4" required maxlength="2" pattern="4">
-          </div>
-          <input type="text" id="website-field" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;height:1px;width:1px;pointer-events:none">
-          <input type="hidden" id="submitted-at" name="submittedAt">
-          <p id="form-error" class="t-body" style="display:none;margin-bottom:1rem;color:#b42318;font-size:.9rem" role="alert"></p>
-          <button type="submit" class="btn btn--primary" style="width:100%;justify-content:center">
-            Send Message
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-          </button>
-        </form>
-        <div id="form-success" style="display:none;text-align:center;padding:3rem;border:1px solid var(--accent);border-radius:4px;background:rgba(0,212,200,.06);margin-top:1rem">
-          <div style="font-size:2rem;margin-bottom:1rem">✓</div>
-          <h3 class="t-h3" style="color:var(--accent)">Email Draft Opened</h3>
-          <p class="t-body" style="margin-top:.75rem">Your email app was opened with your message pre-filled. Please send the email to complete your inquiry.</p>
         </div>
       </div>
     </div>
@@ -202,102 +184,7 @@
   </div>
 </footer>
 
-<script>
-document.getElementById('submitted-at').value = String(Date.now());
-
-function sanitizeInput(value, maxLen) {
-  return value.trim().replace(/\s+/g, ' ').replace(/[<>]/g, '').slice(0, maxLen);
-}
-
-function logSecurityEvent(reason) {
-  const payload = { reason, ts: new Date().toISOString() };
-  const history = JSON.parse(localStorage.getItem('contactSecurityEvents') || '[]');
-  history.push(payload);
-  localStorage.setItem('contactSecurityEvents', JSON.stringify(history.slice(-20)));
-}
-
-function handleSubmit(e) {
-  e.preventDefault();
-  const form = document.getElementById('contact-form');
-  const errorEl = document.getElementById('form-error');
-  const startedAt = Number(document.getElementById('submitted-at').value || 0);
-  const timeOnPageMs = Date.now() - startedAt;
-
-  const website = document.getElementById('website-field').value.trim();
-  if (website) {
-    logSecurityEvent('honeypot-triggered');
-    return;
-  }
-
-  if (timeOnPageMs < 2000) {
-    errorEl.textContent = 'Please review your message for a moment before submitting.';
-    errorEl.style.display = 'block';
-    logSecurityEvent('submitted-too-fast');
-    return;
-  }
-
-  const firstName = sanitizeInput(document.getElementById('first-name').value, 50);
-  const lastName = sanitizeInput(document.getElementById('last-name').value, 50);
-  const email = sanitizeInput(document.getElementById('email').value, 120);
-  const phone = sanitizeInput(document.getElementById('phone').value, 25);
-  const facility = sanitizeInput(document.getElementById('facility').value, 120);
-  const subject = sanitizeInput(document.getElementById('subject').value, 120);
-  const message = sanitizeInput(document.getElementById('message').value, 2000);
-  const humanCheck = document.getElementById('human-check').value.trim();
-
-  const nameRegex = /^[A-Za-z\s'-]{1,50}$/;
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const phoneRegex = /^[0-9\-().+\s]{0,25}$/;
-
-  if (!nameRegex.test(firstName) || !nameRegex.test(lastName)) {
-    errorEl.textContent = 'Please enter a valid first and last name.';
-    errorEl.style.display = 'block';
-    return;
-  }
-  if (!emailRegex.test(email)) {
-    errorEl.textContent = 'Please enter a valid email address.';
-    errorEl.style.display = 'block';
-    return;
-  }
-  if (!phoneRegex.test(phone)) {
-    errorEl.textContent = 'Please enter a valid phone number.';
-    errorEl.style.display = 'block';
-    return;
-  }
-  if (!subject) {
-    errorEl.textContent = 'Please select a subject.';
-    errorEl.style.display = 'block';
-    return;
-  }
-  if (humanCheck !== '4') {
-    errorEl.textContent = 'Please complete the spam check correctly.';
-    errorEl.style.display = 'block';
-    logSecurityEvent('human-check-failed');
-    return;
-  }
-
-  errorEl.style.display = 'none';
-  const mailSubject = encodeURIComponent('[Website Inquiry] ' + subject);
-  const bodyLines = [
-    'First Name: ' + firstName,
-    'Last Name: ' + lastName,
-    'Email: ' + email,
-    'Phone: ' + (phone || 'N/A'),
-    'Facility: ' + (facility || 'N/A'),
-    '',
-    'Message:',
-    message,
-    '',
-    'Security Notice: No PHI included.'
-  ];
-  const mailBody = encodeURIComponent(bodyLines.join('\n'));
-  window.location.href = 'mailto:PatientCare@3DOrthotics.com?subject=' + mailSubject + '&body=' + mailBody;
-
-  form.style.display = 'none';
-  document.getElementById('form-success').style.display = 'block';
-}
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<!-- three.min.js removed: no WebGL foot scanner on this page. particles-bg.js is Canvas 2D. -->
 <script src="js/particles-bg.js"></script>
 <script src="js/main.js"></script>
 </body>

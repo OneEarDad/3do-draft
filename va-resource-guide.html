@@ -8,7 +8,7 @@
   <link rel="apple-touch-icon" href="logo.png">
   <link rel="manifest" href="site.webmanifest">
   <meta name="theme-color" content="#00549d">  <meta name="description" content="3D Orthotics is your dedicated partner for VA orthotic programs. Resources for VA podiatrists, purchasers, and administrators. Reach out and we'll handle the rest.">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self'; frame-src https://www.youtube.com; object-src 'none'; base-uri 'self'; form-action 'self' mailto:; upgrade-insecure-requests">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self'; frame-src https://www.youtube.com; object-src 'none'; base-uri 'self'; form-action 'self' mailto:; upgrade-insecure-requests">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <link rel="stylesheet" href="css/style.css">
   <style>
@@ -100,7 +100,7 @@
 <nav class="nav">
   <a class="nav__logo" href="index.html"><img src="logo.png" alt="3D Orthotics"></a>
   <div class="nav__links">
-    <span class="nav__phone">844-FOOT-911</span>
+    <a class="nav__phone" href="tel:+18443668911" aria-label="Call 844-FOOT-911">844-FOOT-911</a>
     <a class="nav__link" href="index.html">Home</a>
     <a class="nav__link" href="accuscan-dp.html">AccuScan DP</a>
     <a class="nav__link" href="orthotics.html">Orthotics</a>
@@ -167,7 +167,7 @@
           HIPAA-aligned program, patient de-identification before transmission. Reach out to Patient Care for your facility’s questions.
         </p>
         <div class="va-resource-card__footer">
-          <button class="btn btn--outline" onclick="openOverlay('deid')" style="font-size:.78rem;padding:.55rem 1.2rem">
+          <button class="btn btn--outline js-open-overlay" data-overlay-type="deid" style="font-size:.78rem;padding:.55rem 1.2rem">
             Request Compliance Info
             <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
           </button>
@@ -186,7 +186,7 @@
           VA podiatrist or clinical staff ready to submit a consult? We'll walk you through exactly what to send and how to reach us. Takes less than 5 minutes.
         </p>
         <div class="va-resource-card__footer">
-          <button class="btn btn--outline" onclick="openOverlay('consult')" style="font-size:.78rem;padding:.55rem 1.2rem">
+          <button class="btn btn--outline js-open-overlay" data-overlay-type="consult" style="font-size:.78rem;padding:.55rem 1.2rem">
             How to Submit a Consult
             <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
           </button>
@@ -205,7 +205,7 @@
           VA purchaser or contracting officer working through procurement? See exactly what to include and who to reach. We'll get back to you within one business day.
         </p>
         <div class="va-resource-card__footer">
-          <button class="btn btn--outline" onclick="openOverlay('po')" style="font-size:.78rem;padding:.55rem 1.2rem">
+          <button class="btn btn--outline js-open-overlay" data-overlay-type="po" style="font-size:.78rem;padding:.55rem 1.2rem">
             How to Submit a PO Inquiry
             <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
           </button>
@@ -224,7 +224,7 @@
           Podiatrist or VA administrator with a coding or billing question? Our patient care team handles L-code support, documentation, and administrative inquiries directly.
         </p>
         <div class="va-resource-card__footer">
-          <button class="btn btn--outline" onclick="openOverlay('lcodes')" style="font-size:.78rem;padding:.55rem 1.2rem">
+          <button class="btn btn--outline js-open-overlay" data-overlay-type="lcodes" style="font-size:.78rem;padding:.55rem 1.2rem">
             How to Submit an Admin Inquiry
             <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
           </button>
@@ -258,7 +258,7 @@
         <div style="font-size:.95rem;font-weight:500;color:var(--text)">Our orthotics are covered under standard VA L-codes.</div>
         <div style="font-size:.83rem;color:var(--text-dim);margin-top:.25rem">Have a coding or documentation question? Our team handles L-code support directly. No need to navigate it alone.</div>
       </div>
-      <button class="btn btn--outline" onclick="openOverlay('lcodes')" style="font-size:.78rem;padding:.55rem 1.2rem;flex-shrink:0">
+      <button class="btn btn--outline js-open-overlay" data-overlay-type="lcodes" style="font-size:.78rem;padding:.55rem 1.2rem;flex-shrink:0">
         Ask About L-Codes
         <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
       </button>
@@ -302,9 +302,9 @@
 </footer>
 
 <!-- ── Overlays ────────────────────────────────────────────── -->
-<div class="va-overlay-backdrop" id="va-overlay-backdrop" onclick="closeOverlayOnBackdrop(event)">
+<div class="va-overlay-backdrop" id="va-overlay-backdrop">
   <div class="va-overlay" role="dialog" aria-modal="true">
-    <button class="va-overlay__close" onclick="closeOverlay()" aria-label="Close">&#x2715;</button>
+    <button class="va-overlay__close js-close-overlay" aria-label="Close">&#x2715;</button>
 
     <!-- DE-IDENTIFICATION -->
     <div id="overlay-deid" style="display:none">
@@ -321,7 +321,7 @@
           Email Patient Care
           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
         </a>
-        <button class="btn btn--ghost" onclick="closeOverlay()" style="font-size:.82rem">Close</button>
+        <button class="btn btn--ghost js-close-overlay" style="font-size:.82rem">Close</button>
       </div>
     </div>
 
@@ -340,7 +340,7 @@
           Email Orders Team
           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
         </a>
-        <button class="btn btn--ghost" onclick="closeOverlay()" style="font-size:.82rem">Close</button>
+        <button class="btn btn--ghost js-close-overlay" style="font-size:.82rem">Close</button>
       </div>
     </div>
 
@@ -359,7 +359,7 @@
           Email Orders Team
           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
         </a>
-        <button class="btn btn--ghost" onclick="closeOverlay()" style="font-size:.82rem">Close</button>
+        <button class="btn btn--ghost js-close-overlay" style="font-size:.82rem">Close</button>
       </div>
     </div>
 
@@ -378,32 +378,15 @@
           Email Patient Care
           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
         </a>
-        <button class="btn btn--ghost" onclick="closeOverlay()" style="font-size:.82rem">Close</button>
+        <button class="btn btn--ghost js-close-overlay" style="font-size:.82rem">Close</button>
       </div>
     </div>
 
   </div>
 </div>
 
-<script>
-function openOverlay(type) {
-  document.getElementById('overlay-deid').style.display   = type === 'deid'    ? '' : 'none';
-  document.getElementById('overlay-consult').style.display = type === 'consult' ? '' : 'none';
-  document.getElementById('overlay-po').style.display     = type === 'po'      ? '' : 'none';
-  document.getElementById('overlay-lcodes').style.display = type === 'lcodes'  ? '' : 'none';
-  document.getElementById('va-overlay-backdrop').classList.add('is-open');
-  document.body.style.overflow = 'hidden';
-}
-function closeOverlay() {
-  document.getElementById('va-overlay-backdrop').classList.remove('is-open');
-  document.body.style.overflow = '';
-}
-function closeOverlayOnBackdrop(e) {
-  if (e.target === document.getElementById('va-overlay-backdrop')) closeOverlay();
-}
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeOverlay(); });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="js/va-resource-guide-overlays.js"></script>
+<!-- three.min.js removed: no WebGL foot scanner on this page. particles-bg.js is Canvas 2D. -->
 <script src="js/particles-bg.js"></script>
 <script src="js/main.js"></script>
 </body>

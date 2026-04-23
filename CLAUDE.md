@@ -8,6 +8,14 @@
 - Certifications: SDVOSB, WOSB, FDA Registered (RN#3015146490), SAM Registered (CAGE: 9PXW1), HIPAA Compliant
 - Award: **Most Improved Product: VA Podiatry Nationally**
 
+## Audience & Conversion Model
+
+This is **not a D2C funnel**. The site sells to **doctors arriving from ads**; veterans use it as a utility surface for order tracking, adjustments, and FAQ.
+
+- **Value prop framing**: "We take these VA responsibilities off your plate" — a handoff model, not a "we improve metric X by Y%" model.
+- **Avoid sales-y CTAs**: no "Schedule a Demo" / "Book a Call". Use consultative, peer-to-peer framings.
+- Marketing copy is already approved — the design is what we're improving, not the content.
+
 ---
 
 ## Brand Identity
@@ -16,18 +24,18 @@
 
 | Token           | Hex / Value               | Usage                              |
 |-----------------|---------------------------|------------------------------------|
-| `--navy`        | `#00549d`                 | Primary brand: dark blue "3D"     |
+| `--navy`        | `#00549d`                 | Primary brand: dark blue "3D"      |
 | `--navy-mid`    | `#0068bb`                 | Hover / mid-blue accent            |
-| `--cyan`        | `#00aec7`                 | Secondary brand: "ORTHOTICS"      |
+| `--cyan`        | `#00aec7`                 | Secondary brand: "ORTHOTICS"       |
 | `--cyan-dim`    | `#0090a8`                 | Dimmed cyan for subtle accents     |
 | `--cyan-light`  | `#e8f7fa`                 | Very light blue tints              |
-| `--bg`          | `#ffffff`                 | Page background: pure white       |
+| `--bg`          | `#ffffff`                 | Page background: pure white        |
 | `--surface`     | `#f8f9fc`                 | Section backgrounds, cards         |
 | `--surface-2`   | `#eff2f7`                 | Deeper surface variant             |
-| `--text`        | `#121820`                 | Primary text: near-black          |
+| `--text`        | `#121820`                 | Primary text: near-black           |
 | `--text-mid`    | `#3a4a5c`                 | Secondary text                     |
 | `--text-dim`    | `#6b7d92`                 | Muted / caption text               |
-| `--text-faint`  | `rgba(33, 34, 38, 0.08)`  | Borders: nearly invisible         |
+| `--text-faint`  | `rgba(33, 34, 38, 0.08)`  | Borders: nearly invisible          |
 
 ### Typography
 
@@ -36,53 +44,42 @@
 | `--font-display`  | `'Ethnocentric', 'Inter', sans-serif`      | Headings, display text   |
 | `--font-body`     | `'Inter', sans-serif`                      | Body text, UI elements   |
 
-- **Ethnocentric**: custom display font, single weight (400), loaded from `/Ethnocentric/`
-- **Inter**: variable font from Google Fonts (weight 100–900)
+- **Ethnocentric**: custom display font, weight 400, loaded locally from `/Ethnocentric/`
+- **Inter**: variable font from Google Fonts (weights 100–900)
 - Headings use tight letter-spacing (`--ls-tight: -.035em`) and weight 400
 - Body text uses `--ls-normal: -.01em`
 
-### Type Scale (fluid with clamp)
-
-| Token          | Size                            |
-|----------------|---------------------------------|
-| `--fs-display` | `clamp(3.2rem, 6.5vw, 6.5rem)` |
-| `--fs-h1`      | `clamp(2.6rem, 5vw, 5rem)`     |
-| `--fs-h2`      | `clamp(2rem, 3.8vw, 3.5rem)`   |
-| `--fs-h3`      | `clamp(1.3rem, 1.8vw, 1.6rem)` |
-| `--fs-body`    | `clamp(.95rem, 1vw, 1.1rem)`   |
-| `--fs-label`   | `.72rem`                        |
-
 ### Logo
 
-- File: `logo.png` (root directory)
+- File: `logo.png` (root)
 - Favicon: `favicon.svg`
-- The logo has "3D" in navy (`#00549d`) and "ORTHOTICS" in cyan (`#00aec7`) on a white background
+- "3D" in navy (`#00549d`), "ORTHOTICS" in cyan (`#00aec7`), white background
 
 ---
 
 ## Design Direction
 
-### Goal: antigravity.google aesthetic with our own identity
+### North star: antigravity.google aesthetic with our own identity
 
-This website should feel like **antigravity.google**: ultra-clean, modern, interactive, and cutting-edge. Key principles:
+Ultra-clean, modern, interactive, cutting-edge. Key principles:
 
-1. **Clean white canvas**: white backgrounds dominate, content breathes with generous spacing
-2. **Large, bold typography**: hero text 3-6rem+, tight letter-spacing, Ethnocentric display font
+1. **Clean white canvas**: white dominates, generous whitespace
+2. **Large, bold typography**: hero text 3–6rem+, tight letter-spacing, Ethnocentric
 3. **Pill-shaped buttons**: `border-radius: 9999px` on all CTAs
-4. **Rounded cards**: `border-radius: 16px` on cards, containers, and UI elements
-5. **Subtle borders**: nearly invisible (`rgba(33,34,38,0.08)`), not heavy outlines
-6. **Interactive particle backgrounds**: floating dots in brand colors, mouse-responsive (see `js/particles-bg.js`)
-7. **Smooth animations**: scroll-triggered reveals, hover transitions using `--ease-out-quint` and `--ease-out-expo`
+4. **Rounded cards**: `border-radius: 16px` on cards, containers, UI elements
+5. **Subtle borders**: `rgba(33,34,38,0.08)`, not heavy outlines
+6. **Interactive particle backgrounds**: floating dots, mouse-responsive (`js/particles-bg.js`)
+7. **Smooth animations**: scroll-triggered reveals, `--ease-out-quint` / `--ease-out-expo`
 8. **Generous spacing**: `--section-gap: clamp(6rem, 10vw, 10rem)`, `--page-margin: clamp(1.5rem, 4vw, 4.5rem)`
-9. **No dark sections**: use `section--light` (grey `#f8f9fc`) for contrast, not navy/dark backgrounds
-10. **The foot scan visualization is sacred**: `js/foot-3d.js` must NOT be modified without explicit permission. The user loves the original particle scan effect.
+9. **No dark sections**: use `section--light` (grey `#f8f9fc`) for contrast, never navy/dark backgrounds
+10. **The foot scan visualization is sacred**: `js/foot-3d.js` is off-limits without explicit permission
 
 ### What NOT to do
 
 - Don't make it look like a generic SaaS template
 - Don't use heavy borders, sharp corners, or boxy layouts
-- Don't darken sections with navy backgrounds (use light grey instead)
-- Don't add visual clutter: fewer elements, more whitespace
+- Don't darken sections with navy backgrounds
+- Don't add visual clutter — fewer elements, more whitespace
 - Don't replace or redesign the foot scan 3D visualization without asking
 
 ---
@@ -91,33 +88,51 @@ This website should feel like **antigravity.google**: ultra-clean, modern, inter
 
 ```
 /
-  index.html             : Homepage
-  about.html             : About Us
-  accuscan-dp.html       : AccuScan DP product page
-  orthotics.html         : Orthotics catalog
-  va-resource-guide.html : VA Resources
-  faq.html               : FAQ
-  guides.html            : Guides
-  awards.html            : Awards
-  contact.html           : Contact form
-  css/style.css          : All global styles (single file)
-  js/main.js             : Navigation, scroll reveals, carousels, modals, counters
-  js/foot-3d.js          : THREE.js foot scan particle visualization (hero)
-  js/foot-3d-preview.js  : Progressive reveal variant of foot scan
-  js/particles-bg.js     : Interactive particle background (full-page floating dots)
-  logo.png               : Company logo
-  favicon.svg            : Favicon
-  Orthotics Pics/        : Product photography
-  Ethnocentric/          : Custom display font files
+  index.html                  Homepage
+  about.html                  About Us
+  accuscan-dp.html            AccuScan DP product page
+  orthotics.html              Orthotics catalog
+  va-resource-guide.html      VA resources
+  faq.html                    FAQ
+  guides.html                 Guides + care PDFs
+  awards.html                 Awards
+  contact.html                Contact form
+  lab.html                    DEV-ONLY: unlinked sandbox for previewing new
+                              animations before merging to live pages.
+                              Currently: iPad beam-wipe scan animation demo.
+
+  css/style.css               All global styles (single file, ~2,100 lines)
+
+  js/main.js                  Navigation, scroll reveals, carousels, modals, counters
+  js/foot-3d.js               THREE.js foot scan particle visualization (hero) — SACRED
+  js/particles-bg.js          Full-page interactive particle background
+  js/bubbles.js               Orthotics product bubble catalog (index + accuscan-dp)
+  js/home-ipad-showcase.js    Homepage iPad pipeline animation
+  js/home-ortho-modal.js      Homepage orthotics picker modal
+  js/orthotics-page.js        Orthotics page catalog + modal
+  js/orthotics-tilt.js        Gyroscope tilt effect on orthotics page
+  js/awards-overlays.js       Award badge overlays on awards.html
+  js/va-resource-guide-overlays.js  VA resource guide badges
+  js/lab-page.js              Lab-only: beam-wipe animation controller
+
+  logo.png, favicon.svg       Brand assets
+  foot.obj                    3D geometry for foot scan (3.5 MB)
+  Orthotics Pics/             Product photography (45 images, 15 products × 3)
+  images/                     Shared marketing imagery
+  Ethnocentric/               Custom display font files (.ttf + .otf)
+  Break-In-Guide.pdf          Linked from guides.html
+  Disinfecting-Procedure-for-Accuscan-DP.pdf  Linked from guides.html
+
+  Web Dev Team/docs/          Historical audit notes (not site code)
+  .claude/                    Claude Code config (launch.json, settings.local.json)
 ```
 
 ### Tech Stack
 
-- **Plain HTML/CSS/JS**: no framework, no build tools
-- **THREE.js r128**: loaded from CDN for 3D rendering
-- **OBJLoader**: loads `foot.obj` geometry for the scan visualization
-- **Inter**: Google Fonts CDN
-- **No npm dependencies** for the site itself (Playwright is dev-only for screenshots)
+- **Plain HTML/CSS/JS** — no framework, no build step, no npm
+- **THREE.js r128 + OBJLoader** — loaded from CDN, used only on index.html and accuscan-dp.html for the foot scan
+- **Inter** — Google Fonts CDN
+- **Python HTTP server** for local preview: `python -m http.server 8765` (see `.claude/launch.json`)
 
 ---
 
@@ -125,26 +140,26 @@ This website should feel like **antigravity.google**: ultra-clean, modern, inter
 
 ### Before every edit
 
-1. **Explain first**: Before making any code change, describe what you plan to do, what it affects, and how it improves the design. Don't silently fix things.
-2. **Invoke `/distinctive-web`**: Check the planned change against distinctive design principles (asymmetry, variable rhythm, intentional typography, scroll animations, depth). Ensure the change doesn't make the site look more generic.
-3. **Invoke `/responsive-web`**: Verify the change works on both desktop (1280px+) and mobile (375-430px). Every new element needs both breakpoints considered.
+1. **Explain first**: Describe what you plan to do, what it affects, and why. Don't silently fix things.
+2. **Check design principles** (`/distinctive-web`, `/responsive-web`): Does the change keep the site distinctive and work on desktop (1280px+) and mobile (375–430px)?
 
 ### After every edit
 
-4. **Take screenshots**: Run `/screenshot-review` after every significant visual change. Use Playwright to capture desktop (1280x900) and mobile (390x844) screenshots.
-5. **Review and confirm**: Analyze the screenshots against the design direction above. If something doesn't look right, fix it before moving on.
-6. **Report to user**: Show the user what changed and ask for feedback before proceeding to the next step.
+3. **Screenshot significant visual changes** (`/screenshot-review`): desktop (1280×900) and mobile (390×844). Audit against the design direction above.
+4. **Report and confirm**: Show what changed, ask for feedback before the next step.
 
 ### General rules
 
-- **One step at a time**: Don't batch multiple sections into one edit. Make one focused change, screenshot, confirm, then move to the next.
-- **Don't revert without asking**: If something looks off, propose a fix instead of reverting. If a full revert is needed, confirm with the user first.
-- **Don't touch `js/foot-3d.js`**: The 3D foot scan visualization is off-limits unless the user explicitly asks to modify it.
-- **Don't over-engineer**: This is a static site. Don't add build tools, frameworks, or unnecessary dependencies.
-- **Stay on brand**: Every color, font, and design decision should trace back to the brand tokens above. Don't introduce off-brand colors.
-- **Stay on vision**: The north star is antigravity.google: clean, interactive, cutting-edge. Every change should move toward that, not away from it.
-- **Explain trade-offs**: If a design choice has downsides (performance, browser support, accessibility), say so upfront.
-- **Keep content intact**: Don't rewrite marketing copy, remove sections, or change the information architecture without asking. The content is approved; the design is what we're improving.
+- **One step at a time** — don't batch multiple sections into one edit
+- **Don't revert without asking** — propose a fix instead; confirm before any full revert
+- **Don't touch `js/foot-3d.js`** unless explicitly asked
+- **Don't over-engineer** — this is a static site; no build tools, no frameworks
+- **Stay on brand** — every color/font traces back to the tokens above
+- **Stay on vision** — antigravity.google: clean, interactive, cutting-edge
+- **Explain trade-offs** — call out performance, a11y, or browser-support costs upfront
+- **Preserve content** — don't rewrite marketing copy or reorganize sections without asking
+- **Prefer inline `<style>` for page-specific CSS** — only promote to `css/style.css` when it's genuinely shared across pages
+- **Lab work stays in lab.html** — don't link it from the live site; it's a sandbox
 
 ---
 
@@ -152,8 +167,8 @@ This website should feel like **antigravity.google**: ultra-clean, modern, inter
 
 ```css
 --ease-out-expo:  cubic-bezier(0.16, 1, 0.3, 1);   /* fast start, smooth end */
---ease-out-quint: cubic-bezier(0.23, 1, 0.32, 1);   /* buttons, cards, hovers */
---ease-in-out:    cubic-bezier(0.76, 0, 0.24, 1);    /* loader, modals */
+--ease-out-quint: cubic-bezier(0.23, 1, 0.32, 1);  /* buttons, cards, hovers */
+--ease-in-out:    cubic-bezier(0.76, 0, 0.24, 1);  /* loader, modals */
 ```
 
 - Scroll reveals: `.reveal` class + IntersectionObserver in `js/main.js`
@@ -162,8 +177,10 @@ This website should feel like **antigravity.google**: ultra-clean, modern, inter
 
 ---
 
-## Screenshot Pipeline
+## Security Posture
 
-Server: `python -m http.server <port>` from project root
-Screenshots: Playwright headless Chromium → `.screenshots/desktop.png` and `.screenshots/mobile.png`
-Port: Use any available port (check with `netstat` if 3000 is busy)
+- All pages should carry a `<meta http-equiv="Content-Security-Policy">` tag (lab.html already does — other pages to be audited)
+- No inline event handlers (`onclick=`, etc.) — CSP blocks them
+- External CDN scripts should use SRI (`integrity="sha..."`) hashes
+- `target="_blank"` links need `rel="noopener"` (tabnabbing)
+- No secrets or internal URLs in HTML comments

@@ -8,7 +8,7 @@
   <link rel="apple-touch-icon" href="logo.png">
   <link rel="manifest" href="site.webmanifest">
   <meta name="theme-color" content="#00549d">  <meta name="description" content="See awards, recognitions, and certifications that reflect 3D Orthotics' quality, compliance, and service standards.">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self'; frame-src https://www.youtube.com; object-src 'none'; base-uri 'self'; form-action 'self' mailto:; upgrade-insecure-requests">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self'; frame-src https://www.youtube.com; object-src 'none'; base-uri 'self'; form-action 'self' mailto:; upgrade-insecure-requests">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <link rel="stylesheet" href="css/style.css">
   <style>
@@ -70,7 +70,7 @@
 <nav class="nav">
   <a class="nav__logo" href="index.html"><img src="logo.png" alt="3D Orthotics"></a>
   <div class="nav__links">
-    <span class="nav__phone">844-FOOT-911</span>
+    <a class="nav__phone" href="tel:+18443668911" aria-label="Call 844-FOOT-911">844-FOOT-911</a>
     <a class="nav__link" href="index.html">Home</a>
     <a class="nav__link" href="accuscan-dp.html">AccuScan DP</a>
     <a class="nav__link" href="orthotics.html">Orthotics</a>
@@ -135,7 +135,7 @@
       </div>
       <div>
         <div class="awards-grid" style="grid-template-columns:1fr">
-          <button class="award-card" onclick="openAwardOverlay('quitt')" style="width:100%;text-align:left;background:none;border:none;cursor:pointer;padding:0">
+          <button class="award-card" data-award-overlay="quitt" style="width:100%;text-align:left;background:none;border:none;cursor:pointer;padding:0">
             <div style="display:flex;align-items:flex-start;gap:1rem;padding:1.5rem">
               <div style="flex-shrink:0;margin-top:.1rem">
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
@@ -147,7 +147,7 @@
               </div>
             </div>
           </button>
-          <button class="award-card" onclick="openAwardOverlay('timeliness')" style="width:100%;text-align:left;background:none;border:none;cursor:pointer;padding:0;margin-top:1rem">
+          <button class="award-card" data-award-overlay="timeliness" style="width:100%;text-align:left;background:none;border:none;cursor:pointer;padding:0;margin-top:1rem">
             <div style="display:flex;align-items:flex-start;gap:1rem;padding:1.5rem">
               <div style="flex-shrink:0;margin-top:.1rem">
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
@@ -225,8 +225,8 @@
 </footer>
 
 <!-- AWARD OVERLAYS -->
-<div id="award-overlay-backdrop" class="va-overlay-backdrop" onclick="closeAwardOverlay()">
-  <div style="display:flex;align-items:center;justify-content:center;min-height:100vh;padding:2rem" onclick="event.stopPropagation()">
+<div id="award-overlay-backdrop" class="va-overlay-backdrop">
+  <div id="award-overlay-inner" role="dialog" aria-modal="true" aria-label="Award details" tabindex="-1" style="display:flex;align-items:center;justify-content:center;min-height:100vh;padding:2rem">
 
     <!-- QuITT Overlay -->
     <div id="overlay-quitt" class="va-overlay" style="display:none">
@@ -244,7 +244,7 @@
             Open QuITT Access Portal
             <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
           </a>
-          <button class="btn btn--ghost" onclick="closeAwardOverlay()">Close</button>
+          <button class="btn btn--ghost js-award-overlay-close">Close</button>
         </div>
       </div>
     </div>
@@ -265,7 +265,7 @@
             Open in VA Salesforce
             <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
           </a>
-          <button class="btn btn--ghost" onclick="closeAwardOverlay()">Close</button>
+          <button class="btn btn--ghost js-award-overlay-close">Close</button>
         </div>
       </div>
     </div>
@@ -273,21 +273,9 @@
   </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<!-- three.min.js removed: no WebGL foot scanner on this page. particles-bg.js is Canvas 2D. -->
 <script src="js/particles-bg.js"></script>
 <script src="js/main.js"></script>
-<script>
-function openAwardOverlay(type) {
-  document.getElementById('overlay-quitt').style.display      = type === 'quitt'      ? '' : 'none';
-  document.getElementById('overlay-timeliness').style.display = type === 'timeliness' ? '' : 'none';
-  document.getElementById('award-overlay-backdrop').classList.add('is-open');
-  document.body.style.overflow = 'hidden';
-}
-function closeAwardOverlay() {
-  document.getElementById('award-overlay-backdrop').classList.remove('is-open');
-  document.body.style.overflow = '';
-}
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeAwardOverlay(); });
-</script>
+<script src="js/awards-overlays.js"></script>
 </body>
 </html>

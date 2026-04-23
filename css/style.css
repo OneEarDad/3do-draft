@@ -4,6 +4,17 @@
    Typography: Light-weight headings (250), extra-tight tracking (zetta-joule style)
    ============================================================ */
 
+/* Screen-reader-only utility: visually hidden, available to AT + SEO */
+.sr-only {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 @font-face {
@@ -90,6 +101,29 @@ button { cursor: none; background: none; border: none; font: inherit; color: inh
 
 /* Selection */
 ::selection { background: var(--cyan-light); color: var(--navy); }
+
+/* ── Keyboard focus ──────────────────────────────────────────
+   The custom cursor hides the default mouse cursor (body { cursor: none }),
+   so keyboard users are our primary audience for focus styling. WCAG 2.4.7
+   requires a visible focus indicator on every interactive element — before
+   this rule we only styled focus on form inputs. The cyan ring matches our
+   brand accent; the 3px offset keeps it legible against dark backgrounds
+   (nav CTA pill, section--dark buttons, modal dismiss). */
+:focus { outline: none; }
+:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+.nav__cta:focus-visible,
+.btn:focus-visible {
+  outline-offset: 4px;
+}
+/* On dark sections the cyan still reads, but we add a white inner halo so
+   the ring doesn't blend with navy backgrounds. */
+.section--dark :focus-visible {
+  box-shadow: 0 0 0 4px rgba(255,255,255,0.35);
+}
 
 /* ── Particle background canvas ──────────────────────────── */
 #particles-bg {
@@ -229,7 +263,10 @@ body:has(button:hover) .cursor__ring { width: 52px; height: 52px; opacity: 0.7; 
   padding-right: 1.25rem;
   border-right: 1px solid var(--text-faint);
   user-select: text;
+  text-decoration: none;
+  transition: color .2s;
 }
+.nav__phone:hover { color: var(--navy); }
 .nav__cta {
   margin-left: .75rem;
   padding: .5rem 1.4rem;
@@ -246,13 +283,18 @@ body:has(button:hover) .cursor__ring { width: 52px; height: 52px; opacity: 0.7; 
 .nav__cta:hover { background: var(--navy-mid); border-color: var(--navy-mid); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,84,157,.2); color: var(--white) !important; }
 .nav__cta::after { display: none !important; }
 
-/* Hamburger */
+/* Hamburger — 44×44 hit area (Apple/Google touch-target guideline). Previously
+   24×22.5 incl. padding, which was reliably miss-tappable on phones. */
 .nav__burger {
   display: none;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   gap: 5px;
   margin-left: auto;
-  padding: 4px;
+  width: 44px;
+  height: 44px;
+  padding: 10px;
 }
 .nav__burger span {
   display: block; width: 24px; height: 1.5px;
@@ -508,9 +550,16 @@ body:has(button:hover) .cursor__ring { width: 52px; height: 52px; opacity: 0.7; 
   height: 100%;
   min-height: 600px;
   z-index: 1;
+  /* Branded fallback that shows through the transparent canvas during the
+     ~1s before WebGL compiles shaders — and stays visible if WebGL is
+     disabled entirely. Subtle enough not to fight the particles once they
+     render. */
+  background:
+    radial-gradient(ellipse 60% 50% at 50% 45%, rgba(0,174,199,.09) 0%, transparent 65%),
+    radial-gradient(ellipse 80% 70% at 50% 55%, rgba(0,84,157,.05) 0%, transparent 70%);
 }
 #foot-canvas,
-.foot-canvas { width: 100%; height: 100%; display: block; }
+.foot-canvas { width: 100%; height: 100%; display: block; position: relative; z-index: 1; }
 
 .hero__scroll-hint {
   position: absolute;
@@ -727,13 +776,32 @@ body:has(button:hover) .cursor__ring { width: 52px; height: 52px; opacity: 0.7; 
   position:absolute;bottom:0.6rem;left:50%;
   transform:translateX(-50%);
   display:flex;gap:.4rem;z-index:2;
+  transition: opacity .35s var(--ease-out-quint);
 }
+/* Hide dots while the hover overlay is showing — they collided with the
+   description copy at the bottom of the card. Touch devices don't hover,
+   so mobile users keep the dots visible for tapping through slides. */
+.portfolio-card:hover .carousel__dots { opacity: 0; pointer-events: none; }
+/* 36×36 hit area with an 8px visible dot via ::before — old 5×5 dots
+   failed the 44px touch-target guideline and were functionally un-tappable
+   on phones. Flex gap between adjacent dots brings effective spacing past 44px. */
 .carousel__dot {
-  width:5px;height:5px;border-radius:50%;
-  background:rgba(255,255,255,.35);
-  transition:background .2s,transform .2s;
+  width: 36px; height: 36px;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: none;
+  position: relative;
 }
-.carousel__dot.active { background:var(--cyan);transform:scale(1.3); }
+.carousel__dot::before {
+  content: '';
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.35);
+  transition: background .2s, transform .2s;
+}
+.carousel__dot.active::before { background: var(--cyan); transform: scale(1.3); }
 
 /* ── Process steps: modern cards ────────────────────────── */
 .process-steps {
@@ -1335,7 +1403,8 @@ body:has(button:hover) .cursor__ring { width: 52px; height: 52px; opacity: 0.7; 
   .ipad-bezel { border-radius: 16px; padding: 12px 12px 10px; }
   .ipad-nav--prev { left: -8px; }
   .ipad-nav--next { right: -8px; }
-  .ipad-nav { width: 40px; height: 40px; }
+  /* 44×44 minimum tap target on phones (was 40×40) */
+  .ipad-nav { width: 44px; height: 44px; }
   .pipeline-track { --arrow: 10px; gap: 4px; }
   .pipeline-flag { height: 40px; }
   .pipeline-flag__label,
@@ -1423,9 +1492,41 @@ body:has(button:hover) .cursor__ring { width: 52px; height: 52px; opacity: 0.7; 
   .hero-award::before { display: none; }
 }
 
+/* ── Very small screens: iPhone SE (1st gen), Galaxy Fold folded ─
+   Content-clipping guards at <375px. body already has overflow-x: hidden
+   as a safety net, so the goal here is to prevent the elements most
+   likely to push past the viewport from getting clipped in the first
+   place. */
+@media (max-width: 374px) {
+  :root {
+    --page-margin: 1rem;
+  }
+  .nav { padding: 0 1rem; }
+  .nav__logo img { max-height: 28px; width: auto; }
+  .nav__phone { display: none; } /* burger already exposes tel: links */
+
+  /* Buttons: allow shrinking, wrap long labels instead of overflowing */
+  .btn {
+    white-space: normal;
+    font-size: .78rem;
+    padding: .65rem 1rem;
+  }
+
+  /* CTAs in stacked hero: fill width so they never sit awkwardly */
+  .hero-stack__ctas .btn,
+  .page-hero .btn { width: 100%; justify-content: center; }
+
+  /* Footer badges: don't let them push a horizontal scroll */
+  .footer__bottom { gap: 1rem; }
+  .footer__badges { flex-wrap: wrap; }
+
+  /* Hero canvas: further reduce so it doesn't dominate */
+  .hero__canvas-wrap { min-height: 220px; }
+}
+
 /* ── Shared overlay (VA Resources, Awards) ──────────────── */
 .va-overlay-backdrop {
-  position: fixed; inset: 0; z-index: 1000;
+  position: fixed; inset: 0; z-index: 10050;
   background: rgba(0,51,102,.6);
   backdrop-filter: blur(5px);
   display: flex; align-items: center; justify-content: center;
@@ -1795,4 +1896,237 @@ body:has(button:hover) .cursor__ring { width: 52px; height: 52px; opacity: 0.7; 
 .bubble-pop__close:hover {
   background: #fff;
   color: var(--navy);
+}
+
+/* Contact page: no-input options column (WCAG AA on light surfaces) */
+.contact-options {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.contact-options__card {
+  border: 1px solid var(--text-faint);
+  padding: 1.15rem 1.25rem;
+  border-radius: 4px;
+  background: var(--surface);
+  transition: border-color .35s var(--ease-out-quint), transform .35s var(--ease-out-quint), box-shadow .35s var(--ease-out-quint);
+}
+.contact-options__card:hover {
+  border-color: rgba(0,174,199,.45);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,84,157,.06);
+}
+.contact-options__header {
+  display: flex;
+  align-items: center;
+  gap: .65rem;
+  margin-bottom: .55rem;
+}
+.contact-options__icon {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(0,174,199,.35);
+  border-radius: 4px;
+  color: var(--cyan);
+  flex-shrink: 0;
+}
+.contact-options__icon svg { width: 16px; height: 16px; }
+.contact-options__eyebrow {
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #006b7d;
+  margin-bottom: 0;
+}
+.contact-options__lead {
+  font-size: 0.88rem;
+  margin: 0 0 0.8rem 0;
+  color: #4b5c6e;
+  line-height: 1.55;
+}
+.contact-options__notice {
+  margin: 0;
+  font-size: 0.83rem;
+  border-left: 2px solid #006b7d;
+  padding-left: 0.85rem;
+  color: #4b5c6e;
+  line-height: 1.55;
+}
+.contact-options .btn--ghost {
+  color: #3d4d5c;
+  border-color: rgba(0, 84, 157, 0.22);
+}
+.contact-options .btn--ghost:hover {
+  color: var(--navy);
+  border-color: var(--navy);
+}
+
+/* ── Testimonials (home page) ─────────────────────────────
+   Pure CSS pull-quote grid. No JS dependency, no carousel —
+   three static cards pre-filled with placeholder copy until
+   real attributable quotes are supplied. The amber placeholder
+   banner in index.html prevents accidental launch with
+   unfilled copy. */
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+.testimonial-card {
+  position: relative;
+  padding: 2rem 1.75rem 1.75rem;
+  border: 1px solid var(--text-faint);
+  border-radius: 12px;
+  background: var(--white);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  transition: border-color .35s var(--ease-out-quint), transform .35s var(--ease-out-quint), box-shadow .35s var(--ease-out-quint);
+}
+.testimonial-card:hover {
+  border-color: rgba(0,174,199,.45);
+  transform: translateY(-3px);
+  box-shadow: 0 16px 40px rgba(0,84,157,.08);
+}
+.testimonial-card__mark {
+  position: absolute;
+  top: .5rem;
+  left: 1.25rem;
+  font-family: var(--font-display);
+  font-size: 3.5rem;
+  line-height: 1;
+  color: var(--cyan);
+  opacity: .28;
+  pointer-events: none;
+  user-select: none;
+}
+.testimonial-card__quote {
+  font-size: 1.02rem;
+  line-height: 1.6;
+  color: var(--text);
+  font-style: italic;
+  position: relative;
+  z-index: 1;
+}
+.testimonial-card__attribution {
+  display: flex;
+  align-items: center;
+  gap: .85rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--text-faint);
+}
+.testimonial-card__role-mark {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--cyan) 0%, var(--navy) 100%);
+  display: grid;
+  place-items: center;
+  color: var(--white);
+  font-family: var(--font-display);
+  font-size: .9rem;
+  font-weight: 500;
+  flex-shrink: 0;
+}
+.testimonial-card__role {
+  font-size: .82rem;
+  color: var(--text);
+  font-weight: 600;
+  line-height: 1.3;
+}
+.testimonial-card__org {
+  font-size: .72rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-top: .2rem;
+}
+/* Visible amber banner that flags placeholder quotes. Remove this
+   block + the matching banner element in index.html once real
+   quotes are wired in. */
+.testimonials-placeholder-banner {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  padding: .85rem 1.1rem;
+  margin-bottom: 2rem;
+  background: #fff8e6;
+  border: 1px solid #e8c25a;
+  border-radius: 6px;
+  color: #6b4e00;
+  font-size: .82rem;
+  line-height: 1.5;
+}
+.testimonials-placeholder-banner svg { width: 18px; height: 18px; flex-shrink: 0; color: #b37d00; }
+.testimonial-card[data-placeholder="true"] .testimonial-card__quote::before {
+  content: '[PLACEHOLDER] ';
+  font-style: normal;
+  font-weight: 700;
+  color: #b37d00;
+  letter-spacing: .06em;
+  font-size: .72rem;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: .4rem;
+  padding: .15rem .45rem;
+  background: #fff3cc;
+  border-radius: 2px;
+}
+
+/* ── Gyroscope tilt (orthotics page, touch devices only) ──
+   The .ortho-tilt-active class is added to body only when JS has
+   successfully attached the deviceorientation listener, so these
+   3D-context rules don't apply to desktop or reduced-motion users. */
+.ortho-tilt-active .portfolio-grid { perspective: 1000px; }
+.ortho-tilt-active .portfolio-item {
+  transform-style: preserve-3d;
+  transition: transform .08s linear;
+  will-change: transform;
+}
+
+.ortho-tilt-pill {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 900;
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .65rem 1rem;
+  border: 1px solid rgba(0,174,199,.6);
+  border-radius: 999px;
+  background: rgba(0, 84, 157, .95);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: .82rem;
+  font-weight: 500;
+  letter-spacing: .02em;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(0, 51, 102, .25);
+  backdrop-filter: blur(8px);
+  transition: transform .25s var(--ease-out-quint), box-shadow .25s;
+  animation: ortho-tilt-pill-enter .35s var(--ease-out-quint);
+}
+.ortho-tilt-pill:hover,
+.ortho-tilt-pill:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(0, 51, 102, .32);
+}
+.ortho-tilt-pill svg { width: 16px; height: 16px; color: var(--cyan); }
+
+@keyframes ortho-tilt-pill-enter {
+  from { transform: translateY(60px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+@media (max-width: 480px) {
+  .ortho-tilt-pill {
+    right: .75rem;
+    bottom: .75rem;
+    padding: .55rem .9rem;
+    font-size: .78rem;
+  }
 }

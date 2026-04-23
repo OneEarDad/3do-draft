@@ -18,10 +18,29 @@
       setTimeout(init, 100);
       return;
     }
+    // Lazy-mount: defer startScene() until the canvas is within 200px of the
+    // viewport. Above-the-fold canvases fire immediately on the first observer
+    // tick (they already intersect); below-the-fold canvases (lab.html stacks
+    // multiple) wait, which avoids spinning up 3+ WebGL contexts at once —
+    // mobile Safari caps at ~8 and kills the oldest when exceeded.
+    // Older browsers without IntersectionObserver fall back to eager mount.
     document.querySelectorAll('.foot-canvas').forEach(function (canvas) {
       if (canvas.dataset.foot3dReady === '1') return;
-      canvas.dataset.foot3dReady = '1';
-      startScene(canvas);
+      if (typeof IntersectionObserver === 'undefined') {
+        canvas.dataset.foot3dReady = '1';
+        startScene(canvas);
+        return;
+      }
+      const io = new IntersectionObserver(function (entries, obs) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          if (canvas.dataset.foot3dReady === '1') return;
+          canvas.dataset.foot3dReady = '1';
+          obs.disconnect();
+          startScene(canvas);
+        });
+      }, { rootMargin: '200px 0px' });
+      io.observe(canvas);
     });
   }
 
@@ -44,12 +63,17 @@
     // ── Grid ─────────────────────────────────────────────
     // Soft brand-tinted grid: low opacity + light hues so it blends
     // with the white page rather than hard-edging against the particles.
-    const grid = new THREE.GridHelper(6, 28, 0xbcd9ec, 0xd7e8f3);
-    grid.material.transparent = true;
-    grid.material.opacity = 0.45;
-    grid.material.depthWrite = false;
-    grid.position.y = -2.4;
-    scene.add(grid);
+    // Opt out per-canvas with data-no-grid="1" (e.g. dark iPad-screen host).
+    const skipGrid = canvas.dataset.noGrid === '1';
+    let grid = null;
+    if (!skipGrid) {
+      grid = new THREE.GridHelper(6, 28, 0xbcd9ec, 0xd7e8f3);
+      grid.material.transparent = true;
+      grid.material.opacity = 0.45;
+      grid.material.depthWrite = false;
+      grid.position.y = -2.4;
+      scene.add(grid);
+    }
 
     // ── Scan plane: horizontal band sweeping bottom → top ─
     const scanMat = new THREE.MeshBasicMaterial({
@@ -71,8 +95,10 @@
     scene.add(footGroup);
 
     // ── Build-up timing ───────────────────────────────────
-    const BUILD_DURATION  = 10.0; // seconds end-to-end
-    const PARTICLE_FADE   = 1.4;  // seconds per-particle fly-in
+    // Tightened from 10.0s / 1.4s: doctors browsing the site shouldn't have
+    // to wait 11s for the scan to finish materializing before interacting.
+    const BUILD_DURATION  = 5.5;  // seconds end-to-end
+    const PARTICLE_FADE   = 0.9;  // seconds per-particle fly-in
     let buildStartMs      = performance.now(); // wall-clock start (reset on first OBJ load)
     let buildElapsed      = 0;    // seconds since current build started (wall-clock)
     let buildComplete     = false;
@@ -137,7 +163,7 @@
       // Gentle float
       const fy = Math.sin(tick * 0.45) * 0.055;
       footGroup.position.y = fy;
-      grid.position.y      = -2.4 + fy;
+      if (grid) grid.position.y = -2.4 + fy;
 
       renderer.render(scene, camera);
     }
@@ -190,9 +216,15 @@
         const cz = (minZ+maxZ)*0.5;
         const scale = 3.2 / Math.max(maxX-minX, maxY-minY, maxZ-minZ);
 
-        // Subsample to ~19 500 particles (30% denser than the original 15k)
+        // Subsample to ~19 500 on desktop, ~4 700 (-76%) on mobile.
+        // Previous steps (-40%, then -60%) still felt over-packed on phone
+        // screens; -76% gives the foot cloud real breathing room and lets
+        // the silhouette read cleanly. Also meaningfully lighter on WebGL
+        // fill-rate for low-end devices.
+        const isMobileViewport = window.matchMedia('(max-width: 768px)').matches;
+        const targetParticles = isMobileViewport ? 4700 : 19500;
         const totalVerts = raw.length / 3;
-        const stride = Math.max(1, Math.floor(totalVerts / 19500));
+        const stride = Math.max(1, Math.floor(totalVerts / targetParticles));
 
         // ── Axis remap ────────────────────────────────────
         // OBJ X (0.016–0.213): foot length  → scene Z (heel back, toe front)
