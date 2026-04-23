@@ -212,18 +212,21 @@ document.querySelectorAll('.stat__num[data-count-live]').forEach(el => {
   const startMs = new Date(el.dataset.startDate).getTime();
   const perDay  = parseFloat(el.dataset.perDay) || 0;
   const tickMs  = parseInt(el.dataset.tickMs, 10) || 60000;
+  const suffix  = el.dataset.suffix || '';
+  const prefix  = el.dataset.prefix || '';
   const elapsedDays = (Date.now() - startMs) / 86400000;
   let live = Math.max(0, Math.floor(elapsedDays * perDay));
+  const format = (n) => prefix + n.toLocaleString() + suffix;
 
   const liveObserver = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (!entry.isIntersecting) return;
       animateCounter(el, live, 2400);
       setTimeout(() => {
-        el.textContent = live.toLocaleString();
+        el.textContent = format(live);
         setInterval(() => {
           live += 1;
-          el.textContent = live.toLocaleString();
+          el.textContent = format(live);
         }, tickMs);
       }, 2500);
       liveObserver.unobserve(el);
