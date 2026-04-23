@@ -15,7 +15,24 @@
   border: 0;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+/* ── Self-hosted fonts ─────────────────────────────────────
+   Inter variable font, roman + italic, self-hosted to eliminate the
+   Google Fonts supply-chain dependency (no third-party CDN can inject
+   malicious CSS via @font-face if the font is served from our origin). */
+@font-face {
+  font-family: 'Inter';
+  src: url('../Inter/InterVariable.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('../Inter/InterVariable-Italic.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
 
 @font-face {
   font-family: 'Ethnocentric';
