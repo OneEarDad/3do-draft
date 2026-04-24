@@ -741,9 +741,15 @@ body:has(button:hover) .cursor__ring { width: 52px; height: 52px; opacity: 0.7; 
   border: 1px solid var(--text-faint);
   transition: transform .35s var(--ease-out-quint), box-shadow .35s var(--ease-out-quint);
 }
-.portfolio-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 16px 48px rgba(0,84,157,.08);
+/* Hover effects gated to hover-capable pointers only. On touchscreens
+   (iOS / Android), :hover gets "stuck" after a tap and stays stuck
+   until another tap elsewhere — which was making tapped orthotic
+   cards appear permanently zoomed in (scale 1.05 never releases). */
+@media (hover: hover) {
+  .portfolio-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 48px rgba(0,84,157,.08);
+  }
 }
 .portfolio-item {
   position: relative;
@@ -762,7 +768,9 @@ body:has(button:hover) .cursor__ring { width: 52px; height: 52px; opacity: 0.7; 
   object-fit: contain;
   transition: transform .6s var(--ease-out-expo);
 }
-.portfolio-card:hover .portfolio-item img { transform: scale(1.05); }
+@media (hover: hover) {
+  .portfolio-card:hover .portfolio-item img { transform: scale(1.05); }
+}
 .portfolio-item__overlay {
   position: absolute; inset: 0;
   background: linear-gradient(to top, rgba(10,20,40,.80) 0%, transparent 55%);
@@ -773,7 +781,9 @@ body:has(button:hover) .cursor__ring { width: 52px; height: 52px; opacity: 0.7; 
   justify-content: flex-end;
   padding: 1.25rem;
 }
-.portfolio-card:hover .portfolio-item__overlay { opacity: 1; }
+@media (hover: hover) {
+  .portfolio-card:hover .portfolio-item__overlay { opacity: 1; }
+}
 .portfolio-item__desc { font-size: .82rem; color: rgba(255,255,255,.88); line-height: 1.5; }
 .portfolio-card__name {
   background: var(--white);
@@ -783,8 +793,10 @@ body:has(button:hover) .cursor__ring { width: 52px; height: 52px; opacity: 0.7; 
   letter-spacing: .01em;
   transition: color .25s;
 }
-.portfolio-card:hover .portfolio-card__name {
-  color: var(--cyan);
+@media (hover: hover) {
+  .portfolio-card:hover .portfolio-card__name {
+    color: var(--cyan);
+  }
 }
 
 /* Carousel */
@@ -804,7 +816,9 @@ body:has(button:hover) .cursor__ring { width: 52px; height: 52px; opacity: 0.7; 
 /* Hide dots while the hover overlay is showing — they collided with the
    description copy at the bottom of the card. Touch devices don't hover,
    so mobile users keep the dots visible for tapping through slides. */
-.portfolio-card:hover .carousel__dots { opacity: 0; pointer-events: none; }
+@media (hover: hover) {
+  .portfolio-card:hover .carousel__dots { opacity: 0; pointer-events: none; }
+}
 /* 36×36 hit area with an 8px visible dot via ::before — old 5×5 dots
    failed the 44px touch-target guideline and were functionally un-tappable
    on phones. Flex gap between adjacent dots brings effective spacing past 44px. */
