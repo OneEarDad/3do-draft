@@ -87,10 +87,22 @@ if (burger && mobileMenu) {
   });
 
   mobileMenu.querySelectorAll('a').forEach(a => {
-    a.addEventListener('click', () => {
+    a.addEventListener('click', (e) => {
+      // Close menu first so overflow lock is lifted before any scroll/navigation.
       burger.classList.remove('open');
       mobileMenu.classList.remove('open');
       document.body.style.overflow = '';
+
+      // If this link points to the page we're already on, navigating to the
+      // same URL is a no-op that makes the tap feel broken ("I tapped Home
+      // and nothing happened"). Scroll to top instead so the action is visible.
+      const href = a.getAttribute('href') || '';
+      const currentFile = location.pathname.split('/').pop() || 'index.html';
+      const samePage = href === currentFile || (href === 'index.html' && currentFile === '');
+      if (samePage) {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
     });
   });
 }
