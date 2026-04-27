@@ -805,8 +805,30 @@ body:has(button:hover) .cursor__ring { width: 52px; height: 52px; opacity: 0.7; 
   display:flex;width:100%;height:100%;
   transition:transform .5s var(--ease-out-expo);
 }
-.portfolio-item .carousel__slide { min-width:100%;height:100%;flex-shrink:0; }
-.portfolio-item .carousel__slide img { width:100%;height:100%;object-fit:contain; }
+/* iOS Safari quirk: a flex item with only `min-width: 100%` and no
+   explicit `width` / `flex-basis` can resolve to the intrinsic width of
+   its <img> content (e.g. 750px) instead of 100% of the carousel
+   viewport. The slide then overflows to the right and `object-fit:
+   contain` centers the image inside that oversized slide — so the
+   visible window (clipped by `.portfolio-item` overflow) shows mostly
+   empty space with only a sliver of image off to one side.
+   Pin width AND flex-basis to 100% so the slide is always exactly the
+   carousel's width. */
+.portfolio-item .carousel__slide {
+  flex: 0 0 100%;
+  width: 100%;
+  min-width: 100%;
+  max-width: 100%;
+  height: 100%;
+  flex-shrink: 0;
+}
+.portfolio-item .carousel__slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center center;
+}
 .carousel__dots {
   position:absolute;bottom:0.6rem;left:50%;
   transform:translateX(-50%);
