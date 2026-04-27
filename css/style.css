@@ -515,6 +515,22 @@ body:has(button:hover) .cursor__ring { width: 52px; height: 52px; opacity: 0.7; 
 }
 .btn--ghost:hover { color: var(--navy); border-color: var(--navy); }
 
+/* Cyan outline pill — used where btn--ghost felt too quiet against a
+   busy section (e.g. orthotics gallery on the homepage). Ties to the
+   brand cyan instead of muted grey so the CTA reads at a glance. */
+.btn--cyan {
+  color: var(--cyan);
+  border: 1.5px solid var(--cyan);
+  background: transparent;
+}
+.btn--cyan:hover {
+  background: var(--cyan);
+  color: var(--white);
+  border-color: var(--cyan);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,174,199,.22);
+}
+
 /* On dark sections */
 .section--dark .btn--outline {
   border-color: rgba(255,255,255,.4);
@@ -716,15 +732,35 @@ body:has(button:hover) .cursor__ring { width: 52px; height: 52px; opacity: 0.7; 
 .portfolio-section { margin-bottom: 3.5rem; }
 .portfolio-section__header {
   display: flex; align-items: center; gap: 1.25rem;
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.5rem;
 }
 .portfolio-section__title {
   font-family: var(--font-display);
-  font-size: .7rem; letter-spacing: .18em; text-transform: uppercase;
-  color: var(--accent); white-space: nowrap; font-weight: 400;
+  /* ~3x previous .7rem; clamps for fluid scaling. Letter-spacing tightened
+     from .18em (correct for tiny labels) to ls-tight (correct for display
+     headings). */
+  font-size: clamp(1.6rem, 4.5vw, 2.4rem);
+  letter-spacing: var(--ls-tight);
+  text-transform: uppercase;
+  color: var(--accent);
+  white-space: nowrap;
+  font-weight: 400;
+  line-height: 1;
 }
 .portfolio-section__line {
   flex: 1; height: 1px; background: var(--text-faint);
+}
+
+/* Mobile: drop the trailing decorative line and center the title so it
+   reads as a chapter heading rather than a list label. */
+@media (max-width: 768px) {
+  .portfolio-section__header {
+    justify-content: center;
+    text-align: center;
+  }
+  .portfolio-section__line {
+    display: none;
+  }
 }
 
 /* ── Portfolio grid & cards: modern rounded ─────────────── */
