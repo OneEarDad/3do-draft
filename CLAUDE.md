@@ -115,6 +115,9 @@ Ultra-clean, modern, interactive, cutting-edge. Key principles:
   js/va-resource-guide-overlays.js  VA resource guide badges
   js/lab-page.js              Lab-only: beam-wipe animation controller
 
+  CNAME                       GitHub Pages custom-domain config (3dorthotics.com).
+                              DO NOT delete — without it, GitHub Pages
+                              reverts to oneeardad.github.io/3do-draft/.
   logo.png, favicon.svg       Brand assets
   foot.obj                    3D geometry for foot scan (3.5 MB)
   Orthotics Pics/             Product photography (45 images, 15 products × 3)
@@ -213,13 +216,13 @@ Current state (verified pre-launch):
 - ✅ `--text-dim` is `#5a6b80`, contrast 5.46:1 on white (passes WCAG AA for normal text)
 - ✅ Body text (`--text`, `--text-mid`) and `--navy` all comfortably pass WCAG AA on white and surface backgrounds
 
-Known limitation (brand-vs-compliance call):
+Known limitation (deferred — fix if a reviewer flags it):
 
-- ⚠️ `--cyan` (#00aec7) has only a 2.67:1 contrast ratio against white — used as text it fails WCAG AA (4.5:1) and even the large-text threshold (3.0:1). It is the brand color and used for accent text, the cyan outline button (`btn--cyan`), and emphasis spans (`.accent`). For strict Section 508 compliance, swap cyan text uses to a darker variant (e.g. `#007a91` at 5.01:1) or use cyan only for borders/backgrounds/dark-bg text. This is a design decision and not changed automatically.
+- ⚠️ `--cyan` (#00aec7) has only a 2.67:1 contrast ratio against white — used as text it fails WCAG AA (4.5:1) and even the large-text threshold (3.0:1). It is the brand color and used for accent text (`.accent`, `.t-label`, `.btn--cyan`, `.portfolio-section__title`, `.process-step__num`, etc.). Decision was made to preserve brand integrity and address per-instance if a VA 508 reviewer flags a specific element. A pre-baked AA-compliant variant would be `#007a91` (5.01:1) — apply via a new `--cyan-text` token if/when needed.
 
 Rules to maintain:
 
 - New `<img>` tags must have an `alt`; decorative images use `alt=""`, not omitted
 - New buttons need either visible text or `aria-label`
 - New interactive elements must keep `:focus-visible` outlines (don't blanket-disable `outline:none`)
-- New copy text against white must use `--text`, `--text-mid`, `--text-dim`, or `--navy` — never `--cyan` for body text without an explicit a11y review
+- New copy text against white should use `--text`, `--text-mid`, `--text-dim`, or `--navy`. Cyan text on white is acceptable for brand-aligned accent uses only — not for body copy.
