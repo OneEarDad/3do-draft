@@ -34,7 +34,7 @@ This is **not a D2C funnel**. The site sells to **doctors arriving from ads**; v
 | `--surface-2`   | `#eff2f7`                 | Deeper surface variant             |
 | `--text`        | `#121820`                 | Primary text: near-black           |
 | `--text-mid`    | `#3a4a5c`                 | Secondary text                     |
-| `--text-dim`    | `#6b7d92`                 | Muted / caption text               |
+| `--text-dim`    | `#5a6b80`                 | Muted / caption text (WCAG AA ≥4.5:1 on white) |
 | `--text-faint`  | `rgba(33, 34, 38, 0.08)`  | Borders: nearly invisible          |
 
 ### Typography
@@ -198,3 +198,28 @@ Rules to maintain:
 - Never use `onclick=` or any other inline handler — wire events in `/js/main.js` or a page-specific file
 - New `target="_blank"` links always need `rel="noopener"` (and ideally `noreferrer` too)
 - No secrets or internal URLs in HTML comments
+
+---
+
+## Accessibility Posture
+
+Current state (verified pre-launch):
+
+- ✅ Every page has `lang="en"` and exactly one `<h1>`; heading hierarchy is sequential
+- ✅ Every page starts with a `.skip-to-content` anchor pointing to `#main` on the first content section (Section 508 / WCAG 2.4.1)
+- ✅ Every `<img>` has an `alt` attribute
+- ✅ `:focus-visible` is styled with a 2px cyan outline + offset on every interactive element
+- ✅ `prefers-reduced-motion` is respected in CSS (particles, reveals), particles-bg.js, and handoff-flare.js
+- ✅ `--text-dim` is `#5a6b80`, contrast 5.46:1 on white (passes WCAG AA for normal text)
+- ✅ Body text (`--text`, `--text-mid`) and `--navy` all comfortably pass WCAG AA on white and surface backgrounds
+
+Known limitation (brand-vs-compliance call):
+
+- ⚠️ `--cyan` (#00aec7) has only a 2.67:1 contrast ratio against white — used as text it fails WCAG AA (4.5:1) and even the large-text threshold (3.0:1). It is the brand color and used for accent text, the cyan outline button (`btn--cyan`), and emphasis spans (`.accent`). For strict Section 508 compliance, swap cyan text uses to a darker variant (e.g. `#007a91` at 5.01:1) or use cyan only for borders/backgrounds/dark-bg text. This is a design decision and not changed automatically.
+
+Rules to maintain:
+
+- New `<img>` tags must have an `alt`; decorative images use `alt=""`, not omitted
+- New buttons need either visible text or `aria-label`
+- New interactive elements must keep `:focus-visible` outlines (don't blanket-disable `outline:none`)
+- New copy text against white must use `--text`, `--text-mid`, `--text-dim`, or `--navy` — never `--cyan` for body text without an explicit a11y review

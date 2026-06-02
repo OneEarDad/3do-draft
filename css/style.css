@@ -15,6 +15,32 @@
   border: 0;
 }
 
+/* Skip-to-content link — Section 508 / WCAG 2.4.1 requirement. Visually
+   hidden by default; becomes visible when focused via keyboard so users
+   bypassing the nav can jump straight to the page's main content. */
+.skip-to-content {
+  position: absolute;
+  top: 0; left: 0;
+  z-index: 9999;
+  padding: .85rem 1.5rem;
+  background: var(--navy);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: .85rem;
+  font-weight: 600;
+  letter-spacing: .04em;
+  text-decoration: none;
+  border-radius: 0 0 6px 0;
+  transform: translateY(-110%);
+  transition: transform .2s var(--ease-out-quint);
+}
+.skip-to-content:focus,
+.skip-to-content:focus-visible {
+  transform: translateY(0);
+  outline: 2px solid var(--cyan);
+  outline-offset: 3px;
+}
+
 /* ── Self-hosted fonts ─────────────────────────────────────
    Inter variable font, roman + italic, self-hosted to eliminate the
    Google Fonts supply-chain dependency (no third-party CDN can inject
@@ -57,7 +83,10 @@
   --accent:      #00aec7;
   --text:        #121820;
   --text-mid:    #3a4a5c;
-  --text-dim:    #6b7d92;
+  /* text-dim darkened slightly from #6b7d92 (4.22:1 against white, failing
+     WCAG AA) to #5a6b80 (5.46:1, passing AA for normal text). Visually
+     nearly identical — slight darkening of muted captions. */
+  --text-dim:    #5a6b80;
   --text-faint:  rgba(33, 34, 38, 0.08);
   --white:       #ffffff;
 

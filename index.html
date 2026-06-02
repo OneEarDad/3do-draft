@@ -10,7 +10,7 @@
   <meta name="theme-color" content="#00549d">  <meta name="description" content="3D Orthotics: HIPAA-aligned digital orthotic scanning for VA and DOD hospitals. AccuScan DP: fast scans with patient information de-identified before transmission.">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self'; frame-src https://www.youtube.com; object-src 'none'; base-uri 'self'; form-action 'self' mailto:; upgrade-insecure-requests">
   <meta name="referrer" content="strict-origin-when-cross-origin">
-  <link rel="stylesheet" href="css/style.css?v=5">
+  <link rel="stylesheet" href="css/style.css?v=6">
   <style>
     /* ── Homepage Orthotic Modal ─────────────────────────── */
     .ortho-modal-backdrop {
@@ -77,13 +77,14 @@
   </style>
 </head>
 <body>
+<a class="skip-to-content" href="#main">Skip to main content</a>
 
 <!-- Particle background -->
 <canvas id="particles-bg"></canvas>
 
 <!-- Loader -->
 <div id="loader">
-  <img class="loader__logo" src="logo.png" alt="3D Orthotics">
+  <img class="loader__logo" src="images/logo.webp" alt="3D Orthotics">
 </div>
 
 <!-- Custom cursor -->
@@ -95,7 +96,7 @@
 <!-- Navigation -->
 <nav class="nav">
   <a class="nav__logo" href="index.html">
-    <img src="logo.png" alt="3D Orthotics">
+    <img src="images/logo.webp" alt="3D Orthotics">
   </a>
   <div class="nav__links">
     <a class="nav__phone" href="tel:+18443668911" aria-label="Call 844-FOOT-911">844-FOOT-911</a>
@@ -133,7 +134,7 @@
 </div>
 
 <!-- ══════════════════════════════════════════════ HERO -->
-<section class="hero">
+<section id="main" class="hero">
   <div class="hero__content">
     <span class="t-label reveal">Digital Orthotic Scanning</span>
     <h1 class="t-display" style="margin-top:1.25rem">
@@ -179,7 +180,7 @@
 <section class="section ipad-section">
   <div class="container">
     <div style="text-align:center;max-width:600px;margin:0 auto clamp(2.5rem,5vw,4rem)">
-      <img src="images/accuscan-dp-logo.png" alt="AccuScan DP" class="reveal" style="height:clamp(3.6rem,7vw,5.2rem);width:auto;display:block;margin:0 auto">
+      <img src="images/accuscan-dp-logo.webp" alt="AccuScan DP" class="reveal" style="height:clamp(3.6rem,7vw,5.2rem);width:auto;display:block;margin:0 auto">
       <h2 class="t-h2 reveal" style="margin-top:1rem;transition-delay:.1s;white-space:nowrap">See How It <span class="accent">Works</span></h2>
       <p class="t-body reveal" style="margin-top:1rem;transition-delay:.2s">From app launch to order submission: the entire workflow happens on one iPad.</p>
     </div>
@@ -194,11 +195,11 @@
             <div class="ipad-slides">
               <div class="ipad-slide is-active" data-step="0">
                 <div class="ipad-slide__logo">
-                  <img src="logo.png" alt="AccuScan DP">
+                  <img src="images/logo.webp" alt="AccuScan DP">
                 </div>
               </div>
               <div class="ipad-slide" data-step="1">
-                <img src="Scanned foot screenshot.png" alt="Scanning the patient's foot">
+                <img src="images/ipad-scanned-foot.webp" alt="Scanning the patient's foot">
               </div>
               <div class="ipad-slide" data-step="2">
                 <video muted playsinline loop preload="auto">
@@ -206,10 +207,10 @@
                 </video>
               </div>
               <div class="ipad-slide" data-step="3">
-                <img src="Device selection.png" alt="Select orthotic device">
+                <img src="images/ipad-device-selection.webp" alt="Select orthotic device">
               </div>
               <div class="ipad-slide" data-step="4">
-                <img src="Device Send.png" alt="Review and send order">
+                <img src="images/ipad-device-send.webp" alt="Review and send order">
               </div>
             </div>
           </div>
@@ -526,7 +527,7 @@
         <span class="handoff-flow__dot" aria-hidden="true"></span>
       </div>
       <div class="handoff-flow__endpoint handoff-flow__endpoint--to">
-        <img class="handoff-flow__logo" src="logo.png" alt="3D Orthotics" width="105" height="70">
+        <img class="handoff-flow__logo" src="images/logo.webp" alt="3D Orthotics" width="105" height="70">
       </div>
     </div>
 
@@ -907,7 +908,7 @@
   <div class="container">
     <div class="footer__grid">
       <div>
-        <img class="footer__logo" src="logo.png" alt="3D Orthotics">
+        <img class="footer__logo" src="images/logo.webp" alt="3D Orthotics">
         <p class="footer__tagline">Precision digital orthotics for VA and DOD hospitals. PHI-safe workflow. Veteran-owned.</p>
       </div>
       <div>

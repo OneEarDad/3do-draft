@@ -10,7 +10,7 @@
   <meta name="theme-color" content="#00549d">  <meta name="description" content="AccuScan DP: HIPAA-aligned digital orthotic scanning for federal facilities. Patient information de-identified before transmission. Fast, clean, five minutes.">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self'; frame-src https://www.youtube.com; object-src 'none'; base-uri 'self'; form-action 'self' mailto:; upgrade-insecure-requests">
   <meta name="referrer" content="strict-origin-when-cross-origin">
-  <link rel="stylesheet" href="css/style.css?v=5">
+  <link rel="stylesheet" href="css/style.css?v=6">
   <style>
     .spec-table { width: 100%; border-collapse: collapse; }
     .spec-table tr { border-bottom: 1px solid var(--text-faint); }
@@ -205,12 +205,13 @@
   </style>
 </head>
 <body>
+<a class="skip-to-content" href="#main">Skip to main content</a>
 
 <!-- Particle background -->
 <canvas id="particles-bg"></canvas>
 
 <div id="loader">
-  <img class="loader__logo" src="logo.png" alt="3D Orthotics">
+  <img class="loader__logo" src="images/logo.webp" alt="3D Orthotics">
 </div>
 
 <div class="cursor">
@@ -219,7 +220,7 @@
 </div>
 
 <nav class="nav">
-  <a class="nav__logo" href="index.html"><img src="logo.png" alt="3D Orthotics"></a>
+  <a class="nav__logo" href="index.html"><img src="images/logo.webp" alt="3D Orthotics"></a>
   <div class="nav__links">
     <a class="nav__phone" href="tel:+18443668911" aria-label="Call 844-FOOT-911">844-FOOT-911</a>
     <a class="nav__link" href="index.html">Home</a>
@@ -253,12 +254,12 @@
 </div>
 
 <!-- ══════════════════════════════════ PAGE HERO (with live scan) -->
-<section class="page-hero page-hero--centered">
+<section id="main" class="page-hero page-hero--centered">
   <div class="page-hero__bg"></div>
   <div class="container">
     <div class="hero-stack">
       <h1 class="sr-only">AccuScan DP — HIPAA-Aligned Digital Orthotic Scanner</h1>
-      <img class="accuscan-wordmark reveal" src="images/accuscan-dp-logo.png" alt="AccuScan DP">
+      <img class="accuscan-wordmark reveal" src="images/accuscan-dp-logo.webp" alt="AccuScan DP">
       <p class="t-body hero-stack__tagline reveal" style="transition-delay:.1s">
         HIPAA-aligned digital orthotic scanning built for federal facilities. Patient information is de-identified before transmission. Five minutes. No mess.
       </p>
@@ -517,7 +518,7 @@
   <div class="container">
     <div class="footer__grid">
       <div>
-        <img class="footer__logo" src="logo.png" alt="3D Orthotics">
+        <img class="footer__logo" src="images/logo.webp" alt="3D Orthotics">
         <p class="footer__tagline">Precision digital orthotics for VA and DOD hospitals. PHI-safe workflow. Veteran-owned.</p>
       </div>
       <div>
