@@ -115,9 +115,6 @@ Ultra-clean, modern, interactive, cutting-edge. Key principles:
   js/va-resource-guide-overlays.js  VA resource guide badges
   js/lab-page.js              Lab-only: beam-wipe animation controller
 
-  CNAME                       GitHub Pages custom-domain config (3dorthotics.com).
-                              DO NOT delete — without it, GitHub Pages
-                              reverts to oneeardad.github.io/3do-draft/.
   logo.png, favicon.svg       Brand assets
   foot.obj                    3D geometry for foot scan (3.5 MB)
   Orthotics Pics/             Product photography (45 images, 15 products × 3)
