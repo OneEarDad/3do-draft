@@ -10,7 +10,7 @@
   <meta name="theme-color" content="#00549d">  <meta name="description" content="AccuScan DP: HIPAA-aligned digital orthotic scanning for federal facilities. Patient information de-identified before transmission. Fast, clean, five minutes.">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self'; frame-src https://www.youtube.com; object-src 'none'; base-uri 'self'; form-action 'self' mailto:; upgrade-insecure-requests">
   <meta name="referrer" content="strict-origin-when-cross-origin">
-  <link rel="stylesheet" href="css/style.css?v=4">
+  <link rel="stylesheet" href="css/style.css?v=5">
   <style>
     .spec-table { width: 100%; border-collapse: collapse; }
     .spec-table tr { border-bottom: 1px solid var(--text-faint); }
@@ -86,6 +86,12 @@
       max-width: 640px;
       aspect-ratio: 1;
       margin: 0 auto;
+      /* The .scan-visual child is sized at 125% on purpose (so the foot scan
+         fills more area than the bubble ring). On narrow mobile widths that
+         oversized absolutely-positioned child was pushing the parent's
+         scrollWidth past the viewport, causing horizontal overflow. Clipping
+         here keeps the visual effect but stops it leaking into layout. */
+      overflow: hidden;
     }
     .hero-orbit > .scan-visual {
       position: absolute;
@@ -558,6 +564,6 @@
 <script src="js/foot-3d.js?v=3"></script>
 <script src="js/particles-bg.js"></script>
 <script src="js/bubbles.js"></script>
-<script src="js/main.js"></script>
+<script src="js/main.js?v=2"></script>
 </body>
 </html>

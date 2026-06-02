@@ -179,8 +179,22 @@ Ultra-clean, modern, interactive, cutting-edge. Key principles:
 
 ## Security Posture
 
-- All pages should carry a `<meta http-equiv="Content-Security-Policy">` tag (lab.html already does — other pages to be audited)
-- No inline event handlers (`onclick=`, etc.) — CSP blocks them
-- External CDN scripts should use SRI (`integrity="sha..."`) hashes
-- `target="_blank"` links need `rel="noopener"` (tabnabbing)
+Current state (verified pre-launch — all 10 pages):
+
+- ✅ Every page carries an identical `<meta http-equiv="Content-Security-Policy">`. Policy: `default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self'; frame-src https://www.youtube.com; object-src 'none'; base-uri 'self'; form-action 'self' mailto:; upgrade-insecure-requests`
+- ✅ Every page carries `<meta name="referrer" content="strict-origin-when-cross-origin">`
+- ✅ External CDN scripts (THREE.js, OBJLoader on index/accuscan-dp) all have `integrity=` SRI hashes, `crossorigin="anonymous"`, and `referrerpolicy="no-referrer"`
+- ✅ No inline `<script>` blocks anywhere (would violate CSP) — all JS lives in `/js/`
+- ✅ No inline event handlers (`onclick=`, etc.) anywhere
+- ✅ Every `target="_blank"` link has `rel="noopener"`
+- ✅ Zero `http://` references — everything HTTPS or relative
+- ✅ YouTube embed (index.html) is sandboxed with `sandbox="allow-scripts allow-same-origin allow-presentation"`
+- ✅ `lab.html` has `<meta name="robots" content="noindex,nofollow">` and is unlinked from the live nav
+
+Rules to maintain:
+
+- New pages must inherit the same CSP + referrer-policy meta tags
+- Any new external script must have an SRI hash before being merged
+- Never use `onclick=` or any other inline handler — wire events in `/js/main.js` or a page-specific file
+- New `target="_blank"` links always need `rel="noopener"` (and ideally `noreferrer` too)
 - No secrets or internal URLs in HTML comments

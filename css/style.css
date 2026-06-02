@@ -717,6 +717,26 @@ body:has(button:hover) .cursor__ring { width: 52px; height: 52px; opacity: 0.7; 
   line-height: 1.5;
 }
 
+/* Mobile collapse for the cert grid: at narrow widths the 2-column layout
+   was forcing a min-content width of ~230px per cell (driven by long
+   unbreakable tokens like "RN#3015146490"), overflowing the viewport by
+   ~100px. Below 600px (covers every phone CSS width), stack to a single
+   column and tighten the card padding so it reads as a clean list. */
+@media (max-width: 600px) {
+  .cert-grid-modern { grid-template-columns: 1fr; }
+  .cert-modern-item { padding: 1.25rem; }
+
+  /* L-code callout on the VA Resources page: the 3-column "icon · text ·
+     button" grid had unshrinkable auto columns that overflowed on mobile.
+     Stack vertically with the icon and text together at the top and the
+     button below. */
+  .lcode-callout {
+    grid-template-columns: 1fr !important;
+    gap: 1.25rem !important;
+    padding: 1.25rem !important;
+  }
+}
+
 /* ── Split ───────────────────────────────────────────────── */
 .split {
   display: grid;
@@ -1499,7 +1519,9 @@ body:has(button:hover) .cursor__ring { width: 52px; height: 52px; opacity: 0.7; 
   .feature-grid { grid-template-columns: repeat(2, 1fr); }
   .process-steps { grid-template-columns: 1fr; }
   .included-grid { grid-template-columns: 1fr 1fr; }
-  .cert-grid-modern { grid-template-columns: 1fr 1fr; }
+  /* .cert-grid-modern stays 1fr 1fr at this breakpoint via the base rule;
+     the explicit override here was redundant and was preventing the
+     <600px single-column rule from winning the cascade. */
 }
 
 @media (max-width: 768px) {
@@ -1535,7 +1557,7 @@ body:has(button:hover) .cursor__ring { width: 52px; height: 52px; opacity: 0.7; 
   .included-heading { white-space: normal; }
   .feature-grid { grid-template-columns: repeat(2, 1fr); }
   .included-grid { grid-template-columns: 1fr; }
-  .cert-grid-modern { grid-template-columns: 1fr 1fr; }
+  /* .cert-grid-modern collapse is handled by its own <600px rule. */
 
   /* Convert horizontal reveals to vertical on mobile to prevent overflow */
   .reveal--left  { transform: translateY(22px); }
@@ -1567,6 +1589,7 @@ body:has(button:hover) .cursor__ring { width: 52px; height: 52px; opacity: 0.7; 
     padding: 1.25rem !important;
   }
   .cert-row-item > *:last-child { grid-column: 1 !important; }
+
 
   /* Portfolio grid: single column on very small screens */
   .portfolio-grid { grid-template-columns: 1fr; }

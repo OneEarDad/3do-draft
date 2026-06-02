@@ -10,7 +10,7 @@
   <meta name="theme-color" content="#00549d">  <meta name="description" content="3D Orthotics is your dedicated partner for VA orthotic programs. Resources for VA podiatrists, purchasers, and administrators. Reach out and we'll handle the rest.">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self'; frame-src https://www.youtube.com; object-src 'none'; base-uri 'self'; form-action 'self' mailto:; upgrade-insecure-requests">
   <meta name="referrer" content="strict-origin-when-cross-origin">
-  <link rel="stylesheet" href="css/style.css?v=4">
+  <link rel="stylesheet" href="css/style.css?v=5">
   <style>
     .va-resource-grid {
       display: grid;
@@ -84,6 +84,9 @@
     }
     @media (max-width: 640px) {
       .va-resource-grid { grid-template-columns: 1fr; }
+      /* 2rem horizontal padding was forcing min-content width past viewport
+         on narrow phones. Tighten so cards fit cleanly. */
+      .va-resource-card { padding: 1.5rem 1.25rem; }
       .va-trust-strip { gap: 1.25rem; }
     }
 
@@ -251,7 +254,7 @@
 <!-- L-CODE CALLOUT -->
 <section class="section" style="padding-top:0">
   <div class="container">
-    <div class="reveal" style="display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:2rem;padding:1.75rem 2rem;border:1px solid rgba(0,174,199,.3);border-left:3px solid var(--cyan);border-radius:2px;background:rgba(0,174,199,.04);flex-wrap:wrap">
+    <div class="reveal lcode-callout" style="display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:2rem;padding:1.75rem 2rem;border:1px solid rgba(0,174,199,.3);border-left:3px solid var(--cyan);border-radius:2px;background:rgba(0,174,199,.04)">
       <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><circle cx="7" cy="7" r="1.5" fill="var(--accent)" stroke="none"/></svg>
       <div>
         <div style="font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:.3rem">Billing & Coding</div>
@@ -388,6 +391,6 @@
 <script src="js/va-resource-guide-overlays.js"></script>
 <!-- three.min.js removed: no WebGL foot scanner on this page. particles-bg.js is Canvas 2D. -->
 <script src="js/particles-bg.js"></script>
-<script src="js/main.js"></script>
+<script src="js/main.js?v=2"></script>
 </body>
 </html>
