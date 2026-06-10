@@ -828,14 +828,18 @@
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════ TESTIMONIALS
-     IMPORTANT: The three cards below contain PLACEHOLDER copy marked with
-     data-placeholder="true". Replace the quote text + role + org on each
-     card with real attributable quotes, then:
-       1. Remove data-placeholder="true" from each .testimonial-card
-       2. Delete the .testimonials-placeholder-banner block
-     The amber banner is visually impossible to miss, so the section cannot
-     ship accidentally with dummy content. -->
+<!-- ══════════════════════════════════════════════ TESTIMONIALS (HIDDEN)
+     DISABLED for launch — wrapped in <template> so it is preserved in the
+     source but NOT rendered (no layout, no performance cost, not in the DOM
+     flow). The cards still contain PLACEHOLDER copy.
+
+     TO RE-ENABLE LATER:
+       1. Remove the <template id="testimonials-section"> wrapper and its
+          closing </template> (just below the section's </section>).
+       2. Replace each card's quote + role + org with real attributable
+          quotes and remove data-placeholder="true".
+       3. Delete the .testimonials-placeholder-banner block. -->
+<template id="testimonials-section">
 <section class="section section--light">
   <div class="container">
     <div style="text-align:center;max-width:680px;margin:0 auto 1rem">
@@ -887,6 +891,8 @@
     </div>
   </div>
 </section>
+</template>
+<!-- ══════════════════════════════════════════════ end TESTIMONIALS (HIDDEN) -->
 
 <!-- ══════════════════════════════════════════════ AWARD CALLOUT -->
 <section class="section">
