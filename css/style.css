@@ -62,8 +62,11 @@
 
 @font-face {
   font-family: 'Ethnocentric';
-  src: url('../Ethnocentric/ethnocentric rg.ttf') format('truetype'),
-       url('../Ethnocentric/ethnocentric rg.otf') format('opentype');
+  /* Single WOFF2 (20KB) instead of shipping both .ttf (63KB) + .otf (49KB).
+     WOFF2 is supported by every browser this site targets (Safari 12+,
+     Chrome/Edge/FF all modern). The .ttf/.otf are kept on disk as the
+     master source but no longer served. */
+  src: url('../Ethnocentric/ethnocentric.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;

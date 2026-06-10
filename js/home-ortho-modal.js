@@ -2,21 +2,21 @@
 const HOME_ORTHO_DATA = {
   'comfort-soft': {
     name: 'Comfort Soft',
-    imgs: ['Orthotics Pics/Comfort Soft 1.jpg','Orthotics Pics/Comfort Soft 2.jpg','Orthotics Pics/Comfort Soft 3.jpg'],
+    imgs: ['Orthotics Pics/Comfort Soft 1.webp','Orthotics Pics/Comfort Soft 2.webp','Orthotics Pics/Comfort Soft 3.webp'],
     materials: 'Cushioned fabric top cover · Flexible EVA foam base · Polyurethane heel cup',
     tags: ['Everyday wear', 'Foot fatigue', 'Mild overpronation', 'Plantar fasciitis'],
     feature: 'Dual-density construction provides all-day cushioning while maintaining just enough biomechanical support to reduce fatigue on long shifts or active days.'
   },
   'diabetic-soft': {
     name: 'Diabetic Soft',
-    imgs: ['Orthotics Pics/Diabetic Soft 1.jpg','Orthotics Pics/Diabetic Soft 2.jpg','Orthotics Pics/Diabetic Soft 3.jpg'],
+    imgs: ['Orthotics Pics/Diabetic Soft 1.webp','Orthotics Pics/Diabetic Soft 2.webp','Orthotics Pics/Diabetic Soft 3.webp'],
     materials: 'Soft Plastazote® top cover · Extra-soft PPT® base · Total contact construction',
     tags: ['High ulcer risk', 'Severe neuropathy', 'Charcot foot', 'Post-wound care'],
     feature: 'Extra-soft total contact fit minimizes shear and friction at every contact point. The highest level of pressure protection in our diabetic line.'
   },
   'fm-sport': {
     name: 'FM Sport',
-    imgs: ['Orthotics Pics/FM Sport 1.jpg','Orthotics Pics/FM Sport 2.jpg','Orthotics Pics/FM Sport 3.jpg'],
+    imgs: ['Orthotics Pics/FM Sport 1.webp','Orthotics Pics/FM Sport 2.webp','Orthotics Pics/FM Sport 3.webp'],
     materials: 'Moisture-wicking top cover · Rigid carbon fiber shell · Deep heel cup',
     tags: ['Running', 'High-impact sport', 'IT band syndrome', 'Overpronation'],
     feature: 'Carbon fiber shell returns energy with each stride while the deep heel cup locks the rearfoot. Built for repetitive high-impact loading without fatigue or breakdown.'

@@ -6,7 +6,7 @@
   const prevBtn   = document.querySelector('.ipad-nav--prev');
   const nextBtn   = document.querySelector('.ipad-nav--next');
   const descEl    = document.getElementById('pipeline-desc');
-  if (!device || !slides.length) return;
+  if (!device || !slides.length || !descEl) return;
 
   const descriptions = {
     1: 'A precision 3D scan captures the patient\u2019s foot in under 5 minutes.',
@@ -82,7 +82,10 @@
       if (i === current) {
         vid.playbackRate = getPlaybackRate(i);
         vid.currentTime = 0;          // always restart from the top
-        vid.play();
+        // play() rejects on iOS / strict autoplay policies; swallow it so we
+        // don't throw an unhandled promise rejection. The poster frame stays.
+        const p = vid.play();
+        if (p && typeof p.catch === 'function') p.catch(() => {});
       } else {
         vid.pause();
       }

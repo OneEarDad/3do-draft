@@ -12,20 +12,20 @@
 (function () {
   // ── Product catalog ──────────────────────────────────────
   const PRODUCTS = [
-    { name: 'Comfort Soft',     img: 'Orthotics Pics/Comfort Soft 1.jpg',             slug: 'comfort-soft',    desc: 'Cushioned everyday comfort for sensitive feet.' },
-    { name: 'Diabetic Medium',  img: 'Orthotics Pics/Diabetic Medium 1.jpg',          slug: 'diabetic-medium', desc: 'Medium-density support built for diabetic foot care.' },
-    { name: 'Diabetic Soft',    img: 'Orthotics Pics/Diabetic Soft 1.jpg',            slug: 'diabetic-soft',   desc: 'Maximum cushioning for at-risk diabetic patients.' },
-    { name: 'Dress Elite',      img: 'Orthotics Pics/Dress Elite 1.jpg',              slug: 'dress-elite',     desc: 'Low-profile support that fits inside dress shoes.' },
-    { name: 'Dress High Heel',  img: 'Orthotics Pics/Dress High Heel 1.jpg',          slug: 'dress-heel',      desc: 'Engineered for high-heel shoes without compromise.' },
-    { name: 'FM Functional',    img: 'Orthotics Pics/FM Fuctional 1.jpg',             slug: 'fm-functional',   desc: 'Full-motion functional orthotic for active patients.' },
-    { name: 'FM Glider',        img: 'Orthotics Pics/FM Glider 1.jpg',                slug: 'fm-glider',       desc: 'Smooth, low-friction motion control.' },
-    { name: 'FM Integrated',    img: 'Orthotics Pics/FM Integrated 1.jpg',            slug: 'fm-integrated',   desc: 'Integrated support with full-motion flex.' },
-    { name: 'FM Sport',         img: 'Orthotics Pics/FM Sport 1.jpg',                 slug: 'fm-sport',        desc: 'High-performance support for athletes.' },
-    { name: 'FM Support',       img: 'Orthotics Pics/FM Support 1.jpg',               slug: 'fm-support',      desc: 'Maximum-structure orthotic for demanding use.' },
-    { name: 'FM Trainer',       img: 'Orthotics Pics/FM Trainer 1.jpg',               slug: 'fm-trainer',      desc: 'Training-specific support with flex zones.' },
-    { name: 'Motion Soft',      img: 'Orthotics Pics/Motion Soft 1.jpg',              slug: 'motion-soft',     desc: 'Dynamic cushioning for everyday movement.' },
-    { name: 'PT Controller',    img: 'Orthotics Pics/PT Controller 1.jpg',            slug: 'pt-controller',   desc: 'Motion-control orthotic for physical therapy.' },
-    { name: 'Smart Basic',      img: 'Orthotics Pics/Smart Basic 1.jpg',              slug: 'smart-basic',     desc: 'Entry-level support with smart biomechanics.' },
+    { name: 'Comfort Soft',     img: 'Orthotics Pics/Comfort Soft 1.webp',             slug: 'comfort-soft',    desc: 'Cushioned everyday comfort for sensitive feet.' },
+    { name: 'Diabetic Medium',  img: 'Orthotics Pics/Diabetic Medium 1.webp',          slug: 'diabetic-medium', desc: 'Medium-density support built for diabetic foot care.' },
+    { name: 'Diabetic Soft',    img: 'Orthotics Pics/Diabetic Soft 1.webp',            slug: 'diabetic-soft',   desc: 'Maximum cushioning for at-risk diabetic patients.' },
+    { name: 'Dress Elite',      img: 'Orthotics Pics/Dress Elite 1.webp',              slug: 'dress-elite',     desc: 'Low-profile support that fits inside dress shoes.' },
+    { name: 'Dress High Heel',  img: 'Orthotics Pics/Dress High Heel 1.webp',          slug: 'dress-heel',      desc: 'Engineered for high-heel shoes without compromise.' },
+    { name: 'FM Functional',    img: 'Orthotics Pics/FM Fuctional 1.webp',             slug: 'fm-functional',   desc: 'Full-motion functional orthotic for active patients.' },
+    { name: 'FM Glider',        img: 'Orthotics Pics/FM Glider 1.webp',                slug: 'fm-glider',       desc: 'Smooth, low-friction motion control.' },
+    { name: 'FM Integrated',    img: 'Orthotics Pics/FM Integrated 1.webp',            slug: 'fm-integrated',   desc: 'Integrated support with full-motion flex.' },
+    { name: 'FM Sport',         img: 'Orthotics Pics/FM Sport 1.webp',                 slug: 'fm-sport',        desc: 'High-performance support for athletes.' },
+    { name: 'FM Support',       img: 'Orthotics Pics/FM Support 1.webp',               slug: 'fm-support',      desc: 'Maximum-structure orthotic for demanding use.' },
+    { name: 'FM Trainer',       img: 'Orthotics Pics/FM Trainer 1.webp',               slug: 'fm-trainer',      desc: 'Training-specific support with flex zones.' },
+    { name: 'Motion Soft',      img: 'Orthotics Pics/Motion Soft 1.webp',              slug: 'motion-soft',     desc: 'Dynamic cushioning for everyday movement.' },
+    { name: 'PT Controller',    img: 'Orthotics Pics/PT Controller 1.webp',            slug: 'pt-controller',   desc: 'Motion-control orthotic for physical therapy.' },
+    { name: 'Smart Basic',      img: 'Orthotics Pics/Smart Basic 1.webp',              slug: 'smart-basic',     desc: 'Entry-level support with smart biomechanics.' },
   ];
 
   // Repeating size pattern (sm/md/lg) for visual rhythm
@@ -127,8 +127,11 @@
     let t = Math.random() * Math.PI * 2; // random starting phase
     const speed = 0.00009; // radians per ms (slow, ~45s per cycle)
     let lastTime = 0;
+    let rafId = null;
+    let onScreen = true;
 
     function tick(time) {
+      if (!onScreen) { rafId = null; return; } // stop the loop when offscreen/hidden
       const dt = lastTime ? time - lastTime : 16;
       lastTime = time;
       if (!paused) t += dt * speed;
@@ -141,9 +144,24 @@
         bubbles[i].style.transform =
           'translate(calc(-50% + ' + x.toFixed(1) + 'px), calc(-50% + ' + y.toFixed(1) + 'px))';
       }
-      requestAnimationFrame(tick);
+      rafId = requestAnimationFrame(tick);
     }
-    requestAnimationFrame(tick);
+    function resume() {
+      if (rafId === null && onScreen) { lastTime = 0; rafId = requestAnimationFrame(tick); }
+    }
+    // Only run the orbit rAF while the ring is actually on screen AND the
+    // tab is visible — otherwise it spins forever burning CPU/battery.
+    const io = new IntersectionObserver((entries) => {
+      onScreen = entries[0].isIntersecting && !document.hidden;
+      if (onScreen) resume();
+    }, { threshold: 0 });
+    io.observe(container);
+    document.addEventListener('visibilitychange', () => {
+      onScreen = !document.hidden && container.getBoundingClientRect().bottom > 0
+                 && container.getBoundingClientRect().top < window.innerHeight;
+      if (onScreen) resume();
+    });
+    resume();
   }
 
   // ── Variant: FALL (scroll-linked) ────────────────────────

@@ -33,6 +33,7 @@ if (cursorEl && dot && ring) {
   });
 
   function lerp(a, b, t) { return a + (b - a) * t; }
+  let cursorRunning = false;
   function tick() {
     rx = lerp(rx, mx, 0.12);
     ry = lerp(ry, my, 0.12);
@@ -40,7 +41,23 @@ if (cursorEl && dot && ring) {
     ring.style.top = ry + 'px';
     raf = requestAnimationFrame(tick);
   }
-  tick();
+  function startCursor() {
+    if (cursorRunning) return;
+    cursorRunning = true;
+    tick();
+  }
+  function stopCursor() {
+    cursorRunning = false;
+    cancelAnimationFrame(raf);
+  }
+  startCursor();
+
+  // Pause the rAF loop when the tab is backgrounded so it doesn't burn
+  // CPU/battery while the user is elsewhere; resume on return.
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) stopCursor();
+    else startCursor();
+  });
 
   document.addEventListener('mouseleave', () => { cursorEl.style.opacity = '0'; });
   document.addEventListener('mouseenter', () => { cursorEl.style.opacity = '1'; });
@@ -122,16 +139,31 @@ const revealObserver = new IntersectionObserver((entries) => {
 revealEls.forEach(el => revealObserver.observe(el));
 
 // ── FAQ accordion ─────────────────────────────────────────
-document.querySelectorAll('.faq-question').forEach(btn => {
+// The .faq-question elements are native <button>s, so Enter/Space already
+// toggle them. We add aria-expanded so screen readers announce open/closed
+// state (the buttons started with no ARIA state at all).
+const faqButtons = document.querySelectorAll('.faq-question');
+faqButtons.forEach(btn => {
+  // Initialise ARIA state from current DOM
+  const startsOpen = btn.closest('.faq-item').classList.contains('open');
+  btn.setAttribute('aria-expanded', startsOpen ? 'true' : 'false');
+
   btn.addEventListener('click', () => {
     const item = btn.closest('.faq-item');
     const isOpen = item.classList.contains('open');
 
-    // Close all
-    document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+    // Close all + reset their ARIA state
+    document.querySelectorAll('.faq-item.open').forEach(i => {
+      i.classList.remove('open');
+      const q = i.querySelector('.faq-question');
+      if (q) q.setAttribute('aria-expanded', 'false');
+    });
 
     // Toggle clicked
-    if (!isOpen) item.classList.add('open');
+    if (!isOpen) {
+      item.classList.add('open');
+      btn.setAttribute('aria-expanded', 'true');
+    }
   });
 });
 

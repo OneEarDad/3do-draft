@@ -3,6 +3,11 @@ test-results/
 playwright-report/
 .screenshots/
 .claude/settings.local.json
+.claude/scheduled_tasks.lock
 *.log
 .DS_Store
 Thumbs.db
+
+# Internal-only — never publish to the public repo
+3DO-AccuScan-Biomed-Topology.pptx
+biomed-deck-build.js
