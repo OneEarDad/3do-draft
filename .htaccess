@@ -1,0 +1,106 @@
+# ============================================================
+# 3D Orthotics — static site server config (Apache / InMotion)
+# Place this file in the site's document root (public_html).
+# ============================================================
+
+# ---- Force HTTPS ------------------------------------------------
+# Redirect any plain-HTTP request to HTTPS.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTPS} !=on
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+  # Optional: force the non-www version (uncomment to enable).
+  # RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+  # RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
+
+  # Serve clean URLs: /about -> /about.html (optional convenience).
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME}\.html -f
+  RewriteRule ^(.+?)/?$ $1.html [L]
+</IfModule>
+
+# ---- Security headers (can ONLY be set at the server) ----------
+# CSP + referrer-policy are also in each page's <meta>; these add the
+# headers that <meta> cannot express.
+<IfModule mod_headers.c>
+  # Force HTTPS for 1 year. NOTE: intentionally no includeSubDomains /
+  # preload so this does not affect other apps on subdomains. Strengthen
+  # to "max-age=63072000; includeSubDomains; preload" only once every
+  # subdomain on this domain is HTTPS-only.
+  Header always set Strict-Transport-Security "max-age=31536000"
+
+  # Anti-clickjacking — this site is never meant to be framed.
+  Header always set X-Frame-Options "DENY"
+
+  # Block MIME-type sniffing.
+  Header always set X-Content-Type-Options "nosniff"
+
+  # Mirror the per-page referrer policy at the server level.
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+  # Disable powerful browser features the site does not use.
+  Header always set Permissions-Policy "geolocation=(), microphone=(), camera=(), payment=(), usb=(), interest-cohort=()"
+
+  # Strip server fingerprinting where possible.
+  Header always unset X-Powered-By
+</IfModule>
+
+# ---- Compression ----------------------------------------------
+# Critical for foot.obj (~3.6MB text -> ~740KB), plus CSS/JS/HTML.
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml
+  AddOutputFilterByType DEFLATE application/javascript application/x-javascript
+  AddOutputFilterByType DEFLATE application/json application/xml
+  AddOutputFilterByType DEFLATE image/svg+xml application/manifest+json
+  # foot.obj is plain-text geometry; force it through DEFLATE regardless
+  # of how the server labels its MIME type.
+  <FilesMatch "\.obj$">
+    SetOutputFilter DEFLATE
+  </FilesMatch>
+</IfModule>
+
+# ---- Correct MIME types ---------------------------------------
+<IfModule mod_mime.c>
+  AddType image/webp                 .webp
+  AddType font/woff2                 .woff2
+  AddType image/svg+xml              .svg
+  AddType application/manifest+json  .webmanifest
+  AddType model/obj                  .obj
+</IfModule>
+
+# ---- Browser caching ------------------------------------------
+# HTML stays short so content edits appear quickly; static assets are
+# cached long because CSS/JS use ?v= cache-busting and images are immutable.
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/html              "access plus 10 minutes"
+  ExpiresByType text/css               "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType image/webp             "access plus 1 year"
+  ExpiresByType image/png              "access plus 1 year"
+  ExpiresByType image/jpeg             "access plus 1 year"
+  ExpiresByType image/svg+xml          "access plus 1 year"
+  ExpiresByType font/woff2             "access plus 1 year"
+  ExpiresByType model/obj              "access plus 1 month"
+  ExpiresByType application/pdf        "access plus 1 month"
+  ExpiresDefault                       "access plus 1 week"
+</IfModule>
+
+# ---- Block access to dev/source files -------------------------
+# Defense-in-depth: never serve dotfiles, markdown, or the build script
+# even if they end up uploaded by mistake.
+<FilesMatch "(^\.htaccess$)">
+  Require all granted
+</FilesMatch>
+<FilesMatch "(\.md$|\.gitignore$|biomed-deck-build\.js$|\.pptx$)">
+  Require all denied
+</FilesMatch>
+
+# Hide dotfiles (e.g. .git) if any get uploaded.
+RedirectMatch 404 /\.(?!well-known)
+
+# ---- Pretty error page (optional) -----------------------------
+# Uncomment once a 404.html exists.
+# ErrorDocument 404 /404.html
