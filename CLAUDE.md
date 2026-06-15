@@ -181,9 +181,9 @@ Ultra-clean, modern, interactive, cutting-edge. Key principles:
 
 Current state (verified pre-launch — all 10 pages):
 
-- ✅ Every page carries an identical `<meta http-equiv="Content-Security-Policy">`. Policy: `default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self'; frame-src https://www.youtube.com; object-src 'none'; base-uri 'self'; form-action 'self' mailto:; upgrade-insecure-requests`
+- ✅ Every page carries an identical `<meta http-equiv="Content-Security-Policy">`. Policy: `default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src https://www.youtube.com; object-src 'none'; base-uri 'self'; form-action 'self' mailto:; upgrade-insecure-requests`
 - ✅ Every page carries `<meta name="referrer" content="strict-origin-when-cross-origin">`
-- ✅ External CDN scripts (THREE.js, OBJLoader on index/accuscan-dp) all have `integrity=` SRI hashes, `crossorigin="anonymous"`, and `referrerpolicy="no-referrer"`
+- ✅ THREE.js r128 + OBJLoader are **self-hosted** at `js/vendor/` (served same-origin, `script-src 'self'`). They were originally CDN-loaded; moved in-house so the foot scan works on locked-down VA/DOD networks that block third-party CDNs, and so `script-src` could be tightened to `'self'` with no external script origins. The downloaded files were verified byte-identical to the CDN originals via their published SHA-384 hashes.
 - ✅ No inline `<script>` blocks anywhere (would violate CSP) — all JS lives in `/js/`
 - ✅ No inline event handlers (`onclick=`, etc.) anywhere
 - ✅ Every `target="_blank"` link has `rel="noopener"`
@@ -194,7 +194,7 @@ Current state (verified pre-launch — all 10 pages):
 Rules to maintain:
 
 - New pages must inherit the same CSP + referrer-policy meta tags
-- Any new external script must have an SRI hash before being merged
+- Prefer self-hosting third-party scripts under `js/vendor/` (keeps `script-src 'self'`). If an external script ever must be CDN-loaded, add its origin to `script-src` AND an `integrity=` SRI hash before merging.
 - Never use `onclick=` or any other inline handler — wire events in `/js/main.js` or a page-specific file
 - New `target="_blank"` links always need `rel="noopener"` (and ideally `noreferrer` too)
 - No secrets or internal URLs in HTML comments

@@ -8,7 +8,7 @@
   <link rel="apple-touch-icon" href="logo.png">
   <link rel="manifest" href="site.webmanifest">
   <meta name="theme-color" content="#00549d">  <meta name="description" content="3D Orthotics: HIPAA-aligned digital orthotic scanning for VA and DOD hospitals. AccuScan DP: fast scans with patient information de-identified before transmission.">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src https://www.youtube.com; object-src 'none'; base-uri 'self'; form-action 'self' mailto:; upgrade-insecure-requests">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src https://www.youtube.com; object-src 'none'; base-uri 'self'; form-action 'self' mailto:; upgrade-insecure-requests">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <link rel="stylesheet" href="css/style.css?v=7">
   <style>
@@ -989,8 +989,12 @@
 </div>
 
 <script src="js/home-ortho-modal.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" integrity="sha384-CI3ELBVUz9XQO+97x6nwMDPosPR5XvsxW2ua7N1Xeygeh1IxtgqtCkGfQY9WWdHu" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/OBJLoader.js" integrity="sha384-UWFC8mrevmKCZhKbJ/8/dqLrRAvHArRwJCKjwruJuXyhsebGMFsIK5zrn+R9r+fT" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!-- THREE.js r128 + OBJLoader self-hosted (was cdnjs/jsDelivr). Served from
+     our own origin so the foot scan works on locked-down VA/DOD networks
+     that block third-party CDNs. Files verified byte-identical to the CDN
+     originals via their published SHA-384 hashes. -->
+<script src="js/vendor/three.min.js?v=r128"></script>
+<script src="js/vendor/OBJLoader.js?v=r128"></script>
 <script src="js/foot-3d.js?v=3"></script>
 <script src="js/particles-bg.js"></script>
 <script src="js/main.js?v=3"></script>
