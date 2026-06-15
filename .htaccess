@@ -17,6 +17,14 @@
   SetEnvIfNoCase Host "^scan\." IS_SCAN=1
 </IfModule>
 
+# Directory index order: serve the static homepage (index.html) for the
+# main site, but keep index.php as a fallback so the scan app's PHP entry
+# point still resolves. Listing both keeps both working after WordPress
+# (and its index.php) is removed from public_html.
+<IfModule mod_dir.c>
+  DirectoryIndex index.html index.php
+</IfModule>
+
 # ---- Force HTTPS ------------------------------------------------
 <IfModule mod_rewrite.c>
   RewriteEngine On
