@@ -3,10 +3,28 @@
 # Place this file in the site's document root (public_html).
 # ============================================================
 
+# ---- IMPORTANT: shared hosting note ----------------------------
+# This .htaccess sits in public_html and Apache applies it to every
+# request served from here AND its subdirectories. The AccuScan portal
+# lives at scan.3dorthotics.com (document root public_html/scan), so
+# EVERY rule below is written to leave that subdomain completely alone:
+#   - rewrites bail out on /scan
+#   - headers are gated with env=!is_scan
+# Do not add blanket rules without preserving these guards.
+
+# Flag any request to the scan subdomain so headers can skip it.
+<IfModule mod_setenvif.c>
+  SetEnvIfNoCase Host "^scan\." IS_SCAN=1
+</IfModule>
+
 # ---- Force HTTPS ------------------------------------------------
-# Redirect any plain-HTTP request to HTTPS.
 <IfModule mod_rewrite.c>
   RewriteEngine On
+
+  # Leave the scan app's URLs entirely untouched by our rewrites.
+  RewriteRule ^scan(/|$) - [L]
+
+  # Redirect any plain-HTTP request to HTTPS (main site).
   RewriteCond %{HTTPS} !=on
   RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
@@ -14,34 +32,32 @@
   # RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
   # RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
 
-  # Serve clean URLs: /about -> /about.html (optional convenience).
-  RewriteCond %{REQUEST_FILENAME} !-f
-  RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteCond %{REQUEST_FILENAME}\.html -f
-  RewriteRule ^(.+?)/?$ $1.html [L]
+  # NOTE: a /about -> /about.html "clean URL" rewrite was intentionally
+  # NOT included. The site links to .html explicitly, and skipping the
+  # rewrite removes any chance of it interfering with the scan app.
 </IfModule>
 
 # ---- Security headers (can ONLY be set at the server) ----------
 # CSP + referrer-policy are also in each page's <meta>; these add the
-# headers that <meta> cannot express.
+# headers that <meta> cannot express. All are gated with env=!IS_SCAN
+# so the scan subdomain keeps its own behavior untouched.
 <IfModule mod_headers.c>
   # Force HTTPS for 1 year. NOTE: intentionally no includeSubDomains /
-  # preload so this does not affect other apps on subdomains. Strengthen
-  # to "max-age=63072000; includeSubDomains; preload" only once every
-  # subdomain on this domain is HTTPS-only.
-  Header always set Strict-Transport-Security "max-age=31536000"
+  # preload so it cannot affect scan.3dorthotics.com or any other
+  # subdomain. Strengthen only once every subdomain is HTTPS-only.
+  Header always set Strict-Transport-Security "max-age=31536000" env=!IS_SCAN
 
-  # Anti-clickjacking — this site is never meant to be framed.
-  Header always set X-Frame-Options "DENY"
+  # Anti-clickjacking — the marketing site is never meant to be framed.
+  Header always set X-Frame-Options "DENY" env=!IS_SCAN
 
   # Block MIME-type sniffing.
-  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Content-Type-Options "nosniff" env=!IS_SCAN
 
   # Mirror the per-page referrer policy at the server level.
-  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin" env=!IS_SCAN
 
   # Disable powerful browser features the site does not use.
-  Header always set Permissions-Policy "geolocation=(), microphone=(), camera=(), payment=(), usb=(), interest-cohort=()"
+  Header always set Permissions-Policy "geolocation=(), microphone=(), camera=(), payment=(), usb=(), interest-cohort=()" env=!IS_SCAN
 
   # Strip server fingerprinting where possible.
   Header always unset X-Powered-By
