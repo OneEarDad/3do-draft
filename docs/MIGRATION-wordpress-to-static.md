@@ -142,6 +142,6 @@ DNS is unchanged throughout, so rollback is purely a file/DB restore.
 - **Email is unaffected.** Web hosting and MX/email routing are separate; swapping the site does not touch mailboxes (`PatientCare@`, `Orders@3DOrthotics.com`).
 - **`lab.html` is intentionally excluded** from the deploy (internal sandbox).
 - **Two legal pages ship as drafts:** `privacy.html` and `terms.html` carry a visible amber "Draft for review" banner and bracketed placeholders (`[EFFECTIVE DATE]`, `[GOVERNING-LAW STATE]`). These are edited in source and re-published once counsel signs off — see `UPDATING.md`. (Owner may have these already filled before you deploy.)
-- **THREE.js loads from CDN** (cdnjs / jsDelivr) with SRI hashes — outbound HTTPS to those hosts must not be blocked.
+- **THREE.js r128 + OBJLoader are self-hosted** at `js/vendor/` (no external CDN dependency) so the foot scan works on locked-down networks. `script-src` is `'self'`. The only remaining third-party resource is the YouTube embed on the homepage (`frame-src https://www.youtube.com`); if a network blocks YouTube, only that one video won't play — the rest of the site is fully self-contained.
 - **`foot.obj` is large by design** (the 3D foot scan). Confirm DEFLATE is active (table above) so it transfers compressed.
 - After go-live, future updates are file-level, not a re-migration — see `UPDATING.md`.
