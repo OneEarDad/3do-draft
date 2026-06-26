@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>3D Orthotics | Digital orthotic scanning for VA &amp; DOD</title>
+  <title>3D Orthotics | Digital orthotic scanning for VA &amp; DoD</title>
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="logo.png">
   <link rel="manifest" href="site.webmanifest">
-  <meta name="theme-color" content="#00549d">  <meta name="description" content="3D Orthotics: HIPAA-aligned digital orthotic scanning for VA and DOD hospitals. AccuScan DP: fast scans with patient information de-identified before transmission.">
+  <meta name="theme-color" content="#00549d">  <meta name="description" content="3D Orthotics: HIPAA-aligned digital orthotic scanning for VA and DoD hospitals. AccuScan DP: fast scans with patient information de-identified before transmission.">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src https://www.youtube.com; object-src 'none'; base-uri 'self'; form-action 'self' mailto:; upgrade-insecure-requests">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <link rel="stylesheet" href="css/style.css?v=8">
@@ -137,17 +137,18 @@
 <section id="main" class="hero">
   <div class="hero__content">
     <span class="t-label reveal">Digital Orthotic Scanning</span>
-    <h1 class="t-display" style="margin-top:1.25rem">
-      <span class="reveal" style="display:block">Precision</span>
-      <span class="reveal accent" style="display:block;transition-delay:.1s">Scanning.</span>
-      <span class="reveal" style="display:block;transition-delay:.2s">Perfect Fit.</span>
+    <h1 class="t-display reveal" style="margin-top:1.25rem;font-size:clamp(1.9rem,3.7vw,3rem);line-height:1.1">
+      Patient <span class="accent">De-Identified</span><br>at Point of Capture
     </h1>
-    <p class="t-body reveal" style="max-width:480px;margin-top:2rem;transition-delay:.3s;font-size:1.05rem;line-height:1.8">
-      HIPAA-aligned digital orthotics for VA and DOD hospitals. Sub-five-minute scans with patient information de-identified before data leaves your facility.
+    <p class="reveal" style="margin-top:1.5rem;transition-delay:.1s;font-weight:600;font-size:clamp(1.05rem,1.7vw,1.35rem);line-height:1.4;letter-spacing:-.01em;color:var(--navy);max-width:540px">
+      Fast, Secure Orthotic Scanning Built for VA &amp; DoD Clinical Teams
+    </p>
+    <p class="t-body reveal" style="max-width:520px;margin-top:1.1rem;transition-delay:.2s;font-size:1.02rem;line-height:1.75">
+      Sub-five-minute 3D scans combined with HIPAA-aligned data handling delivering consistent, high-quality patient outcomes across podiatry and prosthetics programs.
     </p>
     <div class="reveal" style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:2.5rem;transition-delay:.4s">
       <a class="btn btn--primary" href="accuscan-dp.html">
-        Explore AccuScan DP
+        See AccuScan DP in Action
         <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
       </a>
       <a class="btn btn--outline" href="contact.html">Talk to Our Team</a>
@@ -166,11 +167,6 @@
     <canvas id="foot-canvas" class="foot-canvas"></canvas>
   </div>
 
-  <!-- Scroll hint -->
-  <div class="hero__scroll-hint">
-    <div class="hero__scroll-line"></div>
-    Scroll to explore
-  </div>
 </section>
 
 <!-- ══════════════════════════════════════════════ ORTHOTICS BUBBLE STREAM -->
@@ -248,6 +244,49 @@
         </button>
       </div>
       <p class="pipeline-desc" id="pipeline-desc"></p>
+    </div>
+
+    <!-- Secure by Design: compact security points within the iPad section -->
+    <style>
+      .secure-strip { max-width: 920px; margin: clamp(2.5rem,5vw,3.5rem) auto 0; }
+      .secure-strip__title {
+        text-align: center; font-family: var(--font-display); font-weight: 400;
+        font-size: clamp(1.1rem, 2vw, 1.45rem); letter-spacing: var(--ls-tight);
+        color: var(--navy); margin-bottom: 1.4rem;
+      }
+      .secure-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+      .secure-point {
+        display: flex; align-items: center; gap: .8rem;
+        background: var(--surface); border: 1px solid var(--text-faint);
+        border-radius: 12px; padding: 1rem 1.15rem;
+        font-size: .9rem; font-weight: 500; color: var(--text); line-height: 1.4;
+      }
+      .secure-point__icon {
+        flex-shrink: 0; width: 40px; height: 40px; border-radius: 10px;
+        background: var(--cyan-light); color: var(--navy);
+        display: flex; align-items: center; justify-content: center;
+      }
+      .secure-point__icon svg { width: 20px; height: 20px; }
+      @media (max-width: 768px) {
+        .secure-row { grid-template-columns: 1fr; max-width: 460px; margin: 0 auto; }
+      }
+    </style>
+    <div class="secure-strip reveal">
+      <p class="secure-strip__title">Secure by <span class="accent">Design</span></p>
+      <div class="secure-row stagger">
+        <div class="secure-point reveal">
+          <span class="secure-point__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></span>
+          <span>Zero PHI captured or stored</span>
+        </div>
+        <div class="secure-point reveal" style="transition-delay:.08s">
+          <span class="secure-point__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="17" y1="8" x2="22" y2="13"/><line x1="22" y1="8" x2="17" y2="13"/></svg></span>
+          <span>Patient de-identification occurs before data capture</span>
+        </div>
+        <div class="secure-point reveal" style="transition-delay:.16s">
+          <span class="secure-point__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
+          <span>User-controlled transmission ensures full data security</span>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -571,7 +610,7 @@
           <span class="handoff-card__arrow">&rarr;</span>
           <span class="handoff-card__after">Routes to us</span>
         </div>
-        <p class="handoff-card__outcome">Every adjustment, concern, or question comes to 3DO &mdash; not your clinic.</p>
+        <p class="handoff-card__outcome">Every adjustment, concern, or question comes to 3DO, not your clinic.</p>
       </article>
 
       <article class="handoff-card">
@@ -607,10 +646,10 @@
           No More Mess.<br>No More Wait.
         </h2>
         <p class="t-body reveal--left" style="margin-top:1.5rem;transition-delay:.2s">
-          Traditional cast molding is time-consuming and messy. Digital scanning was faster, but federal healthcare systems couldn't transmit Protected Health Information (PHI) without violating HIPAA.
+          Traditional cast molding is time-consuming and messy. Digital scanning is faster, but federal healthcare systems couldn't transmit Protected Health Information (PHI) without violating HIPAA.
         </p>
         <p class="t-body reveal--left" style="margin-top:1rem;transition-delay:.3s">
-          Our system de-identifies patient information before any digital transmission: a <strong style="color:var(--text)">HIPAA-aligned digitally scanned orthotic program</strong> for VA and DOD hospitals.
+          Our system de-identifies patient information before any digital transmission: a <strong style="color:var(--text)">HIPAA-aligned digitally scanned orthotic program</strong> for VA and DoD hospitals.
         </p>
         <a class="btn btn--primary reveal--left" href="accuscan-dp.html" style="margin-top:2.5rem;transition-delay:.4s">
           Learn More
@@ -639,7 +678,7 @@
             <div class="included-item__icon">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.55a11 11 0 0114.08 0"/><path d="M1.42 9a16 16 0 0121.16 0"/><path d="M8.53 16.11a6 6 0 016.95 0"/><circle cx="12" cy="20" r="1" fill="currentColor" stroke="none"/></svg>
             </div>
-            <div class="included-item__title">Cloud Workflow</div>
+            <div class="included-item__title">Secure Workflow</div>
             <div class="included-item__desc">HIPAA-aligned transmission after patient de-identification.</div>
           </div>
           <div class="included-item">
@@ -812,7 +851,7 @@
           </div>
           <div class="cert-modern-item">
             <div class="cert-modern-item__code">WOSB</div>
-            <div class="cert-modern-item__label">Woman-Owned Small Business</div>
+            <div class="cert-modern-item__label">Women-Owned Small Business</div>
           </div>
           <div class="cert-modern-item">
             <div class="cert-modern-item__code">FDA Registered</div>
@@ -829,7 +868,7 @@
 </section>
 
 <!-- ══════════════════════════════════════════════ TESTIMONIALS (HIDDEN)
-     DISABLED for launch — wrapped in <template> so it is preserved in the
+     DISABLED for launch; wrapped in <template> so it is preserved in the
      source but NOT rendered (no layout, no performance cost, not in the DOM
      flow). The cards still contain PLACEHOLDER copy.
 
@@ -849,7 +888,7 @@
 
     <div class="testimonials-placeholder-banner reveal" role="status" aria-label="Editor note: testimonial copy needs replacement before launch">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-      <span><strong>Editor note:</strong> testimonial copy is placeholder. Replace each quote with a real, attributable client statement before launch — then delete this banner.</span>
+      <span><strong>Editor note:</strong> testimonial copy is placeholder. Replace each quote with a real, attributable client statement before launch, then delete this banner.</span>
     </div>
 
     <div class="testimonials-grid stagger">
@@ -915,7 +954,7 @@
     <div class="footer__grid">
       <div>
         <img class="footer__logo" src="images/logo.webp" alt="3D Orthotics">
-        <p class="footer__tagline">Precision digital orthotics for VA and DOD hospitals. PHI-safe workflow. Veteran-owned.</p>
+        <p class="footer__tagline">Precision digital orthotics for VA and DoD hospitals. PHI-safe workflow. Veteran-owned.</p>
       </div>
       <div>
         <p class="footer__heading">Navigate</p>
@@ -990,7 +1029,7 @@
 
 <script src="js/home-ortho-modal.js"></script>
 <!-- THREE.js r128 + OBJLoader self-hosted (was cdnjs/jsDelivr). Served from
-     our own origin so the foot scan works on locked-down VA/DOD networks
+     our own origin so the foot scan works on locked-down VA/DoD networks
      that block third-party CDNs. Files verified byte-identical to the CDN
      originals via their published SHA-384 hashes. -->
 <script src="js/vendor/three.min.js?v=r128"></script>

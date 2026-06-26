@@ -50,13 +50,37 @@
 </div>
 
 <!-- PAGE HERO -->
+<style>
+  /* Contact hero: the AccuScan DP logo reads as the last "word" of the
+     headline. On desktop it sits inline after "With" and ends roughly
+     where "Your"/"Workflow" end above it (1.08em tuned to the wordmark's
+     ~10:1 aspect). Below 768px the forced line breaks drop out and the
+     logo moves to its own line so nothing overflows. */
+  .contact-hero__logo {
+    display: inline-block;
+    height: 1.1em;
+    width: auto;
+    vertical-align: baseline;
+    margin-left: .12em;
+  }
+  @media (max-width: 768px) {
+    .contact-hero__br { display: none; }
+    .contact-hero__logo {
+      display: block;
+      height: auto;
+      width: 100%;
+      max-width: 320px;
+      margin: .7rem 0 0;
+    }
+  }
+</style>
 <section id="main" class="page-hero">
   <div class="page-hero__bg"></div>
   <div class="container">
     <span class="t-label page-hero__eyebrow reveal">Get In Touch</span>
-    <h1 class="t-h1 reveal" style="transition-delay:.1s">Let's Start a<br><span class="accent">Conversation</span></h1>
-    <p class="t-body reveal" style="max-width:500px;margin-top:1.25rem;transition-delay:.2s">
-      Whether you're a VA facility ready to modernize your orthotic program or a podiatrist with questions, we're here and ready to help.
+    <h1 class="t-h1 reveal" style="transition-delay:.1s;line-height:1.24">Let's Support Your <br class="contact-hero__br"><span class="accent">Orthotic Workflow</span> <br class="contact-hero__br">With <img class="contact-hero__logo" src="images/accuscan-dp-logo-tight.webp" alt="AccuScan DP"></h1>
+    <p class="t-body reveal" style="max-width:540px;margin-top:1.25rem;transition-delay:.2s">
+      Whether you're a VA facility looking to modernize your program or a podiatry team exploring digital scanning, we're here to support implementation, workflow efficiency, and secure solutions.
     </p>
   </div>
 </section>
@@ -69,7 +93,8 @@
       <!-- Info column -->
       <div>
         <span class="t-label reveal">Contact Information</span>
-        <h2 class="t-h2 reveal" style="margin-top:1rem;transition-delay:.1s">Reach Us<br>Directly</h2>
+        <h2 class="t-h2 reveal" style="margin-top:1rem;transition-delay:.1s">Get Direct Support<br>from Our Team</h2>
+        <p class="t-body reveal" style="margin-top:1rem;max-width:420px;transition-delay:.15s">Speak directly with our team for support, order inquiries, or help implementing digital orthotic workflow.</p>
 
         <div style="margin-top:2.5rem" class="stagger">
           <div class="contact-info__item">
@@ -146,9 +171,9 @@
               </div>
               <div class="contact-options__eyebrow">AccuScan Program</div>
             </div>
-            <p class="t-body contact-options__lead">Speak with our clinical team about implementation planning, staff training, and your facility's workflow. We respond within one business day.</p>
+            <p class="t-body contact-options__lead">Get support with implementation planning, staff training, and integrating secure, digital orthotic workflows into your facility. We respond within one business day.</p>
             <a class="btn btn--primary" href="mailto:PatientCare@3DOrthotics.com?subject=AccuScan%20Program%20Inquiry" style="font-size:.82rem;padding:.6rem 1rem">
-              Email Patient Care
+              Speak with Our Clinical Team
               <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
             </a>
           </div>
@@ -157,10 +182,10 @@
               <div class="contact-options__icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.3 7 12 12 20.7 7"/><line x1="12" y1="22" x2="12" y2="12"/></svg>
               </div>
-              <div class="contact-options__eyebrow">Orders &amp; Contracts</div>
+              <div class="contact-options__eyebrow">Orders &amp; Procurement</div>
             </div>
-            <p class="t-body contact-options__lead">Purchase orders, contract vehicles, and L-code billing questions go direct to our procurement team. SDVOSB and SAM registered.</p>
-            <a class="btn btn--primary" href="mailto:Orders@3DOrthotics.com?subject=Orders%20and%20Contracts%20Inquiry" style="font-size:.82rem;padding:.6rem 1rem">
+            <p class="t-body contact-options__lead">Purchase order and L-code-related billing inquiries are handled directly by our team. Custom orthotic solutions are processed in accordance with VA and DoD procurement guidelines.</p>
+            <a class="btn btn--primary" href="mailto:Orders@3DOrthotics.com?subject=Orders%20and%20Procurement%20Inquiry" style="font-size:.82rem;padding:.6rem 1rem">
               Email Orders Team
               <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
             </a>
@@ -172,11 +197,11 @@
               </div>
               <div class="contact-options__eyebrow">Talk to a Person</div>
             </div>
-            <p class="t-body contact-options__lead">Prefer to skip email? Our team answers the phone directly — no ticketing system, no phone tree.</p>
+            <p class="t-body contact-options__lead">Prefer to skip email? Our team answers the phone directly. No ticketing system. No AI Assistant.</p>
             <a class="btn btn--ghost" href="tel:+18443668911" style="font-size:.82rem;padding:.6rem 1rem">Call 844-FOOT-911</a>
           </div>
           <p class="t-body contact-options__notice">
-            We don't collect personal information through web forms. All PHI stays inside your facility — scans are de-identified before transmission.
+            We don't collect personal information through web forms. All PHI stays inside your facility. Scans are de-identified before transmission.
           </p>
         </div>
       </div>
@@ -187,7 +212,7 @@
 <footer class="footer">
   <div class="container">
     <div class="footer__grid">
-      <div><img class="footer__logo" src="images/logo.webp" alt="3D Orthotics"><p class="footer__tagline">Precision digital orthotics for VA and DOD hospitals. PHI-safe workflow. Veteran-owned.</p></div>
+      <div><img class="footer__logo" src="images/logo.webp" alt="3D Orthotics"><p class="footer__tagline">Precision digital orthotics for VA and DoD hospitals. PHI-safe workflow. Veteran-owned.</p></div>
       <div><p class="footer__heading">Navigate</p><div class="footer__links"><a class="footer__link" href="index.html">Home</a><a class="footer__link" href="accuscan-dp.html">AccuScan DP</a><a class="footer__link" href="orthotics.html">Orthotics</a><a class="footer__link" href="va-resource-guide.html">VA Resources</a></div></div><div><p class="footer__heading">About</p><div class="footer__links"><a class="footer__link" href="about.html">About Us</a><a class="footer__link" href="faq.html">FAQ</a><a class="footer__link" href="guides.html">Guides</a><a class="footer__link" href="awards.html">Awards</a></div></div>
       <div><p class="footer__heading">Contact</p><div class="footer__links"><a class="footer__link" href="tel:+18443668911">844-FOOT-911</a><a class="footer__link" href="mailto:PatientCare@3DOrthotics.com">PatientCare@3DOrthotics.com</a><a class="footer__link" href="mailto:Orders@3DOrthotics.com">Orders@3DOrthotics.com</a></div></div>
     </div>
