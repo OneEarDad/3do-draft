@@ -2,10 +2,12 @@
 
 ## Company Overview
 
-**3D Orthotics** is a veteran-owned (SDVOSB & WOSB) medical device company that provides HIPAA-compliant digital orthotic scanning for VA and DOD hospitals. The flagship product is **AccuScan DP**, an iPad-based 3D foot scanning system that de-identifies patient data before transmission.
+**3D Orthotics** is a federally registered medical device company that provides HIPAA-compliant digital orthotic scanning for VA and DoD hospitals. The flagship product is **AccuScan DP**, an iPad-based 3D foot scanning system that de-identifies patient data before transmission.
+
+> **IMPORTANT — do NOT describe 3D Orthotics as "veteran-owned" or "women-owned," and do NOT use the SDVOSB or WOSB acronyms anywhere.** The company is not registered under those socio-economic designations. These claims were removed site-wide (2026-06-29). Trust signals to use instead: FDA Registered, SAM Registered, HIPAA-aligned / PHI-Safe Workflow, the VA Podiatry national award, and the founders' 50+ years in medical devices. References to *serving* veterans / the VA / DoD are fine and true.
 
 - Phone: **844-FOOT-911**
-- Certifications: SDVOSB, WOSB, FDA Registered (RN#3015146490), SAM Registered (CAGE: 9PXW1), HIPAA Compliant
+- Certifications: FDA Registered (RN#3015146490), SAM Registered (CAGE: 9PXW1, UEI: DFXKLJU2NY81), HIPAA Compliant
 - Award: **Most Improved Product: VA Podiatry Nationally**
 
 ## Audience & Conversion Model
