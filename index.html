@@ -10,7 +10,7 @@
   <meta name="theme-color" content="#00549d">  <meta name="description" content="3D Orthotics: HIPAA-aligned digital orthotic scanning for VA and DoD hospitals. AccuScan DP: fast scans with patient information de-identified before transmission.">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src https://www.youtube.com; object-src 'none'; base-uri 'self'; form-action 'self' mailto:; upgrade-insecure-requests">
   <meta name="referrer" content="strict-origin-when-cross-origin">
-  <link rel="stylesheet" href="css/style.css?v=8">
+  <link rel="stylesheet" href="css/style.css?v=9">
   <style>
     /* ── Homepage Orthotic Modal ─────────────────────────── */
     .ortho-modal-backdrop {
@@ -175,9 +175,9 @@
 <!-- ══════════════════════════════════════════════ iPAD SHOWCASE -->
 <section class="section ipad-section">
   <div class="container">
-    <div style="text-align:center;max-width:600px;margin:0 auto clamp(2.5rem,5vw,4rem)">
-      <img src="images/accuscan-dp-logo.webp" alt="AccuScan DP" class="reveal" style="height:clamp(3.6rem,7vw,5.2rem);width:auto;display:block;margin:0 auto">
-      <h2 class="t-h2 reveal" style="margin-top:1rem;transition-delay:.1s;white-space:nowrap">See How It <span class="accent">Works</span></h2>
+    <div style="text-align:center;max-width:760px;margin:0 auto clamp(2.5rem,5vw,4rem)">
+      <img src="images/accuscan-dp-logo.webp" alt="AccuScan DP" class="reveal" style="width:clamp(200px,88vw,680px);height:auto;max-width:100%;display:block;margin:0 auto">
+      <h2 class="t-h2 reveal" style="margin-top:1rem;transition-delay:.1s">See How It <span class="accent">Works</span></h2>
       <p class="t-body reveal" style="margin-top:1rem;transition-delay:.2s">From app launch to order submission: the entire workflow happens on one iPad.</p>
     </div>
 
@@ -206,7 +206,7 @@
                 <img src="images/ipad-device-selection.webp" alt="Select orthotic device">
               </div>
               <div class="ipad-slide" data-step="4">
-                <img src="images/ipad-device-send.webp" alt="Review and send order">
+                <img src="images/ipad-device-send.webp?v=2" alt="Review and send order">
               </div>
             </div>
           </div>
@@ -530,7 +530,7 @@
         Four things off <span class="accent">your plate</span>.
       </h2>
       <p class="t-body reveal" style="margin-top:1rem;transition-delay:.2s">
-        Your staff focuses on patient care. We handle the coordination, complaints, and follow-up.
+        Your staff focuses on patient care. We handle fabrication coordination, delivery, patient follow-up, and adjustment support.
       </p>
     </div>
 
@@ -596,7 +596,7 @@
           <span class="handoff-card__arrow">&rarr;</span>
           <span class="handoff-card__after">We call &amp; confirm</span>
         </div>
-        <p class="handoff-card__outcome">We confirm the address and schedule delivery directly with the patient.</p>
+        <p class="handoff-card__outcome">We verify the address and coordinate delivery directly with the Veteran.</p>
       </article>
 
       <article class="handoff-card">
@@ -604,13 +604,13 @@
         <div class="handoff-card__icon">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 18v-6a9 9 0 0118 0v6"/><path d="M21 19a2 2 0 01-2 2h-1a2 2 0 01-2-2v-3a2 2 0 012-2h3z"/><path d="M3 19a2 2 0 002 2h1a2 2 0 002-2v-3a2 2 0 00-2-2H3z"/></svg>
         </div>
-        <h3 class="handoff-card__title">Customer Service</h3>
+        <h3 class="handoff-card__title">Patient Support</h3>
         <div class="handoff-card__swap">
-          <span class="handoff-card__before">Nurses field complaints</span>
+          <span class="handoff-card__before">Clinic fields questions</span>
           <span class="handoff-card__arrow">&rarr;</span>
-          <span class="handoff-card__after">Routes to us</span>
+          <span class="handoff-card__after">Routes to 3DO</span>
         </div>
-        <p class="handoff-card__outcome">Every adjustment, concern, or question comes to 3DO, not your clinic.</p>
+        <p class="handoff-card__outcome">Delivery, fit, and adjustment questions come to our team, not your clinic.</p>
       </article>
 
       <article class="handoff-card">
@@ -624,13 +624,13 @@
           <span class="handoff-card__arrow">&rarr;</span>
           <span class="handoff-card__after">We call first</span>
         </div>
-        <p class="handoff-card__outcome">We check in after delivery. Most issues resolve without a return visit.</p>
+        <p class="handoff-card__outcome">We follow up after delivery to check comfort and handle adjustments. Most issues resolve before a return visit.</p>
       </article>
     </div>
 
     <p class="handoff-summary reveal" style="transition-delay:.1s">
       <strong style="font-weight:400">Four tasks. <span class="accent">One handoff.</span></strong>
-      <span class="tail">Hours of clinic time back to patient care.</span>
+      <span class="tail">More time for patient care. Less time managing orthotics.</span>
     </p>
   </div>
 </section>
@@ -641,15 +641,18 @@
   <div class="container">
     <div class="split">
       <div>
-        <span class="t-label reveal--left">AccuScan DP</span>
+        <span class="t-label reveal--left"><img class="brand-mark" src="images/accuscan-dp-logo-tight.webp" alt="AccuScan DP"></span>
         <h2 class="t-h2 reveal--left" style="margin-top:1rem;transition-delay:.1s">
           No More Mess.<br>No More Wait.
         </h2>
         <p class="t-body reveal--left" style="margin-top:1.5rem;transition-delay:.2s">
-          Traditional cast molding is time-consuming and messy. Digital scanning is faster, but federal healthcare systems couldn't transmit Protected Health Information (PHI) without violating HIPAA.
+          Traditional cast molding is time-consuming, messy, and labor intensive. Digital scanning is faster and more accurate, but federal facilities also have to address patient privacy, cybersecurity, and data handling.
         </p>
         <p class="t-body reveal--left" style="margin-top:1rem;transition-delay:.3s">
-          Our system de-identifies patient information before any digital transmission: a <strong style="color:var(--text)">HIPAA-aligned digitally scanned orthotic program</strong> for VA and DoD hospitals.
+          <strong style="color:var(--text)"><img class="brand-mark" src="images/accuscan-dp-logo-tight.webp" alt="AccuScan DP"> bridges that gap.</strong> Patient information is de-identified before scan data leaves the facility, so the workflow stays HIPAA-aligned across VA and DoD environments.
+        </p>
+        <p class="t-body reveal--left" style="margin-top:1rem;transition-delay:.35s">
+          And it does not stop at the scan. We handle fabrication, patient follow-up, delivery, and adjustments, so your team spends more time on patients and less on orthotic logistics.
         </p>
         <a class="btn btn--primary reveal--left" href="accuscan-dp.html" style="margin-top:2.5rem;transition-delay:.4s">
           Learn More
@@ -665,28 +668,28 @@
               <svg width="28" height="20" viewBox="0 0 32 22" fill="none" aria-hidden="true"><rect x="1.5" y="3" width="29" height="16" rx="2.2" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="5.5" width="24" height="11" rx="0.8" stroke="currentColor" stroke-width="1.2" opacity="0.35"/><circle cx="16" cy="18.5" r="0.9" fill="currentColor"/></svg>
             </div>
             <div class="included-item__title">iPad</div>
-            <div class="included-item__desc">AccuScan DP pre-installed. Power on and scan.</div>
+            <div class="included-item__desc"><img class="brand-mark" src="images/accuscan-dp-logo-tight.webp" alt="AccuScan DP"> pre-installed. Power on and scan.</div>
           </div>
           <div class="included-item">
             <div class="included-item__icon">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7V5a2 2 0 012-2h2m10 0h2a2 2 0 012 2v2m0 6v2a2 2 0 01-2 2h-2m-10 0H5a2 2 0 01-2-2v-2"/><ellipse cx="12" cy="12" rx="3.8" ry="2.6" opacity="0.9"/></svg>
             </div>
             <div class="included-item__title">3D Scanner</div>
-            <div class="included-item__desc">Structured-light foot scanner for lab-accurate orthotics.</div>
+            <div class="included-item__desc">Structured-light 3D scanner that captures precise foot geometry for custom orthotics.</div>
           </div>
           <div class="included-item">
             <div class="included-item__icon">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.55a11 11 0 0114.08 0"/><path d="M1.42 9a16 16 0 0121.16 0"/><path d="M8.53 16.11a6 6 0 016.95 0"/><circle cx="12" cy="20" r="1" fill="currentColor" stroke="none"/></svg>
             </div>
             <div class="included-item__title">Secure Workflow</div>
-            <div class="included-item__desc">HIPAA-aligned transmission after patient de-identification.</div>
+            <div class="included-item__desc">De-identified workflow designed for HIPAA-aligned data handling in federal healthcare.</div>
           </div>
           <div class="included-item">
             <div class="included-item__icon">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 18V6a2 2 0 00-2-2H4a2 2 0 00-2 2v11a1 1 0 001 1h2"/><path d="M15 18h2"/><path d="M19 18h1a1 1 0 001-1v-3.65a1 1 0 00-.22-.624l-2.596-3.244a1 1 0 00-.788-.382H15"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg>
             </div>
-            <div class="included-item__title">Free Shipping</div>
-            <div class="included-item__desc">Delivery confirmations, fitting checks, and support.</div>
+            <div class="included-item__title">Patient Follow-Up</div>
+            <div class="included-item__desc">Delivery confirmation, fitting verification, and adjustment support with every order.</div>
           </div>
         </div>
       </div>
@@ -699,8 +702,8 @@
   <div class="container">
     <div style="text-align:center;max-width:600px;margin:0 auto clamp(3rem,6vw,5rem)">
       <span class="t-label reveal">Process</span>
-      <h2 class="t-h2 reveal" style="margin-top:1rem;transition-delay:.1s">From Scan to<br><span class="accent">Perfect Orthotic</span></h2>
-      <p class="t-body reveal" style="margin-top:1rem;transition-delay:.2s">Three steps. Five minutes. Complete compliance.</p>
+      <h2 class="t-h2 reveal" style="margin-top:1rem;transition-delay:.1s">From Scan to<br><span class="accent">Custom Orthotic</span></h2>
+      <p class="t-body reveal" style="margin-top:1rem;transition-delay:.2s">Three steps. Five minutes. Federal-ready workflow.</p>
     </div>
 
     <div class="process-steps stagger">
@@ -715,14 +718,14 @@
         <div class="process-step__num">02</div>
         <div>
           <h3 class="t-h3">Automatic De-Identification</h3>
-          <p class="t-body" style="margin-top:.75rem">Patient information is de-identified automatically before any digital transmission. AccuScan DP is HIPAA-aligned and built for federal care.</p>
+          <p class="t-body" style="margin-top:.75rem">Patient information is de-identified automatically before any digital transmission. <img class="brand-mark" src="images/accuscan-dp-logo-tight.webp" alt="AccuScan DP"> is HIPAA-aligned and built for federal care.</p>
         </div>
       </div>
       <div class="process-step">
         <div class="process-step__num">03</div>
         <div>
           <h3 class="t-h3">Precision Orthotic Fabrication</h3>
-          <p class="t-body" style="margin-top:.75rem">Scan data is transmitted to our lab where custom orthotics are fabricated to exact patient specifications. Delivered with free shipping directly to the facility.</p>
+          <p class="t-body" style="margin-top:.75rem"><strong style="color:var(--text)">Scan. Submit. We handle the rest.</strong> Custom orthotics are fabricated to the patient's specifications, and 3D Orthotics manages delivery, follow-up, fitting verification, and adjustments so your staff stays focused on patient care.</p>
         </div>
       </div>
     </div>
@@ -734,8 +737,8 @@
   <div class="container">
     <div style="text-align:center;max-width:600px;margin:0 auto clamp(2rem,4vw,3.5rem)">
       <span class="t-label reveal">See It In Action</span>
-      <h2 class="t-h2 reveal" style="margin-top:1rem;transition-delay:.1s">How to Scan with<br><span class="accent">AccuScan DP</span></h2>
-      <p class="t-body reveal" style="margin-top:1rem;transition-delay:.2s">From patient positioning to completed scan order.<br>See exactly how AccuScan DP fits into your clinical workflow.</p>
+      <h2 class="t-h2 reveal" style="margin-top:1rem;transition-delay:.1s">How to Scan with<br><span class="accent"><img class="brand-mark" src="images/accuscan-dp-logo-tight.webp" alt="AccuScan DP"></span></h2>
+      <p class="t-body reveal" style="margin-top:1rem;transition-delay:.2s">From patient positioning to completed scan order.<br>See exactly how <img class="brand-mark" src="images/accuscan-dp-logo-tight.webp" alt="AccuScan DP"> fits into your clinical workflow.</p>
     </div>
     <div class="reveal" style="transition-delay:.2s;position:relative;width:100%;max-width:960px;margin:0 auto;border-radius:20px;overflow:hidden;border:1px solid var(--text-faint);box-shadow:0 16px 60px rgba(0,0,0,.06)">
       <div style="position:relative;padding-bottom:56.25%;height:0">
@@ -833,10 +836,13 @@
           Built for Those<br><span class="accent">Who Served.</span>
         </h2>
         <p class="t-body reveal" style="margin-top:1.5rem;transition-delay:.2s">
-          3D Orthotics was built to solve a specific problem: federal healthcare systems needed digital orthotic scanning but couldn't transmit patient data without breaking HIPAA. Our AccuScan DP program was developed specifically to overcome that barrier for VA and DoD facilities.
+          Our mission is simple: improve access to custom orthotic care for Veterans while reducing the burden on the clinicians, Prosthetics departments, and healthcare teams who serve them.
         </p>
         <p class="t-body reveal" style="margin-top:1rem;transition-delay:.3s">
-          Our three founders bring more than 50 combined years in durable medical equipment, surgical implants, and medical device distribution: the experience and accountability federal orthotic care demands.
+          Federal healthcare systems wanted the speed and accuracy of digital scanning, but they needed a solution that also handled patient privacy, operational efficiency, and federal requirements. <strong style="color:var(--text)"><img class="brand-mark" src="images/accuscan-dp-logo-tight.webp" alt="AccuScan DP"> was built to bridge that gap.</strong>
+        </p>
+        <p class="t-body reveal" style="margin-top:1rem;transition-delay:.35s">
+          By combining de-identified scanning, fast fabrication, patient follow-up, and end-to-end support, we help VA and DoD facilities deliver custom orthotics faster, so healthcare teams can focus on patient care.
         </p>
         <div class="reveal" style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:2.5rem;transition-delay:.4s">
           <a class="btn btn--primary" href="about.html">Our Story</a>
@@ -939,7 +945,7 @@
     <div style="text-align:center;max-width:680px;margin:0 auto">
       <span class="t-label reveal">Recognition</span>
       <h2 class="t-h2 reveal" style="margin-top:1rem;transition-delay:.1s">Recognized Nationally<br>by VA Podiatry</h2>
-      <p class="t-body reveal" style="margin-top:1.5rem;transition-delay:.2s;font-size:1.05rem">AccuScan DP was named <strong style="color:var(--text)">Most Improved Product by the VA Podiatry Nationally</strong>, validating our commitment to advancing orthotic care for veterans across the country.</p>
+      <p class="t-body reveal" style="margin-top:1.5rem;transition-delay:.2s;font-size:1.05rem"><img class="brand-mark" src="images/accuscan-dp-logo-tight.webp" alt="AccuScan DP"> was named <strong style="color:var(--text)">Most Improved Product by the VA Podiatry Nationally</strong>, validating our commitment to advancing orthotic care for veterans across the country.</p>
       <div class="reveal" style="transition-delay:.3s;margin-top:3rem;display:flex;justify-content:center;gap:1rem;flex-wrap:wrap">
         <a class="btn btn--primary" href="awards.html">View Awards</a>
         <a class="btn btn--outline" href="contact.html">Get in Touch</a>

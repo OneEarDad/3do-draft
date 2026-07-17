@@ -431,6 +431,16 @@ body:has(button:hover) .cursor__ring { width: 52px; height: 52px; opacity: 0.7; 
 /* Color helpers */
 .accent { color: var(--cyan); }
 
+/* Inline AccuScan DP wordmark: replaces "AccuScan DP(R)" text, scaled to the
+   adjacent font size and sitting on the text baseline. Carries the ® in-image. */
+.brand-mark {
+  display: inline-block;
+  width: 8.8em;   /* 0.86em tall at the wordmark's ~10.23:1 ratio */
+  height: auto;   /* keeps ratio (no distortion) if max-width ever caps it */
+  max-width: 100%;
+  vertical-align: baseline;
+}
+
 /* ── Layout ──────────────────────────────────────────────── */
 .container {
   width: 100%;
@@ -1011,7 +1021,7 @@ body:has(button:hover) .cursor__ring { width: 52px; height: 52px; opacity: 0.7; 
 .faq-item.open .faq-question svg { transform: rotate(45deg); }
 .faq-answer { max-height: 0; overflow: hidden; transition: max-height .45s var(--ease-out-expo); }
 .faq-answer__inner { padding: 0 0 1.6rem; color: var(--text-dim); line-height: 1.75; }
-.faq-item.open .faq-answer { max-height: 500px; }
+.faq-item.open .faq-answer { max-height: 650px; }
 
 /* ── Awards ──────────────────────────────────────────────── */
 .awards-grid {
