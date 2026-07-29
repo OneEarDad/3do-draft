@@ -12,20 +12,20 @@
 (function () {
   // ── Product catalog ──────────────────────────────────────
   const PRODUCTS = [
-    { name: 'Comfort Soft',     img: 'Orthotics Pics/Comfort Soft 1.webp',             slug: 'comfort-soft',    desc: 'Cushioned everyday comfort for sensitive feet.' },
-    { name: 'Diabetic Medium',  img: 'Orthotics Pics/Diabetic Medium 1.webp',          slug: 'diabetic-medium', desc: 'Medium-density support built for diabetic foot care.' },
-    { name: 'Diabetic Soft',    img: 'Orthotics Pics/Diabetic Soft 1.webp',            slug: 'diabetic-soft',   desc: 'Maximum cushioning for at-risk diabetic patients.' },
-    { name: 'Dress Elite',      img: 'Orthotics Pics/Dress Elite 1.webp',              slug: 'dress-elite',     desc: 'Low-profile support that fits inside dress shoes.' },
-    { name: 'Dress High Heel',  img: 'Orthotics Pics/Dress High Heel 1.webp',          slug: 'dress-heel',      desc: 'Engineered for high-heel shoes without compromise.' },
-    { name: 'FM Functional',    img: 'Orthotics Pics/FM Fuctional 1.webp',             slug: 'fm-functional',   desc: 'Full-motion functional orthotic for active patients.' },
-    { name: 'FM Glider',        img: 'Orthotics Pics/FM Glider 1.webp',                slug: 'fm-glider',       desc: 'Smooth, low-friction motion control.' },
-    { name: 'FM Integrated',    img: 'Orthotics Pics/FM Integrated 1.webp',            slug: 'fm-integrated',   desc: 'Integrated support with full-motion flex.' },
-    { name: 'FM Sport',         img: 'Orthotics Pics/FM Sport 1.webp',                 slug: 'fm-sport',        desc: 'High-performance support for athletes.' },
-    { name: 'FM Support',       img: 'Orthotics Pics/FM Support 1.webp',               slug: 'fm-support',      desc: 'Maximum-structure orthotic for demanding use.' },
-    { name: 'FM Trainer',       img: 'Orthotics Pics/FM Trainer 1.webp',               slug: 'fm-trainer',      desc: 'Training-specific support with flex zones.' },
-    { name: 'Motion Soft',      img: 'Orthotics Pics/Motion Soft 1.webp',              slug: 'motion-soft',     desc: 'Dynamic cushioning for everyday movement.' },
-    { name: 'PT Controller',    img: 'Orthotics Pics/PT Controller 1.webp',            slug: 'pt-controller',   desc: 'Motion-control orthotic for physical therapy.' },
-    { name: 'Smart Basic',      img: 'Orthotics Pics/Smart Basic 1.webp',              slug: 'smart-basic',     desc: 'Entry-level support with smart biomechanics.' },
+    { name: 'Comfort Soft',     img: 'Orthotics-Pics/Comfort-Soft-1.webp',             slug: 'comfort-soft',    desc: 'Cushioned everyday comfort for sensitive feet.' },
+    { name: 'Diabetic Medium',  img: 'Orthotics-Pics/Diabetic-Medium-1.webp',          slug: 'diabetic-medium', desc: 'Medium-density support built for diabetic foot care.' },
+    { name: 'Diabetic Soft',    img: 'Orthotics-Pics/Diabetic-Soft-1.webp',            slug: 'diabetic-soft',   desc: 'Maximum cushioning for at-risk diabetic patients.' },
+    { name: 'Dress Elite',      img: 'Orthotics-Pics/Dress-Elite-1.webp',              slug: 'dress-elite',     desc: 'Low-profile support that fits inside dress shoes.' },
+    { name: 'Dress High Heel',  img: 'Orthotics-Pics/Dress-High-Heel-1.webp',          slug: 'dress-heel',      desc: 'Engineered for high-heel shoes without compromise.' },
+    { name: 'FM Functional',    img: 'Orthotics-Pics/FM-Functional-1.webp',             slug: 'fm-functional',   desc: 'Full-motion functional orthotic for active patients.' },
+    { name: 'FM Glider',        img: 'Orthotics-Pics/FM-Glider-1.webp',                slug: 'fm-glider',       desc: 'Smooth, low-friction motion control.' },
+    { name: 'FM Integrated',    img: 'Orthotics-Pics/FM-Integrated-1.webp',            slug: 'fm-integrated',   desc: 'Integrated support with full-motion flex.' },
+    { name: 'FM Sport',         img: 'Orthotics-Pics/FM-Sport-1.webp',                 slug: 'fm-sport',        desc: 'High-performance support for athletes.' },
+    { name: 'FM Support',       img: 'Orthotics-Pics/FM-Support-1.webp',               slug: 'fm-support',      desc: 'Maximum-structure orthotic for demanding use.' },
+    { name: 'FM Trainer',       img: 'Orthotics-Pics/FM-Trainer-1.webp',               slug: 'fm-trainer',      desc: 'Training-specific support with flex zones.' },
+    { name: 'Motion Soft',      img: 'Orthotics-Pics/Motion-Soft-1.webp',              slug: 'motion-soft',     desc: 'Dynamic cushioning for everyday movement.' },
+    { name: 'PT Controller',    img: 'Orthotics-Pics/PT-Controller-1.webp',            slug: 'pt-controller',   desc: 'Motion-control orthotic for physical therapy.' },
+    { name: 'Smart Basic',      img: 'Orthotics-Pics/Smart-Basic-1.webp',              slug: 'smart-basic',     desc: 'Entry-level support with smart biomechanics.' },
   ];
 
   // Repeating size pattern (sm/md/lg) for visual rhythm
