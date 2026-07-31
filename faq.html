@@ -65,8 +65,16 @@
 <section class="section section--flush-top" style="padding-top:2rem">
   <div class="container" style="max-width:860px">
 
-    <div style="margin-bottom:3rem">
-      <span class="t-label reveal">Privacy &amp; Compliance</span>
+    <style>
+      /* FAQ category headers reuse the product-page portfolio-title look
+         (Ethnocentric, uppercase, cyan, trailing divider). Override: allow the
+         longer multi-word category names to wrap so they never overflow mobile. */
+      .faq-cat .portfolio-section__title { white-space: normal; line-height: 1.08; }
+    </style>
+
+    <div class="portfolio-section__header faq-cat reveal">
+      <span class="portfolio-section__title">Privacy &amp; Compliance</span>
+      <div class="portfolio-section__line"></div>
     </div>
 
     <div class="faq-item reveal">
@@ -105,8 +113,9 @@
       </div>
     </div>
 
-    <div style="margin-top:3rem;margin-bottom:2rem">
-      <span class="t-label reveal">Implementation</span>
+    <div class="portfolio-section__header faq-cat reveal" style="margin-top:3.5rem">
+      <span class="portfolio-section__title">Implementation</span>
+      <div class="portfolio-section__line"></div>
     </div>
 
     <div class="faq-item reveal">
@@ -145,8 +154,9 @@
       </div>
     </div>
 
-    <div style="margin-top:3rem;margin-bottom:2rem">
-      <span class="t-label reveal">Prosthetics &amp; Workflow</span>
+    <div class="portfolio-section__header faq-cat reveal" style="margin-top:3.5rem">
+      <span class="portfolio-section__title">Prosthetics &amp; Workflow</span>
+      <div class="portfolio-section__line"></div>
     </div>
 
     <div class="faq-item reveal">
@@ -197,8 +207,9 @@
       </div>
     </div>
 
-    <div style="margin-top:3rem;margin-bottom:2rem">
-      <span class="t-label reveal">Orthotic Refurbishment</span>
+    <div class="portfolio-section__header faq-cat reveal" style="margin-top:3.5rem">
+      <span class="portfolio-section__title">Orthotic Refurbishment</span>
+      <div class="portfolio-section__line"></div>
     </div>
 
     <div class="faq-item reveal">
@@ -213,8 +224,9 @@
       </div>
     </div>
 
-    <div style="margin-top:3rem;margin-bottom:2rem">
-      <span class="t-label reveal">Ordering &amp; Delivery</span>
+    <div class="portfolio-section__header faq-cat reveal" style="margin-top:3.5rem">
+      <span class="portfolio-section__title">Ordering &amp; Delivery</span>
+      <div class="portfolio-section__line"></div>
     </div>
 
     <div class="faq-item reveal">
@@ -265,8 +277,9 @@
       </div>
     </div>
 
-    <div id="equipment" style="margin-top:3rem;margin-bottom:2rem;scroll-margin-top:100px">
-      <span class="t-label reveal">Equipment &amp; Device Management</span>
+    <div id="equipment" class="portfolio-section__header faq-cat reveal" style="margin-top:3.5rem;scroll-margin-top:100px">
+      <span class="portfolio-section__title">Equipment &amp; Device Management</span>
+      <div class="portfolio-section__line"></div>
     </div>
 
     <div class="faq-item reveal">
