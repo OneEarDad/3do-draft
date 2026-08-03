@@ -32,8 +32,11 @@
   # Leave the scan app's URLs entirely untouched by our rewrites.
   RewriteRule ^scan(/|$) - [L]
 
-  # Redirect any plain-HTTP request to HTTPS (main site).
+  # Redirect any plain-HTTP request to HTTPS (main site). The .well-known
+  # exemption keeps AutoSSL / Let's Encrypt domain validation and renewals
+  # from being redirected to HTTPS before the certificate exists.
   RewriteCond %{HTTPS} !=on
+  RewriteCond %{REQUEST_URI} !^/\.well-known/  [NC]
   RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
   # Optional: force the non-www version (uncomment to enable).
