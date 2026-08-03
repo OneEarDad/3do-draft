@@ -418,7 +418,7 @@ body:has(button:hover) .cursor__ring { width: 52px; height: 52px; opacity: 0.7; 
   font-weight: 600;
   letter-spacing: var(--ls-label);
   text-transform: uppercase;
-  color: var(--cyan);
+  color: var(--navy);
 }
 .t-body {
   font-size: var(--fs-body);
@@ -429,7 +429,7 @@ body:has(button:hover) .cursor__ring { width: 52px; height: 52px; opacity: 0.7; 
 }
 
 /* Color helpers */
-.accent { color: var(--cyan); }
+.accent { color: var(--navy); }
 
 /* Inline AccuScan DP wordmark: replaces "AccuScan DP(R)" text, scaled to the
    adjacent font size and sitting on the text baseline. Carries the ® in-image. */
@@ -808,7 +808,7 @@ body:has(button:hover) .cursor__ring { width: 52px; height: 52px; opacity: 0.7; 
   font-size: clamp(1.6rem, 4.5vw, 2.4rem);
   letter-spacing: var(--ls-tight);
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--navy);
   white-space: nowrap;
   font-weight: 400;
   line-height: 1;
@@ -1734,7 +1734,7 @@ body:has(button:hover) .cursor__ring { width: 52px; height: 52px; opacity: 0.7; 
 .va-overlay__close:hover { background: var(--surface); color: var(--navy); }
 .va-overlay__eyebrow {
   font-size: .62rem; letter-spacing: .16em; text-transform: uppercase;
-  color: var(--accent); margin-bottom: .6rem;
+  color: var(--navy); margin-bottom: .6rem;
 }
 .va-overlay__title {
   font-family: var(--font-display);
