@@ -196,6 +196,15 @@
       background: rgba(0,84,157,.2); transition: background .2s;
     }
     .ortho-modal__dot.is-active { background: var(--navy, #00549d); }
+    .ortho-modal__tagline { font-size: .95rem; color: var(--text-mid, #3a4a5c); line-height: 1.55; margin: 0; }
+    .ortho-modal__bullets { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: .45rem; }
+    .ortho-modal__bullets li { display: flex; align-items: flex-start; gap: .55rem; font-size: .87rem; color: var(--text-mid, #3a4a5c); line-height: 1.5; }
+    .ortho-modal__bullets li::before { content: ''; flex-shrink: 0; width: 6px; height: 6px; border-radius: 50%; background: var(--accent, #00aec7); margin-top: .5rem; }
+    .ortho-modal__specs { display: flex; flex-direction: column; }
+    .ortho-modal__spec { display: flex; justify-content: space-between; align-items: baseline; gap: 1.25rem; padding: .48rem 0; border-bottom: 1px solid var(--text-faint); }
+    .ortho-modal__spec:last-child { border-bottom: none; }
+    .ortho-modal__spec-k { font-size: .8rem; color: var(--text-dim, #5a6b80); flex-shrink: 0; }
+    .ortho-modal__spec-v { font-size: .82rem; color: var(--text, #121820); font-weight: 600; text-align: right; }
     @media (max-width: 580px) {
       .ortho-modal { grid-template-columns: 1fr; }
       .ortho-modal__img { min-height: 200px; border-radius: 6px 6px 0 0; }
@@ -639,25 +648,22 @@
     <div class="ortho-modal__body">
       <div class="ortho-modal__name" id="orthoModalName"></div>
 
+      <p class="ortho-modal__tagline" id="orthoModalTagline"></p>
+
       <div>
-        <div class="ortho-modal__section-label">Materials</div>
-        <div class="ortho-modal__section-body" id="orthoModalMaterials"></div>
+        <div class="ortho-modal__section-label">Highlights</div>
+        <ul class="ortho-modal__bullets" id="orthoModalBullets"></ul>
       </div>
 
       <div>
-        <div class="ortho-modal__section-label">Best For</div>
-        <div class="ortho-modal__tags" id="orthoModalTags"></div>
-      </div>
-
-      <div>
-        <div class="ortho-modal__section-label">Key Feature</div>
-        <div class="ortho-modal__feature" id="orthoModalFeature"></div>
+        <div class="ortho-modal__section-label">Specifications</div>
+        <div id="orthoModalSpecs"></div>
       </div>
     </div>
   </div>
 </div>
 
-<script src="js/orthotics-page.js"></script>
+<script src="js/orthotics-page.js?v=2"></script>
 
 <!-- three.min.js removed: no WebGL foot scanner on this page. particles-bg.js is Canvas 2D. -->
 <script src="js/particles-bg.js"></script>

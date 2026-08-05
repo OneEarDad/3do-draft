@@ -1,101 +1,744 @@
 const ORTHO_DATA = {
-  'comfort-soft': {
-    name: 'Comfort Soft',
-    imgs: ['Orthotics-Pics/Comfort-Soft-1.webp','Orthotics-Pics/Comfort-Soft-2.webp','Orthotics-Pics/Comfort-Soft-3.webp'],
-    materials: 'Cushioned fabric top cover · Flexible EVA foam base · Polyurethane heel cup',
-    tags: ['Everyday wear', 'Foot fatigue', 'Mild overpronation', 'Plantar fasciitis'],
-    feature: 'Dual-density construction provides all-day cushioning while maintaining just enough biomechanical support to reduce fatigue on long shifts or active days.'
+  "comfort-soft": {
+    "name": "Comfort Soft",
+    "imgs": [
+      "Orthotics-Pics/Comfort-Soft-1.webp",
+      "Orthotics-Pics/Comfort-Soft-2.webp",
+      "Orthotics-Pics/Comfort-Soft-3.webp"
+    ],
+    "tagline": "Extra-cushioned orthotic designed for everyday comfort.",
+    "bullets": [
+      "Comfortable and Supportive",
+      "Soft Padding to Ease Discomfort"
+    ],
+    "specs": [
+      [
+        "Shell Material",
+        "EVA"
+      ],
+      [
+        "Orthotic Width",
+        "Regular"
+      ],
+      [
+        "Heel Cup Depth",
+        "12mm"
+      ],
+      [
+        "Top Cover Length",
+        "Full"
+      ],
+      [
+        "Top Cover Material",
+        "1/8″ Neoprene"
+      ],
+      [
+        "Padding Material",
+        "1/16″ Poron"
+      ],
+      [
+        "Bottom Cover Material",
+        "1/16″ EVA"
+      ],
+      [
+        "Forefoot Post",
+        "Intrinsic"
+      ],
+      [
+        "Rearfoot Post",
+        "Extrinsic"
+      ]
+    ]
   },
-  'diabetic-medium': {
-    name: 'Diabetic Medium',
-    imgs: ['Orthotics-Pics/Diabetic-Medium-1.webp','Orthotics-Pics/Diabetic-Medium-2.webp','Orthotics-Pics/Diabetic-Medium-3.webp'],
-    materials: 'Plastazote® top cover · PPT® medium-density base · Seamless bonded edges',
-    tags: ['Diabetic neuropathy', 'Pressure offloading', 'VA / DOD standard', 'Moderate risk'],
-    feature: 'Pressure-mapped design reduces peak plantar pressures to protect sensory-impaired feet while maintaining functional support throughout the day.'
+  "diabetic-medium": {
+    "name": "Diabetic Medium",
+    "imgs": [
+      "Orthotics-Pics/Diabetic-Medium-1.webp",
+      "Orthotics-Pics/Diabetic-Medium-2.webp",
+      "Orthotics-Pics/Diabetic-Medium-3.webp"
+    ],
+    "tagline": "Protective orthotic with moderate support for diabetic feet.",
+    "bullets": [
+      "Accommodating",
+      "Firm Arch Support",
+      "Medium Control"
+    ],
+    "specs": [
+      [
+        "Shell Material",
+        "Thermacork"
+      ],
+      [
+        "Orthotic Width",
+        "Regular"
+      ],
+      [
+        "Heel Cup Depth",
+        "12mm"
+      ],
+      [
+        "Top Cover Length",
+        "Full"
+      ],
+      [
+        "Top Cover Material",
+        "Diabetic"
+      ],
+      [
+        "Padding Material",
+        "Plastazote/Poron"
+      ],
+      [
+        "Bottom Cover Material",
+        "1/16\" EVA"
+      ],
+      [
+        "Forefoot Post",
+        "Intrinsic"
+      ],
+      [
+        "Rearfoot Post",
+        "Extrinsic"
+      ]
+    ]
   },
-  'diabetic-soft': {
-    name: 'Diabetic Soft',
-    imgs: ['Orthotics-Pics/Diabetic-Soft-1.webp','Orthotics-Pics/Diabetic-Soft-2.webp','Orthotics-Pics/Diabetic-Soft-3.webp'],
-    materials: 'Soft Plastazote® top cover · Extra-soft PPT® base · Total contact construction',
-    tags: ['High ulcer risk', 'Severe neuropathy', 'Charcot foot', 'Post-wound care'],
-    feature: 'Extra-soft total contact fit minimizes shear and friction at every contact point. The highest level of pressure protection in our diabetic line.'
+  "diabetic-soft": {
+    "name": "Diabetic Soft",
+    "imgs": [
+      "Orthotics-Pics/Diabetic-Soft-1.webp",
+      "Orthotics-Pics/Diabetic-Soft-2.webp",
+      "Orthotics-Pics/Diabetic-Soft-3.webp"
+    ],
+    "tagline": "Maximum cushioning orthotic for sensitive diabetic feet.",
+    "bullets": [
+      "Very Accommodating",
+      "Mild Support, More Forgiving",
+      "Soft Shell"
+    ],
+    "specs": [
+      [
+        "Shell Material",
+        "EVA"
+      ],
+      [
+        "Orthotic Width",
+        "Regular"
+      ],
+      [
+        "Heel Cup Depth",
+        "12mm"
+      ],
+      [
+        "Top Cover Length",
+        "Full"
+      ],
+      [
+        "Top Cover Material",
+        "Diabetic"
+      ],
+      [
+        "Padding Material",
+        "Plastazote/Poron"
+      ],
+      [
+        "Bottom Cover Material",
+        "1/16″ EVA"
+      ],
+      [
+        "Forefoot Post",
+        "Intrinsic"
+      ],
+      [
+        "Rearfoot Post",
+        "Extrinsic"
+      ]
+    ]
   },
-  'dress-elite': {
-    name: 'Dress Elite',
-    imgs: ['Orthotics-Pics/Dress-Elite-1.webp','Orthotics-Pics/Dress-Elite-2.webp','Orthotics-Pics/Dress-Elite-3.webp'],
-    materials: 'Microfiber top cover · Slim carbon-composite shell · Low-profile foam base',
-    tags: ['Dress shoes', 'Professional wear', 'Mild correction', 'Low-volume footwear'],
-    feature: 'Ultra-slim 3mm profile delivers full custom biomechanical correction without modifying fit. Designed to disappear inside standard dress and uniform footwear.'
+  "dress-elite": {
+    "name": "Dress Elite",
+    "imgs": [
+      "Orthotics-Pics/Dress-Elite-1.webp",
+      "Orthotics-Pics/Dress-Elite-2.webp",
+      "Orthotics-Pics/Dress-Elite-3.webp"
+    ],
+    "tagline": "Slim control orthotic for dress shoes.",
+    "bullets": [
+      "Fits Men’s or Women’s Dress Shoes",
+      "Suede Bottom Cover (prevents squeaking)",
+      "Very Comfortable Feel"
+    ],
+    "specs": [
+      [
+        "Shell Material",
+        "Performance RX™ (Semi-Rigid)"
+      ],
+      [
+        "Orthotic Width",
+        "Narrow"
+      ],
+      [
+        "Heel Cup Depth",
+        "10mm"
+      ],
+      [
+        "Top Cover Length",
+        "Sulcus"
+      ],
+      [
+        "Top Cover Material",
+        "Marine Grade Vinyl"
+      ],
+      [
+        "Padding Material",
+        "1/16″ Plastazote (FF only)"
+      ],
+      [
+        "Bottom Cover Material",
+        "Ultra Suede"
+      ],
+      [
+        "Forefoot Post",
+        "Intrinsic"
+      ],
+      [
+        "Rearfoot Post",
+        "Modified Intrinsic"
+      ],
+      [
+        "Accommodation",
+        "Hole in Heel with 1/16″ Poron Fill"
+      ]
+    ]
   },
-  'dress-high-heel': {
-    name: 'Dress High Heel',
-    imgs: ['Orthotics-Pics/Dress-High-Heel-1.webp','Orthotics-Pics/Dress-High-Heel-2.webp','Orthotics-Pics/Dress-High-Heel-3.webp'],
-    materials: 'Satin top cover · Forefoot metatarsal pad · Contoured heel platform',
-    tags: ['High heels', 'Forefoot pain', 'Metatarsalgia', "Morton's neuroma"],
-    feature: 'Contoured specifically for heel elevation. Shifts load rearward and offloads the metatarsal heads without altering the shoe\'s profile.'
+  "dress-high-heel": {
+    "name": "Dress High Heel",
+    "imgs": [
+      "Orthotics-Pics/Dress-High-Heel-1.webp",
+      "Orthotics-Pics/Dress-High-Heel-2.webp",
+      "Orthotics-Pics/Dress-High-Heel-3.webp"
+    ],
+    "tagline": "Minimal-bulk support for high heel shoes.",
+    "bullets": [
+      "For Women’s High Heel Shoes",
+      "Suede Bottom Cover",
+      "Super Low Profile"
+    ],
+    "specs": [
+      [
+        "Shell Material",
+        "Performance RX™ (Semi-Rigid)"
+      ],
+      [
+        "Orthotic Width",
+        "Narrow"
+      ],
+      [
+        "Heel Cup Depth",
+        "None"
+      ],
+      [
+        "Top Cover Length",
+        "Sulcus"
+      ],
+      [
+        "Top Cover Material",
+        "Marine Grade Vinyl"
+      ],
+      [
+        "Padding Material",
+        "1/16″ Plastazote (FF Only)"
+      ],
+      [
+        "Bottom Cover Material",
+        "Ultra Suede"
+      ],
+      [
+        "Forefoot Post",
+        "Intrinsic"
+      ],
+      [
+        "Rearfoot Post",
+        "No Shell in Heel (1/ 16″ Flexible Korex Heel Seat)"
+      ]
+    ]
   },
-  'fm-functional': {
-    name: 'FM Functional',
-    imgs: ['Orthotics-Pics/FM-Functional-1.webp','Orthotics-Pics/FM-Functional-2.webp','Orthotics-Pics/FM-Functional-3.webp'],
-    materials: 'Leather top cover · Rigid polypropylene shell · Extrinsic rear-foot & forefoot post',
-    tags: ['Overpronation', 'Supination', 'Plantar fasciitis', 'Achilles tendinopathy'],
-    feature: 'Full rear-foot and forefoot posting capability gives clinicians precise control over biomechanical correction. The most versatile functional orthotic in the FM line.'
+  "fm-functional": {
+    "name": "FM Functional",
+    "imgs": [
+      "Orthotics-Pics/FM-Functional-1.webp",
+      "Orthotics-Pics/FM-Functional-2.webp",
+      "Orthotics-Pics/FM-Functional-3.webp"
+    ],
+    "tagline": "Balanced control orthotic for everyday biomechanics.",
+    "bullets": [
+      "General Purpose Functional Orthotic",
+      "Versatile & Effective",
+      "Rigid Graphite for Control & Stability"
+    ],
+    "specs": [
+      [
+        "Shell Material",
+        "PRX Graphite™ (Rigid)"
+      ],
+      [
+        "Orthotic Width",
+        "Regular"
+      ],
+      [
+        "Heel Cup Depth",
+        "12mm"
+      ],
+      [
+        "Top Cover Length",
+        "Shell Only"
+      ],
+      [
+        "Top Cover Material",
+        "Marine Grade Vinyl"
+      ],
+      [
+        "Padding Material",
+        "None"
+      ],
+      [
+        "Bottom Cover Material",
+        "None"
+      ],
+      [
+        "Forefoot Post",
+        "Intrinsic"
+      ],
+      [
+        "Rearfoot Post",
+        "Extrinsic"
+      ]
+    ]
   },
-  'fm-glider': {
-    name: 'FM Glider',
-    imgs: ['Orthotics-Pics/FM-Glider-1.webp','Orthotics-Pics/FM-Glider-2.webp','Orthotics-Pics/FM-Glider-3.webp'],
-    materials: 'Synthetic top cover · Semi-flexible polypropylene shell · Low-profile EVA base',
-    tags: ['Athletic casual', 'Mild pronation', 'Everyday active', 'Low-volume shoes'],
-    feature: 'Low-profile shell fits casual and athletic footwear without heel elevation. Full custom correction without the bulk of a traditional functional device.'
+  "fm-glider": {
+    "name": "FM Glider",
+    "imgs": [
+      "Orthotics-Pics/FM-Glider-1.webp",
+      "Orthotics-Pics/FM-Glider-2.webp",
+      "Orthotics-Pics/FM-Glider-3.webp"
+    ],
+    "tagline": "General purpose comfortable everyday support.",
+    "bullets": [
+      "General Purpose Athletic Activity",
+      "Added Poron Padding for Comfort",
+      "Semi-Rigid Control"
+    ],
+    "specs": [
+      [
+        "Shell Material",
+        "Performance RX™ (Semi-Rigid)"
+      ],
+      [
+        "Orthotic Width",
+        "Regular"
+      ],
+      [
+        "Heel Cup Depth",
+        "12mm"
+      ],
+      [
+        "Top Cover Length",
+        "Full"
+      ],
+      [
+        "Top Cover Material",
+        "Marine Grade Vinyl"
+      ],
+      [
+        "Padding Material",
+        "1/8″ Poron"
+      ],
+      [
+        "Bottom Cover Material",
+        "Ultra Suede"
+      ],
+      [
+        "Forefoot Post",
+        "Intrinsic"
+      ],
+      [
+        "Rearfoot Post",
+        "Extrinsic"
+      ]
+    ]
   },
-  'fm-integrated': {
-    name: 'FM Integrated',
-    imgs: ['Orthotics-Pics/FM-Integrated-1.webp','Orthotics-Pics/FM-Integrated-2.webp','Orthotics-Pics/FM-Integrated-3.webp'],
-    materials: 'Cushioned top cover · Multi-density polypropylene shell · Strategically placed PPT® pads',
-    tags: ['Mixed activity', 'Combined needs', 'Cushion + control', 'General population'],
-    feature: 'Multi-density zones target high-pressure areas with cushioning while the firm shell maintains structural correction. One device for patients with mixed biomechanical and comfort needs.'
+  "fm-integrated": {
+    "name": "FM Integrated",
+    "imgs": [
+      "Orthotics-Pics/FM-Integrated-1.webp",
+      "Orthotics-Pics/FM-Integrated-2.webp",
+      "Orthotics-Pics/FM-Integrated-3.webp"
+    ],
+    "tagline": "High-control orthotic for maximum rearfoot stability.",
+    "bullets": [
+      "Functional Control for High Activity",
+      "Increased Rearfoot Stability",
+      "Integrated Heel Post for Greater Durability"
+    ],
+    "specs": [
+      [
+        "Shell Material",
+        "3/16″ Polypropylene"
+      ],
+      [
+        "Orthotic Width",
+        "Regular"
+      ],
+      [
+        "Heel Cup Depth",
+        "12mm"
+      ],
+      [
+        "Top Cover Length",
+        "Shell Only"
+      ],
+      [
+        "Top Cover Material",
+        "Marine Grade Vinyl"
+      ],
+      [
+        "Padding Material",
+        "None"
+      ],
+      [
+        "Bottom Cover Material",
+        "None"
+      ],
+      [
+        "Forefoot Post",
+        "Intrinsic"
+      ],
+      [
+        "Rearfoot Post",
+        "Extrinsic Polypropylene"
+      ]
+    ]
   },
-  'fm-sport': {
-    name: 'FM Sport',
-    imgs: ['Orthotics-Pics/FM-Sport-1.webp','Orthotics-Pics/FM-Sport-2.webp','Orthotics-Pics/FM-Sport-3.webp'],
-    materials: 'Moisture-wicking top cover · Rigid carbon fiber shell · Deep heel cup',
-    tags: ['Running', 'High-impact sport', 'IT band syndrome', 'Overpronation'],
-    feature: 'Carbon fiber shell returns energy with each stride while the deep heel cup locks the rearfoot. Built for repetitive high-impact loading without fatigue or breakdown.'
+  "fm-sport": {
+    "name": "FM Sport",
+    "imgs": [
+      "Orthotics-Pics/FM-Sport-1.webp",
+      "Orthotics-Pics/FM-Sport-2.webp",
+      "Orthotics-Pics/FM-Sport-3.webp"
+    ],
+    "tagline": "Slim performance orthotic built for athletic footwear.",
+    "bullets": [
+      "Promotes Motion in the First Ray",
+      "Slim with High Durability",
+      "Rigid Graphite for Control and Stability"
+    ],
+    "specs": [
+      [
+        "Shell Material",
+        "PRX Graphite™ (Semi-Rigid)"
+      ],
+      [
+        "Orthotic Width",
+        "Regular"
+      ],
+      [
+        "Heel Cup Depth",
+        "12mm"
+      ],
+      [
+        "Top Cover Length",
+        "Full"
+      ],
+      [
+        "Top Cover Material",
+        "1/8″ Perforated Ucolite"
+      ],
+      [
+        "Padding Material",
+        "None"
+      ],
+      [
+        "Bottom Cover Material",
+        "Ultra Suede"
+      ],
+      [
+        "Forefoot Post",
+        "Intrinsic"
+      ],
+      [
+        "Rearfoot Post",
+        "Modified Intrinsic"
+      ],
+      [
+        "Accommodation",
+        "1st Ray Cut-Out"
+      ]
+    ]
   },
-  'fm-support': {
-    name: 'FM Support',
-    imgs: ['Orthotics-Pics/FM-Support-1.webp','Orthotics-Pics/FM-Support-2.webp','Orthotics-Pics/FM-Support-3.webp'],
-    materials: 'Firm EVA top cover · Extra-rigid polypropylene shell · Extended heel counter',
-    tags: ['Severe pronation', 'PTTD', 'Heavy-duty use', 'Maximum control'],
-    feature: 'Extended heel counter and extra-rigid shell deliver maximum rearfoot stability. The highest level of motion control in the FM line for demanding clinical presentations.'
+  "fm-support": {
+    "name": "FM Support",
+    "imgs": [
+      "Orthotics-Pics/FM-Support-1.webp",
+      "Orthotics-Pics/FM-Support-2.webp",
+      "Orthotics-Pics/FM-Support-3.webp"
+    ],
+    "tagline": "Firm control orthotic for moderate biomechanical support.",
+    "bullets": [
+      "Maximize Support",
+      "Firmer Control",
+      "Reinforced Arch"
+    ],
+    "specs": [
+      [
+        "Shell Material",
+        "Performance RX™ (Semi-Rigid)"
+      ],
+      [
+        "Orthotic Width",
+        "Regular"
+      ],
+      [
+        "Heel Cup Depth",
+        "12mm"
+      ],
+      [
+        "Top Cover Length",
+        "Sulcus"
+      ],
+      [
+        "Top Cover Material",
+        "Marine Grade Vinyl"
+      ],
+      [
+        "Padding Material",
+        "1/16″ Plastazote (FF only)"
+      ],
+      [
+        "Bottom Cover Material",
+        "Ultra Suede"
+      ],
+      [
+        "Forefoot Post",
+        "Intrinsic"
+      ],
+      [
+        "Rearfoot Post",
+        "Extrinsic"
+      ],
+      [
+        "Accommodation",
+        "Korex Arch Reinforcement"
+      ]
+    ]
   },
-  'fm-trainer': {
-    name: 'FM Trainer',
-    imgs: ['Orthotics-Pics/FM-Trainer-1.webp','Orthotics-Pics/FM-Trainer-2.webp','Orthotics-Pics/FM-Trainer-3.webp'],
-    materials: 'Shock-absorbing top cover · Semi-rigid shell · Dual-density forefoot pad',
-    tags: ['Gym & training', 'Shin splints', 'Repetitive impact', 'Cross-training'],
-    feature: 'Dual-density forefoot pad absorbs ground reaction forces during high-repetition training while the semi-rigid shell maintains alignment across varied movement planes.'
+  "fm-trainer": {
+    "name": "FM Trainer",
+    "imgs": [
+      "Orthotics-Pics/FM-Trainer-1.webp",
+      "Orthotics-Pics/FM-Trainer-2.webp",
+      "Orthotics-Pics/FM-Trainer-3.webp"
+    ],
+    "tagline": "Athletic orthotic designed to enhance forefoot motion.",
+    "bullets": [
+      "Posted to Enhance Stability",
+      "Rigid Shell & Runners Wedge for Pronation & Forefoot Control"
+    ],
+    "specs": [
+      [
+        "Shell Material",
+        "Performance RX™ (Rigid)"
+      ],
+      [
+        "Orthotic Width",
+        "Regular"
+      ],
+      [
+        "Heel Cup Depth",
+        "12mm"
+      ],
+      [
+        "Top Cover Length",
+        "Full"
+      ],
+      [
+        "Top Cover Material",
+        "Marine Grade Vinyl"
+      ],
+      [
+        "Padding Material",
+        "1/16″ Poron"
+      ],
+      [
+        "Bottom Cover Material",
+        "Ultra Suede"
+      ],
+      [
+        "Forefoot Post",
+        "Intrinsic FF with 3° Extrinsic Long FF Post"
+      ],
+      [
+        "Rearfoot Post",
+        "Extrinsic"
+      ]
+    ]
   },
-  'motion-soft': {
-    name: 'Motion Soft',
-    imgs: ['Orthotics-Pics/Motion-Soft-1.webp','Orthotics-Pics/Motion-Soft-2.webp','Orthotics-Pics/Motion-Soft-3.webp'],
-    materials: 'Soft fabric top cover · Flexible motion-control shell · Cushioned heel pad',
-    tags: ['Overpronation', 'Active daily use', 'Mild–moderate control', 'Comfort-focused'],
-    feature: 'Motion-control shell paired with a soft top cover bridges the gap between comfort and correction. Ideal for patients who need guidance without a rigid device.'
+  "motion-soft": {
+    "name": "Motion Soft",
+    "imgs": [
+      "Orthotics-Pics/Motion-Soft-1.webp",
+      "Orthotics-Pics/Motion-Soft-2.webp",
+      "Orthotics-Pics/Motion-Soft-3.webp"
+    ],
+    "tagline": "Soft supportive orthotic for comfort and pressure relief.",
+    "bullets": [
+      "Mild Control with Added Padding for Comfort",
+      "Great for Forefoot & In-Shell Accommodations",
+      "Cushioned Arch Reinforcement"
+    ],
+    "specs": [
+      [
+        "Shell Material",
+        "Performance RX™ (Semi-Flex)"
+      ],
+      [
+        "Orthotic Width",
+        "Regular"
+      ],
+      [
+        "Heel Cup Depth",
+        "12mm"
+      ],
+      [
+        "Top Cover Length",
+        "Full"
+      ],
+      [
+        "Top Cover Material",
+        "1/16″ Neoprene"
+      ],
+      [
+        "Padding Material",
+        "1/8″ Poron"
+      ],
+      [
+        "Bottom Cover Material",
+        "Ultra Suede"
+      ],
+      [
+        "Forefoot Post",
+        "Intrinsic"
+      ],
+      [
+        "Rearfoot Post",
+        "Extrinsic"
+      ],
+      [
+        "Accommodations",
+        "Poron Arch Reinforcement"
+      ]
+    ]
   },
-  'pt-controller': {
-    name: 'PT Controller',
-    imgs: ['Orthotics-Pics/PT-Controller-1.webp','Orthotics-Pics/PT-Controller-2.webp','Orthotics-Pics/PT-Controller-3.webp'],
-    materials: 'Medical-grade top cover · Firm control shell · Clinician-adjustable posting system',
-    tags: ['Post-surgical rehab', 'Gait retraining', 'Tendon recovery', 'Ligament rehab'],
-    feature: 'The adjustable posting system lets the treating clinician modify the degree of correction at each appointment. Designed to evolve with the patient through the rehabilitation process.'
+  "pt-controller": {
+    "name": "PT Controller",
+    "imgs": [
+      "Orthotics-Pics/PT-Controller-1.webp",
+      "Orthotics-Pics/PT-Controller-2.webp",
+      "Orthotics-Pics/PT-Controller-3.webp"
+    ],
+    "tagline": "Aggressive control for PTTD and flexible flatfoot.",
+    "bullets": [
+      "For Excessive Pronation, Flexible Flat Feet, & Posterior Tibialis Dysfunction",
+      "Aggressive Control"
+    ],
+    "specs": [
+      [
+        "Shell Material",
+        "Performance RX™ (Semi-Rigid)"
+      ],
+      [
+        "Orthotic Width",
+        "Regular"
+      ],
+      [
+        "Heel Cup Depth",
+        "20mm"
+      ],
+      [
+        "Top Cover Length",
+        "Shell Only"
+      ],
+      [
+        "Top Cover Material",
+        "Marine Grade Vinyl"
+      ],
+      [
+        "Padding Material",
+        "None"
+      ],
+      [
+        "Bottom Cover Material",
+        "None"
+      ],
+      [
+        "Forefoot Post",
+        "Intrinsic"
+      ],
+      [
+        "Rearfoot Post",
+        "Intrinsic 6° Varus & Extrinsic"
+      ]
+    ]
   },
-  'smart-basic': {
-    name: 'Smart Basic',
-    imgs: ['Orthotics-Pics/Smart-Basic-1.webp','Orthotics-Pics/Smart-Basic-2.webp','Orthotics-Pics/Smart-Basic-3.webp'],
-    materials: 'Breathable top cover · Flexible polypropylene shell · Standard cushion base',
-    tags: ['Mild correction', 'General support', 'Entry-level custom', 'Wide population'],
-    feature: 'Every Smart Basic is fully custom-fabricated from a precision 3D scan. No off-the-shelf sizing, no compromises. Full custom fit at the most accessible tier in our catalog.'
+  "smart-basic": {
+    "name": "Smart Basic",
+    "imgs": [
+      "Orthotics-Pics/Smart-Basic-1.webp",
+      "Orthotics-Pics/Smart-Basic-2.webp",
+      "Orthotics-Pics/Smart-Basic-3.webp"
+    ],
+    "tagline": "Durable rigid orthotic with full EVA top cover.",
+    "bullets": [
+      "Rigid Shell and Durable EVA Top Cover",
+      "Easy to Customize",
+      "Budget Friendly"
+    ],
+    "specs": [
+      [
+        "Shell Material",
+        "Performance RX™ (Rigid)"
+      ],
+      [
+        "Orthotic Width",
+        "Regular"
+      ],
+      [
+        "Heel Cup Depth",
+        "12mm"
+      ],
+      [
+        "Top Cover Length",
+        "Full"
+      ],
+      [
+        "Top Cover Material",
+        "3mm EVA"
+      ],
+      [
+        "Padding Material",
+        "None"
+      ],
+      [
+        "Bottom Cover Material",
+        "None"
+      ],
+      [
+        "Forefoot Post",
+        "Intrinsic"
+      ],
+      [
+        "Rearfoot Post",
+        "Extrinsic"
+      ]
+    ]
   }
 };
 
@@ -173,12 +816,13 @@ const ORTHO_DATA = {
   const closeBtn = document.getElementById('orthoModalClose');
   const photo    = document.getElementById('orthoModalPhoto');
   const nameEl   = document.getElementById('orthoModalName');
-  const matsEl   = document.getElementById('orthoModalMaterials');
-  const tagsEl   = document.getElementById('orthoModalTags');
-  const featEl   = document.getElementById('orthoModalFeature');
+  const tagEl    = document.getElementById('orthoModalTagline');
+  const bulletsEl= document.getElementById('orthoModalBullets');
+  const specsEl  = document.getElementById('orthoModalSpecs');
   const prevBtn  = document.getElementById('orthoModalPrev');
   const nextBtn  = document.getElementById('orthoModalNext');
   const dotsEl   = document.getElementById('orthoModalDots');
+  if (!backdrop) return;
 
   let currentImgs = [];
   let currentIdx  = 0;
@@ -186,13 +830,16 @@ const ORTHO_DATA = {
   function setImage(idx) {
     currentIdx = idx;
     photo.src  = currentImgs[idx];
-    // Update dots
-    dotsEl.querySelectorAll('.ortho-modal__dot').forEach((d, i) => {
-      d.classList.toggle('is-active', i === idx);
-    });
-    // Show/hide arrows
+    dotsEl.querySelectorAll('.ortho-modal__dot').forEach((d, i) => d.classList.toggle('is-active', i === idx));
     prevBtn.classList.toggle('is-hidden', currentImgs.length <= 1);
     nextBtn.classList.toggle('is-hidden', currentImgs.length <= 1);
+  }
+
+  function specRow(k, v) {
+    const row = document.createElement('div'); row.className = 'ortho-modal__spec';
+    const ke = document.createElement('span'); ke.className = 'ortho-modal__spec-k'; ke.textContent = k;
+    const ve = document.createElement('span'); ve.className = 'ortho-modal__spec-v'; ve.textContent = v;
+    row.appendChild(ke); row.appendChild(ve); return row.outerHTML;
   }
 
   function openModal(key) {
@@ -200,12 +847,16 @@ const ORTHO_DATA = {
     if (!d) return;
     currentImgs = d.imgs;
     nameEl.textContent = d.name;
-    matsEl.innerHTML   = d.materials.split(' · ').map(m => `<div class="ortho-modal__mat-item">${m}</div>`).join('');
-    tagsEl.innerHTML   = d.tags.map(t => `<span class="ortho-modal__tag">${t}</span>`).join('');
-    featEl.textContent = d.feature;
-    photo.alt          = d.name;
-    // Build dots
-    dotsEl.innerHTML   = d.imgs.map(() => `<div class="ortho-modal__dot"></div>`).join('');
+    tagEl.textContent  = d.tagline || '';
+    bulletsEl.innerHTML = (d.bullets || []).map(function (b) {
+      const li = document.createElement('li'); li.textContent = b; return li.outerHTML;
+    }).join('');
+    const specs = (d.specs || []).filter(function (s) {
+      return !(s[0] === 'Orthotic Width' && /^(regular|normal)$/i.test(s[1]));
+    });
+    specsEl.innerHTML = '<div class="ortho-modal__specs">' + specs.map(function (s) { return specRow(s[0], s[1]); }).join('') + '</div>';
+    photo.alt = d.name;
+    dotsEl.innerHTML = d.imgs.map(function () { return '<div class="ortho-modal__dot"></div>'; }).join('');
     setImage(0);
     backdrop.classList.add('is-open');
     document.body.style.overflow = 'hidden';
@@ -216,16 +867,9 @@ const ORTHO_DATA = {
     document.body.style.overflow = '';
   }
 
-  prevBtn.addEventListener('click', e => {
-    e.stopPropagation();
-    setImage((currentIdx - 1 + currentImgs.length) % currentImgs.length);
-  });
-  nextBtn.addEventListener('click', e => {
-    e.stopPropagation();
-    setImage((currentIdx + 1) % currentImgs.length);
-  });
+  prevBtn.addEventListener('click', e => { e.stopPropagation(); setImage((currentIdx - 1 + currentImgs.length) % currentImgs.length); });
+  nextBtn.addEventListener('click', e => { e.stopPropagation(); setImage((currentIdx + 1) % currentImgs.length); });
 
-  // Open on card click (but not on carousel dot clicks)
   document.querySelectorAll('.portfolio-card[data-key]').forEach(card => {
     card.addEventListener('click', e => {
       if (e.target.closest('.carousel__dots')) return;
