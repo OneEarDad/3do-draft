@@ -9,12 +9,20 @@ if (location.protocol === 'http:' && location.hostname !== 'localhost' && locati
 }
 
 // ── Loader ────────────────────────────────────────────────
-window.addEventListener('load', () => {
-  const loader = document.getElementById('loader');
-  if (loader) {
-    setTimeout(() => loader.classList.add('done'), 800);
+// Reveal the page as soon as the DOM is ready. Using window.load here would
+// keep the overlay up until every asset (the ~3.5MB foot.obj + video) finished
+// downloading — which was pushing FCP/LCP to ~8-10s on throttled mobile.
+(function () {
+  const hideLoader = () => {
+    const loader = document.getElementById('loader');
+    if (loader) setTimeout(() => loader.classList.add('done'), 150);
+  };
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', hideLoader);
+  } else {
+    hideLoader();
   }
-});
+})();
 
 // ── Custom cursor ─────────────────────────────────────────
 const cursorEl = document.querySelector('.cursor');

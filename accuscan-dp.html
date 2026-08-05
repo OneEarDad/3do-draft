@@ -627,9 +627,8 @@
      our own origin so the foot scan works on locked-down VA/DoD networks
      that block third-party CDNs. Files verified byte-identical to the CDN
      originals via their published SHA-384 hashes. -->
-<script src="js/vendor/three.min.js?v=r128"></script>
-<script src="js/vendor/OBJLoader.js?v=r128"></script>
-<script src="js/foot-3d.js?v=3"></script>
+<!-- WebGL foot scan (THREE.js + foot.obj) is lazy-loaded after paint by this boot script -->
+<script src="js/foot-3d-boot.js?v=1"></script>
 <script src="js/particles-bg.js"></script>
 <script src="js/bubbles.js?v=2"></script>
 <script src="js/main.js?v=3"></script>
