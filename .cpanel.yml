@@ -5,7 +5,7 @@
 # turns on gzip compression + the redirects).
 deployment:
   tasks:
-    - export DEPLOYPATH=$HOME/public_html/temp-newSite
+    - export DEPLOYPATH=$HOME/3dorthotics.com/temp-newSite
     - /bin/mkdir -p "$DEPLOYPATH"
     - /bin/cp -R ./* "$DEPLOYPATH/"
     - /bin/cp -f ./.htaccess "$DEPLOYPATH/"
