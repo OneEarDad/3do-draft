@@ -189,7 +189,10 @@ button { cursor: none; background: none; border: none; font: inherit; color: inh
   position: fixed;
   top: 0; left: 0;
   pointer-events: none;
-  z-index: 10000;
+  /* Max z-index so the custom cursor always renders above every overlay/modal
+     (e.g. the VA/Awards popup at 10050). pointer-events:none keeps clicks
+     passing through, so it never blocks anything underneath. */
+  z-index: 2147483647;
 }
 .cursor__dot {
   width: 7px; height: 7px;
