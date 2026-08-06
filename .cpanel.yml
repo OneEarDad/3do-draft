@@ -1,11 +1,13 @@
 ---
 # cPanel Git Version Control deployment.
-# Runs when you click "Deploy HEAD Commit" in cPanel -> Git Version Control.
-# Copies the site into the temp-newSite folder (including .htaccess, which
-# turns on gzip compression + the redirects).
+# Deploys the current build to the 3dorthotics.com document root (add-on
+# domain: ~/3dorthotics.com). Copies the site + our .htaccess (which replaces
+# the dormant WordPress .htaccess), then removes dev-only files from the live
+# root. Leftover WordPress files (wp-content, etc.) are left in place.
 deployment:
   tasks:
-    - export DEPLOYPATH=$HOME/3dorthotics.com/temp-newSite
+    - export DEPLOYPATH=$HOME/3dorthotics.com
     - /bin/mkdir -p "$DEPLOYPATH"
     - /bin/cp -R ./* "$DEPLOYPATH/"
     - /bin/cp -f ./.htaccess "$DEPLOYPATH/"
+    - /bin/rm -rf "$DEPLOYPATH/CLAUDE.md" "$DEPLOYPATH/DEPLOYMENT.md" "$DEPLOYPATH/README.md" "$DEPLOYPATH/lab.html" "$DEPLOYPATH/Web Dev Team"
