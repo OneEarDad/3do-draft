@@ -1,12 +1,10 @@
 ---
 # cPanel Git Version Control deployment.
-# Deploys the current build to the 3dorthotics.com document root (add-on
-# domain: ~/3dorthotics.com). Copies the site + our .htaccess (which replaces
-# the dormant WordPress .htaccess), then removes dev-only files from the live
-# root. Leftover WordPress files (wp-content, etc.) are left in place.
+# 3dorthotics.com's real document root is ~/3dorthotics.com/main_page
+# (confirmed in cPanel -> Domains). Deploy the current build there.
 deployment:
   tasks:
-    - export DEPLOYPATH=$HOME/3dorthotics.com
+    - export DEPLOYPATH=$HOME/3dorthotics.com/main_page
     - /bin/mkdir -p "$DEPLOYPATH"
     - /bin/cp -R ./* "$DEPLOYPATH/"
     - /bin/cp -f ./.htaccess "$DEPLOYPATH/"
