@@ -383,6 +383,32 @@ body:has(button:hover) .cursor__ring { width: 52px; height: 52px; opacity: 0.7; 
 }
 .nav__mobile a:hover { color: var(--navy); }
 
+/* Mobile nav: Orthotics expandable submenu (By Type / By Condition) */
+.nav__mobile-group { display: flex; flex-direction: column; align-items: center; }
+.nav__mobile-parent {
+  display: inline-flex; align-items: center; gap: .45rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 4vw, 1.8rem);
+  font-weight: var(--fw-heading);
+  letter-spacing: var(--ls-tight);
+  color: var(--text-mid);
+  background: none; border: 0; padding: 0; margin: 0;
+  cursor: none;
+  transition: color .2s;
+}
+.nav__mobile-parent:hover,
+.nav__mobile-group.open .nav__mobile-parent { color: var(--navy); }
+.nav__mobile-caret { flex: none; transition: transform .35s var(--ease-out-quint); }
+.nav__mobile-group.open .nav__mobile-caret { transform: rotate(180deg); }
+.nav__mobile-sub {
+  display: flex; flex-direction: column; align-items: center; gap: 1.15rem;
+  max-height: 0; overflow: hidden; opacity: 0;
+  transition: max-height .35s var(--ease-out-quint), opacity .3s ease, padding-top .35s var(--ease-out-quint);
+}
+.nav__mobile-group.open .nav__mobile-sub { max-height: 220px; opacity: 1; padding-top: 1.4rem; }
+.nav__mobile-sub a { font-size: clamp(1rem, 3.4vw, 1.45rem); color: var(--text-dim); }
+.nav__mobile-sub a:hover { color: var(--navy); }
+
 /* ── Typography: clean & bold like antigravity ─────────── */
 .t-display {
   font-family: var(--font-display);

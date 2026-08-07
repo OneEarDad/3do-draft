@@ -105,11 +105,31 @@ const burger = document.querySelector('.nav__burger');
 const mobileMenu = document.querySelector('.nav__mobile');
 
 if (burger && mobileMenu) {
+  // Collapse the Orthotics submenu so the menu always reopens in a clean state.
+  const collapseOrtho = () => {
+    const group = mobileMenu.querySelector('.nav__mobile-group.open');
+    if (!group) return;
+    group.classList.remove('open');
+    const parent = group.querySelector('.nav__mobile-parent');
+    if (parent) parent.setAttribute('aria-expanded', 'false');
+  };
+
   burger.addEventListener('click', () => {
     burger.classList.toggle('open');
-    mobileMenu.classList.toggle('open');
-    document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+    const open = mobileMenu.classList.toggle('open');
+    document.body.style.overflow = open ? 'hidden' : '';
+    if (!open) collapseOrtho();
   });
+
+  // Orthotics parent: expand/collapse "By Type" / "By Condition" in place.
+  const orthoParent = mobileMenu.querySelector('.nav__mobile-parent');
+  if (orthoParent) {
+    orthoParent.addEventListener('click', () => {
+      const group = orthoParent.closest('.nav__mobile-group');
+      const open = group.classList.toggle('open');
+      orthoParent.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  }
 
   mobileMenu.querySelectorAll('a').forEach(a => {
     a.addEventListener('click', (e) => {
@@ -117,6 +137,7 @@ if (burger && mobileMenu) {
       burger.classList.remove('open');
       mobileMenu.classList.remove('open');
       document.body.style.overflow = '';
+      collapseOrtho();
 
       // If this link points to the page we're already on, navigating to the
       // same URL is a no-op that makes the tap feel broken ("I tapped Home
